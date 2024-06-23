@@ -4,7 +4,15 @@
  */
 export default {
 	areEnvsSet: (): boolean => {
-		const envs = ["NODE_ENV", "PORT", "DATABASE_URL", "LOGGER_API_AUTH_KEY", "LOGGER_API_URL"];
+		const envs = [
+			"NODE_ENV",
+			"PORT",
+			"DATABASE_URL",
+			"LOGGER_API_AUTH_KEY",
+			"LOGGER_API_URL",
+			"SALT_ROUNDS",
+			"JWT_SECRET",
+		];
 
 		for (const env of envs) {
 			if (!process.env[env]) {

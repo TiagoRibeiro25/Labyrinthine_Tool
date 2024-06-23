@@ -69,8 +69,8 @@ export default {
 
 		reply.code(httpUtils.StatusInternalServerError).send({
 			message: "Internal server error",
-			error: errorMessage || "Internal server error",
 			statusCode: httpUtils.StatusInternalServerError,
+			error: errorMessage || "Internal server error",
 		});
 	},
 };

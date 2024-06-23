@@ -69,28 +69,55 @@ export default {
 				data: user,
 			});
 		} catch (error) {
-			utils.response.handleInternalError(reply, error);
+			await utils.response.handleInternalError(reply, error);
 		}
 	},
 
 	login: async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
-		//TODO
-		/**
-		 * Compares a plain text password with a hashed password.
-		 * @param plainPassword - Plain text password to compare
-		 * @param hashedPassword - Hashed password to compare against
-		 * @returns Promise<boolean> - Resolves to true if passwords match, false otherwise
-		 */
-		// export const comparePasswords = async (
-		// 	plainPassword: string,
-		// 	hashedPassword: string
-		// ): Promise<boolean> => {
-		// 	try {
-		// 		const isMatch = await bcrypt.compare(plainPassword, hashedPassword);
-		// 		return isMatch;
-		// 	} catch (error) {
-		// 		throw new Error("Error comparing passwords");
-		// 	}
-		// };
+		const { username, password } = request.body as {
+			username: string;
+			password: string;
+		};
+
+		try {
+			// Check if the user exists
+			const user = await db.user.findFirst({
+				where: { username },
+				select: { id: true, password: true },
+			});
+
+			if (!user) {
+				utils.response.send({
+					reply,
+					statusCode: utils.http.StatusNotFound,
+					message: "There's no user with that username",
+				});
+				return;
+			}
+
+			// Compare the passwords
+			const isMatch = await bcrypt.compare(password, user.password);
+
+			if (!isMatch) {
+				utils.response.send({
+					reply,
+					statusCode: utils.http.StatusUnauthorized,
+					message: "Invalid credentials",
+				});
+				return;
+			}
+
+			// Send the response
+			utils.response.send({
+				reply,
+				statusCode: utils.http.StatusOK,
+				message: "Logged in successfully",
+				data: {
+					token: utils.jwt.generateToken(user.id), // Auth token
+				},
+			});
+		} catch (error) {
+			await utils.response.handleInternalError(reply, error);
+		}
 	},
 };
