@@ -5,5 +5,6 @@ declare namespace NodeJS {
 		DATABASE_URL: string;
 		LOGGER_API_AUTH_KEY: string;
 		LOGGER_API_URL: string;
+		SALT_ROUNDS: number;
 	}
 }

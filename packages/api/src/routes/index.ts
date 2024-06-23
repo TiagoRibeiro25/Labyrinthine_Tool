@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import handlers from "../handlers";
-import usersRoutes from "./users.routes";
+import authRoutes from "./auth.routes";
 
 export default (server: FastifyInstance, _opts: { prefix: string }, done: () => void) => {
 	// GET /ping
@@ -8,8 +8,8 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 		return handlers.ping(request, reply);
 	});
 
-	// /users
-	server.register(usersRoutes, { prefix: "/users" });
+	// /auth
+	server.register(authRoutes, { prefix: "/auth" });
 
 	done();
 };

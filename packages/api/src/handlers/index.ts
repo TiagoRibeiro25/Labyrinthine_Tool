@@ -1,3 +1,4 @@
-import ping from "./ping.handler";
+import auth from "./auth.handlers";
+import ping from "./ping.handlers";
 
-export default { ping };
+export default { ping, auth };
