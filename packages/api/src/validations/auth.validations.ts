@@ -29,4 +29,25 @@ export default {
 			},
 		},
 	},
+
+	login: {
+		schemas: {
+			body: {
+				type: "object",
+				required: ["username", "password"],
+				properties: {
+					username: {
+						type: "string",
+						minLength: 3,
+						maxLength: 255,
+					},
+					password: {
+						type: "string",
+						minLength: 8,
+						maxLength: 255,
+					},
+				},
+			},
+		},
+	},
 };
