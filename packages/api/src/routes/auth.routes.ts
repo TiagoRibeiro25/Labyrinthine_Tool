@@ -14,5 +14,9 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 
 	// POST ${prefix}/login
 	server.post("/login", { schema: validations.auth.login.schemas }, handlers.auth.login);
+
+	// DELETE ${prefix}/logout
+	server.delete("/logout", handlers.auth.logout);
+
 	done();
 };

@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import { FastifyReply, FastifyRequest } from "fastify";
+import constants from "../constants";
 import db from "../db";
 import services from "../services";
 import utils from "../utils";
@@ -118,6 +119,28 @@ export default {
 			});
 		} catch (error) {
 			await utils.response.handleInternalError(reply, error);
+		}
+	},
+
+	logout: async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
+		try {
+			const authToken = request.headers.authorization as string;
+
+			// Blacklist the token
+			await db.tokensBlackListRedis.set(
+				authToken,
+				"true",
+				"EX",
+				constants.ONE_HOUR_IN_SECONDS // After 1 hour, this blacklisted token will be removed from the database
+			);
+
+			utils.response.send({
+				reply,
+				statusCode: utils.http.StatusOK,
+				message: "Session ended successfully",
+			});
+		} catch (error) {
+			utils.response.handleInternalError(reply, error);
 		}
 	},
 };
