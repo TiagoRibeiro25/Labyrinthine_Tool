@@ -108,14 +108,14 @@ export default {
 				return;
 			}
 
+			const authToken = utils.jwt.generateToken(user.id, request.ip);
+
 			// Send the response
 			utils.response.send({
 				reply,
 				statusCode: utils.http.StatusOK,
 				message: "Logged in successfully",
-				data: {
-					token: utils.jwt.generateToken(user.id, request.ip).token, // Auth token
-				},
+				data: { token: authToken },
 			});
 		} catch (error) {
 			await utils.response.handleInternalError(reply, error);
