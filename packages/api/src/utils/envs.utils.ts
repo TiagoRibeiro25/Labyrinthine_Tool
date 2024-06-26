@@ -4,9 +4,8 @@
  */
 export default {
 	areEnvsSet: (): boolean => {
+		// MANDATORY ENVIRONMENT VARIABLES
 		const envs = [
-			"NODE_ENV",
-			"PORT",
 			"DATABASE_URL",
 			"LOGGER_API_AUTH_KEY",
 			"LOGGER_API_URL",
