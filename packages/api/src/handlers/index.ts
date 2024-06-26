@@ -1,4 +1,5 @@
 import auth from "./auth.handlers";
 import ping from "./ping.handlers";
+import users from "./users.handlers";
 
-export default { ping, auth };
+export default { ping, auth, users };

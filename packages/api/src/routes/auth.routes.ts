@@ -2,6 +2,7 @@
 
 import { FastifyInstance } from "fastify";
 import handlers from "../handlers";
+import hooks from "../hooks";
 import validations from "../validations";
 
 export default (server: FastifyInstance, _opts: { prefix: string }, done: () => void) => {
@@ -16,7 +17,7 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 	server.post("/login", { schema: validations.auth.login.schemas }, handlers.auth.login);
 
 	// DELETE ${prefix}/logout
-	server.delete("/logout", handlers.auth.logout);
+	server.delete("/logout", { preHandler: hooks.handleAuthToken }, handlers.auth.logout);
 
 	done();
 };

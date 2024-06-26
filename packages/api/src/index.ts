@@ -2,7 +2,6 @@ import fastify from "fastify";
 import config from "./config";
 import constants from "./constants";
 import db from "./db";
-import hooks from "./hooks";
 import plugins from "./plugins";
 import routes from "./routes";
 import utils from "./utils";
@@ -19,9 +18,6 @@ plugins
 		// Register version 1 routes
 		server.register(routes, { prefix: "/api/v1" });
 		// Other versions of the API can be registered here
-
-		// Register hooks
-		server.addHook("preHandler", hooks.handleAuthToken);
 
 		Promise.all([db.main.$connect(), db.tokensBlackListRedis.connect()]).then(() => {
 			console.log("Connected to the database");
