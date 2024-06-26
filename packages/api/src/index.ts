@@ -1,5 +1,6 @@
 import fastify from "fastify";
 import config from "./config";
+import constants from "./constants";
 import db from "./db";
 import hooks from "./hooks";
 import plugins from "./plugins";
@@ -25,16 +26,13 @@ plugins
 		Promise.all([db.main.$connect(), db.tokensBlackListRedis.connect()]).then(() => {
 			console.log("Connected to the database");
 
-			server.listen(
-				{ port: +(process.env.PORT || config.fallbacks.port) },
-				(err: Error | null, address: string) => {
-					if (err) {
-						throw new Error(err.message);
-					}
-
-					console.log(`Server listening at ${address}`);
+			server.listen({ port: constants.ENV.PORT }, (err: Error | null, address: string) => {
+				if (err) {
+					throw new Error(err.message);
 				}
-			);
+
+				console.log(`Server listening at ${address}`);
+			});
 		});
 	})
 	.catch((err: any) => {

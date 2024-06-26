@@ -4,9 +4,8 @@ import db from "../db";
 import utils from "../utils";
 
 const PROTECTED_ROUTES: string[] = [
-	`${constants.BASE_URL}/ping`,
+	`${constants.BASE_URL}/ping`, // TODO: Remove this route
 	`${constants.BASE_URL}/auth/logout`,
-	// TODO: Update this to the actual protected routes
 ];
 
 function handleUnauthorized(reply: FastifyReply): void {
@@ -61,7 +60,7 @@ export default async (request: FastifyRequest, reply: FastifyReply): Promise<voi
 			const newToken = utils.jwt.generateToken(parsedTokenResult.data.userId, request.ip);
 
 			// Add the new token to the headers
-			reply.header("authorization", newToken.token);
+			reply.header("authorization", newToken);
 
 			// Add the previous token to the blacklist
 			await db.tokensBlackListRedis.set(
@@ -71,6 +70,9 @@ export default async (request: FastifyRequest, reply: FastifyReply): Promise<voi
 				constants.ONE_HOUR_IN_SECONDS // After 1 hour, this blacklisted token will be removed from the database
 			);
 		}
+
+		// Add the user id to the request headers so that it can be used by the next handler/s
+		request.headers["userId"] = parsedTokenResult.data.userId;
 
 		return;
 	} catch (error) {

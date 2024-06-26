@@ -31,10 +31,7 @@ export default {
 			}
 
 			// Hash the password
-			const hashedPassword = await bcrypt.hash(
-				password,
-				+(process.env.SALT_ROUNDS as unknown as string)
-			);
+			const hashedPassword = await bcrypt.hash(password, constants.ENV.SALT_ROUNDS);
 
 			// Add the user to the database
 			const user = await db.main.user.create({

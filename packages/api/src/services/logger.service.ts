@@ -1,8 +1,9 @@
 import axios from "axios";
+import constants from "../constants";
 
 const options = {
-	baseUrl: process.env.LOGGER_API_URL as string,
-	authKey: process.env.LOGGER_API_AUTH_KEY as string,
+	baseUrl: constants.ENV.LOGGER_API_URL,
+	authKey: constants.ENV.LOGGER_API_AUTH_KEY,
 };
 
 type Params = {
@@ -27,7 +28,7 @@ export default {
 				options.baseUrl + "/events",
 				{
 					type: params.type,
-					message: `[${process.env.NODE_ENV}]: ${params.message}`,
+					message: `[${constants.ENV.NODE_ENV}]: ${params.message}`,
 					data: params.data,
 				},
 				{ headers: { Authorization: options.authKey } }
