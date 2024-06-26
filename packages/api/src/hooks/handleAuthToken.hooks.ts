@@ -45,8 +45,6 @@ export default async (request: FastifyRequest, reply: FastifyReply): Promise<voi
 			return;
 		}
 
-		// TODO: Check if this blacklist redis logic is working as expected
-
 		// Check if the token is blacklisted (by checking the redis blacklist database)
 		const isTokenBlackListed = await db.tokensBlackListRedis.get(authToken);
 		if (isTokenBlackListed) {
