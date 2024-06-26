@@ -5,12 +5,6 @@ import constants from "../constants";
 import db from "../db";
 import utils from "../utils";
 
-const PROTECTED_ROUTES: string[] = [
-	`${constants.BASE_URL}/ping`, // TODO: Remove this route
-	`${constants.BASE_URL}/auth/logout`,
-	// `${constants.BASE_URL}/users`,
-];
-
 function handleUnauthorized(reply: FastifyReply): void {
 	utils.response.send({
 		reply,
@@ -21,16 +15,6 @@ function handleUnauthorized(reply: FastifyReply): void {
 
 export default async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
 	try {
-		// TODO: Improve this logic (not scalable and i'ts not working)
-		// for (const route of PROTECTED_ROUTES) {
-		// 	if (request.url.includes(route)) {
-		// 		handleUnauthorized(reply);
-		// 		return;
-		// 	}
-		// }
-
-		console.log("Passed protected routes safe guard");
-
 		const authToken = request.headers.authorization;
 
 		// Check if there's an authorization header
