@@ -52,10 +52,10 @@ export default async (request: FastifyRequest, reply: FastifyReply): Promise<voi
 			return;
 		}
 
-		// Check if the token will expire in the next hour
+		// Check if the token will expire in the next hour and if the current route is not /auth/logout
 		if (
 			parsedTokenResult.data.exp - Date.now() < constants.ONE_HOUR_IN_MS &&
-			request.url !== `${constants.BASE_URL}/auth/logout` // Don't refresh the token if the route is /auth/logout
+			request.url !== `${constants.BASE_URL}/auth/logout`
 		) {
 			// If so, refresh the token
 			const newToken = utils.jwt.generateToken(parsedTokenResult.data.userId, request.ip);
