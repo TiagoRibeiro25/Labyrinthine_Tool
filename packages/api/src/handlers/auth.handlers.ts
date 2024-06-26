@@ -15,7 +15,7 @@ export default {
 
 		try {
 			// Check if there's a user with the same username
-			const isUsernameTaken = await db.user.findFirst({
+			const isUsernameTaken = await db.main.user.findFirst({
 				where: { username },
 				select: { id: true },
 			});
@@ -36,7 +36,7 @@ export default {
 			);
 
 			// Add the user to the database
-			const user = await db.user.create({
+			const user = await db.main.user.create({
 				data: {
 					username,
 					password: hashedPassword,
@@ -81,7 +81,7 @@ export default {
 
 		try {
 			// Check if the user exists
-			const user = await db.user.findFirst({
+			const user = await db.main.user.findFirst({
 				where: { username },
 				select: { id: true, password: true },
 			});
@@ -113,7 +113,7 @@ export default {
 				statusCode: utils.http.StatusOK,
 				message: "Logged in successfully",
 				data: {
-					token: utils.jwt.generateToken(user.id), // Auth token
+					token: utils.jwt.generateToken(user.id, request.ip).token, // Auth token
 				},
 			});
 		} catch (error) {

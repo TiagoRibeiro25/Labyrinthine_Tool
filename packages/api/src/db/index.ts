@@ -1,3 +1,7 @@
 import main from "./main.db";
+import tokensBlackListRedis from "./tokensBlackListRedis.db";
 
-export default main;
+export default {
+	main,
+	tokensBlackListRedis,
+};
