@@ -1,11 +1,6 @@
 import axios from "axios";
 import constants from "../constants";
 
-const options = {
-	baseUrl: constants.ENV.LOGGER_API_URL,
-	authKey: constants.ENV.LOGGER_API_AUTH_KEY,
-};
-
 type Params = {
 	type: "info" | "warning" | "error";
 	message: string;
@@ -33,8 +28,8 @@ export default {
 				requestBody.data = params.data;
 			}
 
-			await axios.post(options.baseUrl + "/events", requestBody, {
-				headers: { Authorization: options.authKey },
+			await axios.post(constants.ENV.LOGGER_API_URL + "/events", requestBody, {
+				headers: { Authorization: constants.ENV.LOGGER_API_AUTH_KEY },
 			});
 		} catch (_error) {
 			console.log("An error occurred while logging the event");
