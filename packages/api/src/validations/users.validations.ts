@@ -10,4 +10,15 @@ export default {
 			},
 		},
 	},
+	sendFriendRequest: {
+		schemas: {
+			params: {
+				type: "object",
+				properties: {
+					userId: { type: "string" },
+				},
+				required: ["userId"],
+			},
+		},
+	},
 };
