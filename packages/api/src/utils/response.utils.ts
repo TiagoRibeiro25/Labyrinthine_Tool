@@ -62,7 +62,7 @@ export default {
 		await services.logger.log({
 			type: "error",
 			message: errorMessage || "Internal server error",
-			data: error,
+			data: { error: error?.toString() },
 		});
 
 		console.log(`\n\nINTERNAL SERVER ERROR\n\n${error}\n\n`);
