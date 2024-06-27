@@ -11,7 +11,7 @@ export default {
 		DATABASE_URL: process.env.DATABASE_URL as string,
 		LOGGER_API_AUTH_KEY: process.env.LOGGER_API_AUTH_KEY as string,
 		LOGGER_API_URL: process.env.LOGGER_API_URL as string,
-		SALT_ROUNDS: process.env.SALT_ROUNDS as string,
+		SALT_ROUNDS: +(process.env.SALT_ROUNDS as string),
 		JWT_SECRET: process.env.JWT_SECRET as string,
 
 		TOKENS_BLACKLIST_REDIS: {
