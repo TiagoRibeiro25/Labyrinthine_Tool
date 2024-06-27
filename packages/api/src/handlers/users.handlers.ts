@@ -6,11 +6,12 @@ export default {
 	getUser: async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
 		try {
 			const requestParams = request.params as { userId: string };
+			const loggedUserId = request.headers["userId"] as string;
 			let userId = requestParams.userId;
 
 			// If the userId is "me", get the user id from from the request (added by the auth hook)
 			if (userId === "me") {
-				userId = request.headers["userId"] as string;
+				userId = loggedUserId;
 			}
 
 			// Fetch the user from the database
@@ -27,16 +28,12 @@ export default {
 						select: { cosmeticId: true },
 					},
 					receivedRequests: {
-						where: {
-							receiverId: userId,
-							status: "accepted",
-						},
+						where: { receiverId: userId },
+						select: { senderId: true, status: true },
 					},
 					sentRequests: {
-						where: {
-							senderId: userId,
-							status: "accepted",
-						},
+						where: { senderId: userId },
+						select: { receiverId: true, status: true },
 					},
 				},
 			});
@@ -50,7 +47,34 @@ export default {
 				return;
 			}
 
-			// TODO: Add information about friend relationship status
+			// Variable used to store the the friendship status between the logged user and the requested user
+			let friendRequestStatus = "none";
+
+			// Check for friend requests
+			for (const request of user.receivedRequests) {
+				if (request.senderId === loggedUserId) {
+					friendRequestStatus =
+						request.status === "pending" ? "waiting for the other user to accept" : "accepted";
+					break;
+				}
+			}
+
+			// If the loop above found a friend request, there's no point in checking for more
+			if (friendRequestStatus !== "none") {
+				for (const request of user.sentRequests) {
+					if (request.receiverId === loggedUserId) {
+						friendRequestStatus =
+							request.status === "pending"
+								? "the other user is waiting for you to accept"
+								: "accepted";
+						break;
+					}
+				}
+			}
+
+			const totalFriends =
+				user.receivedRequests.map((request) => request.status === "accepted").length +
+				user.sentRequests.map((request) => request.status === "accepted").length;
 
 			utils.response.send({
 				reply,
@@ -63,7 +87,8 @@ export default {
 						discordUsername: user.discordUsername,
 						steamProfileUrl: user.steamProfileUrl,
 						cosmetics: user.userCosmetics,
-						totalFriends: user.receivedRequests.length + user.sentRequests.length,
+						totalFriends,
+						friendRequestStatus,
 						createdAt: user.createdAt,
 					},
 				},
