@@ -17,7 +17,12 @@ export default {
 		try {
 			// Check if there's a user with the same username
 			const isUsernameTaken = await db.main.user.findFirst({
-				where: { username },
+				where: {
+					username: {
+						equals: username,
+						mode: "insensitive",
+					},
+				},
 				select: { id: true },
 			});
 
