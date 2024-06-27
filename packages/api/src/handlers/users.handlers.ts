@@ -47,7 +47,7 @@ export default {
 				return;
 			}
 
-			// Variable used to store the the friendship status between the logged user and the requested user
+			// Variable used to store the friendship status between the logged user and the requested user
 			let friendRequestStatus = "none";
 
 			// Check for friend requests
