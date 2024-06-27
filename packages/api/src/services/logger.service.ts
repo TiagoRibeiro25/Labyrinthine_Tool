@@ -9,7 +9,7 @@ const options = {
 type Params = {
 	type: "info" | "warning" | "error";
 	message: string;
-	data: any;
+	data?: any;
 };
 
 /**
@@ -24,15 +24,18 @@ export default {
 	 */
 	log: async (params: Params): Promise<void> => {
 		try {
-			await axios.post(
-				options.baseUrl + "/events",
-				{
-					type: params.type,
-					message: `[${constants.ENV.NODE_ENV}]: ${params.message}`,
-					data: params.data,
-				},
-				{ headers: { Authorization: options.authKey } }
-			);
+			const requestBody: Params = {
+				type: params.type,
+				message: `[${constants.ENV.NODE_ENV}]: ${params.message}`,
+			};
+
+			if (params.data) {
+				requestBody.data = params.data;
+			}
+
+			await axios.post(options.baseUrl + "/events", requestBody, {
+				headers: { Authorization: options.authKey },
+			});
 		} catch (_error) {
 			console.log("An error occurred while logging the event");
 			console.log("Event data: ", params);

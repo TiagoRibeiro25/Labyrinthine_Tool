@@ -3,6 +3,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import constants from "../constants";
 import db from "../db";
+import services from "../services";
 import utils from "../utils";
 
 function handleUnauthorized(reply: FastifyReply): void {
@@ -40,6 +41,15 @@ export default async (request: FastifyRequest, reply: FastifyReply): Promise<voi
 		// Check if the token is blacklisted (by checking the redis blacklist database)
 		const isTokenBlackListed = await db.tokensBlackListRedis.get(authToken);
 		if (isTokenBlackListed) {
+			await services.logger.log({
+				type: "error",
+				message: `The ip ${request.ip} tried to access the route ${request.url} with a blacklisted token.`,
+			});
+
+			// TODO: Add the ip to a redis database (if it already exists, increase the count by 1)
+			// If the counter is greater than 3, block the ip for 1 hour
+			// If the ip got flagged (blocked for 1 hour), more than 2 times, flag it as suspicious
+
 			handleUnauthorized(reply);
 			return;
 		}
