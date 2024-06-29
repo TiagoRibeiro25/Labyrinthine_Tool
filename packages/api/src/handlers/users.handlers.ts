@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import constants from "../constants";
 import db from "../db";
+import services from "../services";
 import utils from "../utils";
 
 /**
@@ -99,6 +100,7 @@ export default {
 						cosmetics: user.userCosmetics,
 						totalFriends,
 						friendRequestStatus,
+						isLoggedUser: userId === loggedUserId,
 						createdAt: user.createdAt,
 					},
 				},
@@ -177,6 +179,12 @@ export default {
 					await db.main.friendRequest.update({
 						where: { id: didOtherUserSendRequestAlready.id },
 						data: { status: "accepted" },
+					});
+
+					// Log the event
+					await services.logger.log({
+						type: "info",
+						message: `The user ${senderId} (IP: ${request.ip}) accepted the friend request from the user ${receiverId}`,
 					});
 
 					utils.response.send({
