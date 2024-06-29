@@ -14,8 +14,32 @@ function handleUnauthorized(reply: FastifyReply): void {
 	});
 }
 
+/**
+ * Handles the authentication token for incoming requests.
+ * Checks if the source IP is in the suspect IPs database,
+ * validates the authorization token, checks if the token is blacklisted,
+ * refreshes the token if necessary, and adds the user ID to the request headers.
+ *
+ * @param request - The FastifyRequest object representing the incoming request.
+ * @param reply - The FastifyReply object representing the outgoing response.
+ * @returns A Promise that resolves to void.
+ */
 export default async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
 	try {
+		// Check if the source ip is in the suspect ips database
+		const suspectIpRequests = await db.suspectIpsRedisInstance.get(request.ip);
+		if (
+			suspectIpRequests &&
+			+suspectIpRequests >= constants.ENV.SUSPECT_IPS_REDIS.NUMBER_OF_REQUESTS_BEFORE_BLOCKING
+		) {
+			utils.response.send({
+				reply,
+				statusCode: utils.http.StatusForbidden,
+				message: "You are temporarily blocked from accessing this route.",
+			});
+			return;
+		}
+
 		const authToken = request.headers.authorization;
 
 		// Check if there's an authorization header
@@ -46,9 +70,20 @@ export default async (request: FastifyRequest, reply: FastifyReply): Promise<voi
 				message: `The ip ${request.ip} tried to access the route ${request.url} with a blacklisted token.`,
 			});
 
-			// TODO: Add the ip to a redis database (if it already exists, increase the count by 1)
-			// If the counter is greater than 3, block the ip for 1 hour
-			// If the ip got flagged (blocked for 1 hour), more than 2 times, flag it as suspicious
+			// Find if the ip exists
+			const ipExists = await db.suspectIpsRedisInstance.get(request.ip);
+
+			// If it doesn't, add it to the database
+			if (!ipExists) {
+				await db.suspectIpsRedisInstance.set(
+					request.ip,
+					"1",
+					"EX",
+					constants.TIME.ONE_DAY_IN_SECONDS // After 1 day, this ip will be removed from the database
+				);
+			} else {
+				await db.suspectIpsRedisInstance.incr(request.ip); // If it does, increment the number of requests
+			}
 
 			handleUnauthorized(reply);
 			return;
@@ -56,7 +91,7 @@ export default async (request: FastifyRequest, reply: FastifyReply): Promise<voi
 
 		// Check if the token will expire in the next hour and if the current route is not /auth/logout
 		if (
-			parsedTokenResult.data.expiresAt - Date.now() < constants.ONE_HOUR_IN_MS &&
+			parsedTokenResult.data.expiresAt - Date.now() < constants.TIME.ONE_HOUR_IN_MS &&
 			request.url !== `${constants.BASE_URL}/auth/logout`
 		) {
 			// If so, refresh the token
@@ -70,7 +105,7 @@ export default async (request: FastifyRequest, reply: FastifyReply): Promise<voi
 				authToken,
 				"true",
 				"EX",
-				constants.ONE_HOUR_IN_SECONDS // After 1 hour, this blacklisted token will be removed from the database
+				constants.TIME.ONE_HOUR_IN_SECONDS // After 1 hour, this blacklisted token will be removed from the database
 			);
 		}
 

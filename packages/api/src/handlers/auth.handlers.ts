@@ -133,7 +133,7 @@ export default {
 				authToken,
 				"true",
 				"EX",
-				constants.ONE_HOUR_IN_SECONDS // After 1 hour, this blacklisted token will be removed from the database
+				constants.TIME.ONE_HOUR_IN_SECONDS // After 1 hour, this blacklisted token will be removed from the database
 			);
 
 			utils.response.send({

@@ -19,24 +19,25 @@ plugins
 		server.register(routes, { prefix: "/api/v1" });
 		// Other versions of the API can be registered here
 
-		Promise.all([db.main.$connect(), db.tokensBlackListRedis.connect()]).then(() => {
+		db.connectAllDatabases().then(() => {
 			console.log("Connected to the database");
 
-			server.listen({ port: constants.ENV.PORT }, (err: Error | null, address: string) => {
-				if (err) {
-					throw new Error(err.message);
+			server.listen({ port: constants.ENV.PORT }, (error: Error | null, address: string) => {
+				if (error) {
+					throw new Error(error.message);
 				}
 
 				console.log(`Server listening at ${address}`);
 			});
 		});
 	})
-	.catch((err: any) => {
+	.catch((error: any) => {
 		try {
 			db.main.$disconnect();
 			db.tokensBlackListRedis.disconnect();
+			db.suspectIpsRedisInstance.disconnect();
 		} catch (_error) {}
 
-		console.error(err);
+		console.error(error);
 		process.exit(1);
 	});
