@@ -1,6 +1,6 @@
 import { FastifyReply } from "fastify";
+import constants from "../constants";
 import services from "../services";
-import httpUtils from "./http.utils";
 
 type Options = {
 	reply: FastifyReply;
@@ -67,9 +67,9 @@ export default {
 
 		console.log(`\n\nINTERNAL SERVER ERROR\n\n${error}\n\n`);
 
-		reply.code(httpUtils.StatusInternalServerError).send({
+		reply.code(constants.HTTP.StatusInternalServerError).send({
 			message: "Internal server error",
-			statusCode: httpUtils.StatusInternalServerError,
+			statusCode: constants.HTTP.StatusInternalServerError,
 			error: errorMessage || "Internal server error",
 		});
 	},

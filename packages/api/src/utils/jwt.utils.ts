@@ -14,9 +14,6 @@ type ParseTokenResult = {
 	data?: ParsedToken;
 };
 
-// The amount of days before the token expires
-const DAYS_TO_EXPIRE = 1;
-
 /**
  * Utility functions for working with JWT tokens.
  */
@@ -29,15 +26,20 @@ export default {
 	 */
 	generateToken: (userId: string, requestIp: string): string => {
 		const expiresAt = new Date();
-		expiresAt.setDate(expiresAt.getDate() + DAYS_TO_EXPIRE); // DAYS_TO_EXPIRE days from now
+		expiresAt.setDate(expiresAt.getDate() + constants.JWT.DAYS_TO_EXPIRE); // DAYS_TO_EXPIRE days from now
 
 		const token = jwt.sign({ userId, requestIp, expiresAt }, constants.ENV.JWT_SECRET, {
-			expiresIn: `${DAYS_TO_EXPIRE}d`,
+			expiresIn: `${constants.JWT.DAYS_TO_EXPIRE}d`,
 		});
 
 		return token;
 	},
 
+	/**
+	 * Parses a JWT token and returns the result.
+	 * @param token - The JWT token to parse.
+	 * @returns The result of parsing the token.
+	 */
 	parseToken: (token: string): ParseTokenResult => {
 		try {
 			const result = jwt.verify(token, constants.ENV.JWT_SECRET) as ParsedToken;

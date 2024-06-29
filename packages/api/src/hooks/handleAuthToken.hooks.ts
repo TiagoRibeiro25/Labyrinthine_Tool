@@ -9,7 +9,7 @@ import utils from "../utils";
 function handleUnauthorized(reply: FastifyReply): void {
 	utils.response.send({
 		reply,
-		statusCode: utils.http.StatusUnauthorized,
+		statusCode: constants.HTTP.StatusUnauthorized,
 		message: "Unauthorized",
 	});
 }
@@ -30,11 +30,11 @@ export default async (request: FastifyRequest, reply: FastifyReply): Promise<voi
 		const suspectIpRequests = await db.suspectIpsRedisInstance.get(request.ip);
 		if (
 			suspectIpRequests &&
-			+suspectIpRequests >= constants.ENV.SUSPECT_IPS_REDIS.NUMBER_OF_REQUESTS_BEFORE_BLOCKING
+			+suspectIpRequests >= constants.SUSPECT_IPS_REDIS.NUMBER_OF_REQUESTS_BEFORE_BLOCKING
 		) {
 			utils.response.send({
 				reply,
-				statusCode: utils.http.StatusForbidden,
+				statusCode: constants.HTTP.StatusForbidden,
 				message: "You are temporarily blocked from accessing this route.",
 			});
 			return;

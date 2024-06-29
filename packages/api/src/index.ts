@@ -32,11 +32,7 @@ plugins
 		});
 	})
 	.catch((error: any) => {
-		try {
-			db.main.$disconnect();
-			db.tokensBlackListRedis.disconnect();
-			db.suspectIpsRedisInstance.disconnect();
-		} catch (_error) {}
+		db.disconnectAllDatabases();
 
 		console.error(error);
 		process.exit(1);

@@ -1,8 +1,8 @@
-/**
- * Checks if all required environment variables are set.
- * @returns {boolean} - Returns true if all environment variables are set, otherwise false.
- */
 export default {
+	/**
+	 * Checks if all required environment variables are set.
+	 * @returns {boolean} - Returns true if all environment variables are set, otherwise false.
+	 */
 	areEnvsSet: (): boolean => {
 		// MANDATORY ENVIRONMENT VARIABLES
 		const envs = [

@@ -5,8 +5,17 @@ import db from "../db";
 import services from "../services";
 import utils from "../utils";
 
+/**
+ * Auth handlers for user registration, login, and logout.
+ */
 export default {
+	/**
+	 * Handles user registration.
+	 * @param request - The Fastify request object.
+	 * @param reply - The Fastify reply object.
+	 */
 	register: async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
+		// Extract request body parameters
 		const { username, password, discordUsername, steamProfileUrl } = request.body as {
 			username: string;
 			password: string;
@@ -29,7 +38,7 @@ export default {
 			if (isUsernameTaken) {
 				utils.response.send({
 					reply,
-					statusCode: utils.http.StatusBadRequest,
+					statusCode: constants.HTTP.StatusBadRequest,
 					message: "Username is already taken",
 				});
 				return;
@@ -67,7 +76,7 @@ export default {
 			// Send the response
 			utils.response.send({
 				reply,
-				statusCode: utils.http.StatusCreated,
+				statusCode: constants.HTTP.StatusCreated,
 				message: "Account created successfully",
 				data: user,
 			});
@@ -76,7 +85,13 @@ export default {
 		}
 	},
 
+	/**
+	 * Handles user login.
+	 * @param request - The Fastify request object.
+	 * @param reply - The Fastify reply object.
+	 */
 	login: async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
+		// Extract request body parameters
 		const { username, password } = request.body as {
 			username: string;
 			password: string;
@@ -92,7 +107,7 @@ export default {
 			if (!user) {
 				utils.response.send({
 					reply,
-					statusCode: utils.http.StatusNotFound,
+					statusCode: constants.HTTP.StatusNotFound,
 					message: "There's no user with that username",
 				});
 				return;
@@ -104,7 +119,7 @@ export default {
 			if (!isMatch) {
 				utils.response.send({
 					reply,
-					statusCode: utils.http.StatusUnauthorized,
+					statusCode: constants.HTTP.StatusUnauthorized,
 					message: "Invalid credentials",
 				});
 				return;
@@ -115,7 +130,7 @@ export default {
 			// Send the response
 			utils.response.send({
 				reply,
-				statusCode: utils.http.StatusOK,
+				statusCode: constants.HTTP.StatusOK,
 				message: "Logged in successfully",
 				data: { token: authToken },
 			});
@@ -124,6 +139,11 @@ export default {
 		}
 	},
 
+	/**
+	 * Handles user logout.
+	 * @param request - The Fastify request object.
+	 * @param reply - The Fastify reply object.
+	 */
 	logout: async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
 		try {
 			const authToken = request.headers.authorization as string;
@@ -138,7 +158,7 @@ export default {
 
 			utils.response.send({
 				reply,
-				statusCode: utils.http.StatusOK,
+				statusCode: constants.HTTP.StatusOK,
 				message: "Session ended successfully",
 			});
 		} catch (error) {

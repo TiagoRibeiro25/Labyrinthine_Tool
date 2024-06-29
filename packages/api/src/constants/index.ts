@@ -1,10 +1,22 @@
+import httpConstants from "./http.constants";
+
 export default {
 	BASE_URL: "/api/v1",
+
+	HTTP: httpConstants,
 
 	TIME: {
 		ONE_HOUR_IN_MS: 60 * 60 * 1000,
 		ONE_HOUR_IN_SECONDS: 60 * 60,
 		ONE_DAY_IN_SECONDS: 60 * 60 * 24,
+	},
+
+	JWT: {
+		DAYS_TO_EXPIRE: 1,
+	},
+
+	SUSPECT_IPS_REDIS: {
+		NUMBER_OF_REQUESTS_BEFORE_BLOCKING: 3,
 	},
 
 	ENV: {
@@ -30,9 +42,6 @@ export default {
 			HOST: process.env.SUSPECT_IPS_REDIS_HOST || "127.0.0.1",
 			PASSWORD: process.env.SUSPECT_IPS_REDIS_PASSWORD || "",
 			DB: +(process.env.SUSPECT_IPS_REDIS_DB || 1),
-			NUMBER_OF_REQUESTS_BEFORE_BLOCKING: +(
-				process.env.NUMBER_OF_REQUESTS_BEFORE_BLOCKING || 3
-			),
 		},
 	},
 };

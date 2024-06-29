@@ -1,15 +1,25 @@
 import { FastifyReply, FastifyRequest } from "fastify";
+import constants from "../constants";
 import db from "../db";
 import utils from "../utils";
 
+/**
+ * Handler functions for user-related operations.
+ */
 export default {
+	/**
+	 * Retrieves a user's information.
+	 * @param request - The Fastify request object.
+	 * @param reply - The Fastify reply object.
+	 * @returns A Promise that resolves to void.
+	 */
 	getUser: async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
 		try {
 			const requestParams = request.params as { userId: string };
 			const loggedUserId = request.headers["userId"] as string;
 			let userId = requestParams.userId;
 
-			// If the userId is "me", get the user id from from the request (added by the auth hook)
+			// If the userId is "me", get the user id from the request (added by the auth hook)
 			if (userId === "me") {
 				userId = loggedUserId;
 			}
@@ -41,7 +51,7 @@ export default {
 			if (!user) {
 				utils.response.send({
 					reply,
-					statusCode: utils.http.StatusNotFound,
+					statusCode: constants.HTTP.StatusNotFound,
 					message: "User not found",
 				});
 				return;
@@ -78,7 +88,7 @@ export default {
 
 			utils.response.send({
 				reply,
-				statusCode: utils.http.StatusOK,
+				statusCode: constants.HTTP.StatusOK,
 				message: "User retrieved successfully",
 				data: {
 					user: {
@@ -98,6 +108,13 @@ export default {
 		}
 	},
 
+	/**
+	 * Sends a friend request to a user.
+	 * It can also accept a friend request if the other user has already sent one to the user who sent the request.
+	 * @param request - The Fastify request object.
+	 * @param reply - The Fastify reply object.
+	 * @returns A Promise that resolves to void.
+	 */
 	sendFriendRequest: async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
 		try {
 			const requestParams = request.params as { userId: string };
@@ -108,7 +125,7 @@ export default {
 			if (receiverId === senderId) {
 				utils.response.send({
 					reply,
-					statusCode: utils.http.StatusForbidden,
+					statusCode: constants.HTTP.StatusForbidden,
 					message: "You can't send a friend request to yourself",
 				});
 				return;
@@ -123,7 +140,7 @@ export default {
 			if (!doesReceiverExist) {
 				utils.response.send({
 					reply,
-					statusCode: utils.http.StatusNotFound,
+					statusCode: constants.HTTP.StatusNotFound,
 					message: "User not found",
 				});
 				return;
@@ -138,7 +155,7 @@ export default {
 			if (didUserSendRequestAlready) {
 				utils.response.send({
 					reply,
-					statusCode: utils.http.StatusForbidden,
+					statusCode: constants.HTTP.StatusForbidden,
 					message:
 						didUserSendRequestAlready.status === "pending"
 							? "You have already sent a friend request to this user"
@@ -164,14 +181,14 @@ export default {
 
 					utils.response.send({
 						reply,
-						statusCode: utils.http.StatusOK,
+						statusCode: constants.HTTP.StatusOK,
 						message: "Friend request accepted",
 					});
 				} else {
 					// Else (if the status is "accepted") then both users are already friends
 					utils.response.send({
 						reply,
-						statusCode: utils.http.StatusForbidden,
+						statusCode: constants.HTTP.StatusForbidden,
 						message: "You are already friends with this user",
 					});
 				}
@@ -190,7 +207,7 @@ export default {
 
 			utils.response.send({
 				reply,
-				statusCode: utils.http.StatusOK,
+				statusCode: constants.HTTP.StatusOK,
 				message: "Friend request sent successfully",
 				data: { friendRequest },
 			});
