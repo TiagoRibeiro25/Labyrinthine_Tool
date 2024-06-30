@@ -17,6 +17,7 @@ model User {
   password         String          @db.VarChar(255)
   discordUsername  String?
   steamProfileUrl  String?
+  isAdministrator  Boolean         @default(false)
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @updatedAt
   userCosmetics    UserCosmetic[]

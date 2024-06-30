@@ -17,5 +17,10 @@ declare namespace NodeJS {
 		SUSPECT_IPS_REDIS_HOST: string;
 		SUSPECT_IPS_REDIS_PASSWORD: string;
 		SUSPECT_IPS_REDIS_DB: string;
+
+		ADMIN_LIST_REDIS_PORT: string;
+		ADMIN_LIST_REDIS_HOST: string;
+		ADMIN_LIST_REDIS_PASSWORD: string;
+		ADMIN_LIST_REDIS_DB: string;
 	}
 }

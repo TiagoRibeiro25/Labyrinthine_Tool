@@ -43,5 +43,12 @@ export default {
 			PASSWORD: process.env.SUSPECT_IPS_REDIS_PASSWORD || "",
 			DB: +(process.env.SUSPECT_IPS_REDIS_DB || 1),
 		},
+
+		ADMIN_LIST_REDIS: {
+			PORT: +(process.env.SUSPECT_IPS_REDIS_PORT || 6379),
+			HOST: process.env.SUSPECT_IPS_REDIS_HOST || "127.0.0.1",
+			PASSWORD: process.env.SUSPECT_IPS_REDIS_PASSWORD || "",
+			DB: +(process.env.SUSPECT_IPS_REDIS_DB || 2),
+		},
 	},
 };

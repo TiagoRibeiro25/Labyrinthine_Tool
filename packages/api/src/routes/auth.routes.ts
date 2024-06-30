@@ -17,7 +17,11 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 	server.post("/login", { schema: validations.auth.login.schemas }, handlers.auth.login);
 
 	// DELETE ${prefix}/logout
-	server.delete("/logout", { preHandler: hooks.handleAuthToken }, handlers.auth.logout);
+	server.delete(
+		"/logout",
+		{ preValidation: hooks.preValidation.handleAuthToken },
+		handlers.auth.logout
+	);
 
 	done();
 };
