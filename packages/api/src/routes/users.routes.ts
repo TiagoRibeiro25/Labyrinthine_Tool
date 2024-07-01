@@ -6,7 +6,7 @@ import hooks from "../hooks";
 import validations from "../validations";
 
 export default (server: FastifyInstance, _opts: { prefix: string }, done: () => void) => {
-	// GET ${prefix}/users/:userId
+	// GET ${prefix}/:userId
 	server.get(
 		"/:userId",
 		{
@@ -16,7 +16,7 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 		handlers.users.getUser
 	);
 
-	// POST ${prefix}/users/:userId/sendFriendRequest
+	// POST ${prefix}/:userId/sendFriendRequest
 	server.post(
 		"/:userId/sendFriendRequest",
 		{

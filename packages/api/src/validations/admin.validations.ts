@@ -1,0 +1,45 @@
+export default {
+	addCosmetic: {
+		schemas: {
+			body: {
+				type: "object",
+				required: ["name", "type", "source", "image_url", "icon_url"],
+				properties: {
+					name: {
+						type: "string",
+						minLength: 1,
+						maxLength: 255,
+					},
+					type: {
+						type: "string",
+						enum: [
+							"disc",
+							"hat",
+							"clothing",
+							"wrist",
+							"flashlight",
+							"lantern",
+							"glowstick",
+							"face",
+						],
+					},
+					source: {
+						type: "string",
+						minLength: 3,
+						maxLength: 255,
+					},
+					image_url: {
+						type: "string",
+						minLength: 10,
+						maxLength: 255,
+					},
+					icon_url: {
+						type: "string",
+						minLength: 10,
+						maxLength: 255,
+					},
+				},
+			},
+		},
+	},
+};

@@ -100,7 +100,12 @@ export default {
 		try {
 			// Check if the user exists
 			const user = await db.main.user.findFirst({
-				where: { username },
+				where: {
+					username: {
+						equals: username,
+						mode: "insensitive",
+					},
+				},
 				select: { id: true, password: true },
 			});
 
