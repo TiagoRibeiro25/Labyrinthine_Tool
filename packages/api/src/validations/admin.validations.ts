@@ -38,6 +38,11 @@ export default {
 						minLength: 10,
 						maxLength: 255,
 					},
+					notes: {
+						type: "string",
+						minLength: 5,
+						maxLength: 255,
+					},
 				},
 			},
 		},

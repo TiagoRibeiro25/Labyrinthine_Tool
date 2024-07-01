@@ -8,7 +8,7 @@ import validations from "../validations";
 export default (server: FastifyInstance, _opts: { prefix: string }, done: () => void) => {
 	// POST ${prefix}/cosmetics
 	server.post(
-		"/",
+		"/cosmetics",
 		{
 			schema: validations.admin.addCosmetic.schemas,
 			preValidation: hooks.preValidation.handleAuthToken,

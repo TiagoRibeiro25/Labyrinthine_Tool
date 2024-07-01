@@ -10,12 +10,14 @@ type AddCosmeticBody = {
 	source: string;
 	image_url: string;
 	icon_url: string;
+	notes?: string;
 };
 
 export default {
 	addCosmetic: async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
 		try {
-			const { name, type, source, image_url, icon_url } = request.body as AddCosmeticBody;
+			const { name, type, source, image_url, icon_url, notes } =
+				request.body as AddCosmeticBody;
 
 			// Check if there's already a cosmetic with the same name
 			const doesCosmeticAlreadyExist = await db.main.cosmetic.findFirst({
@@ -45,6 +47,7 @@ export default {
 					source,
 					inGamePictureUrl: image_url,
 					iconUrl: icon_url,
+					notes,
 				},
 			});
 
