@@ -161,6 +161,9 @@ export default {
 				constants.TIME.ONE_HOUR_IN_SECONDS // After 1 hour, this blacklisted token will be removed from the database
 			);
 
+			// Remove the user from admin list (redis)
+			await db.adminListRedisInstance.del(authToken);
+
 			utils.response.send({
 				reply,
 				statusCode: constants.HTTP.StatusOK,
