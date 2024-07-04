@@ -19,9 +19,9 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 		handlers.users.getUser
 	);
 
-	// POST ${prefix}/:userId/sendFriendRequest
+	// POST ${prefix}/:userId/friends (send friend request)
 	server.post(
-		"/:userId/sendFriendRequest",
+		"/:userId/friends",
 		{
 			schema: validations.users.sendFriendRequest.schemas,
 			preValidation: hooks.preValidation.handleAuthToken,
