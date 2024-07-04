@@ -96,7 +96,7 @@ export default {
 					username: user.username,
 					discordUsername: user.discordUsername,
 					steamProfileUrl: user.steamProfileUrl,
-					cosmetics: user.userCosmetics,
+					cosmetics: user.userCosmetics.map((cosmetic) => cosmetic.cosmeticId),
 					totalFriends,
 					friendRequestStatus,
 					isLoggedUser: userId === loggedUserId,

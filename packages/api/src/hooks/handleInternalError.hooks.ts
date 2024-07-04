@@ -3,17 +3,14 @@ import constants from "../constants";
 import services from "../services";
 
 /**
- * Handles internal server errors and sends an error response.
- * It also sends a request to the logger service with the error details.
- * @param reply - The Fastify reply object.
- * @param error - The error object.
- * @param errorMessage - The error message.
+ * Handles internal server errors and sends an appropriate response to the client.
+ * Sends a response with a status code of 500 (Internal Server Error) and then logs the error using the logger service.
+ *
+ * @param error - The error object representing the internal server error.
+ * @param _request - The Fastify request object.
+ * @param reply - The Fastify reply object used to send the response.
  */
-export default async (
-	_request: FastifyRequest,
-	reply: FastifyReply,
-	error: FastifyError
-): Promise<void> => {
+export default (error: FastifyError, _request: FastifyRequest, reply: FastifyReply): void => {
 	reply.code(constants.HTTP.StatusInternalServerError).send({
 		message: "Internal server error",
 		statusCode: constants.HTTP.StatusInternalServerError,
@@ -23,7 +20,7 @@ export default async (
 	console.log(`\n\nINTERNAL SERVER ERROR\n\n${error}\n\n`);
 
 	// Do the logging after the response is sent to the client to avoid delayed responses
-	await services.logger.log({
+	services.logger.log({
 		type: "error",
 		message: "Internal server error",
 		data: error,

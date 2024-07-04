@@ -20,14 +20,13 @@ plugins
 		// Other versions of the API can be registered here
 
 		db.connectAllDatabases().then(() => {
-			console.log("Connected to the database");
+			server.log.info("Connected to the database");
 
-			server.listen({ port: constants.ENV.PORT }, (error: Error | null, address: string) => {
+			// If the database connection is successful, start the server
+			server.listen({ port: constants.ENV.PORT }, (error: Error | null, _address: string) => {
 				if (error) {
 					throw new Error(error.message);
 				}
-
-				console.log(`Server listening at ${address}`);
 			});
 		});
 	})

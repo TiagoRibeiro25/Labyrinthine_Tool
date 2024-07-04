@@ -1,6 +1,6 @@
 // prefix: /auth
 
-import { FastifyInstance } from "fastify";
+import { FastifyError, FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import handlers from "../handlers";
 import hooks from "../hooks";
 import validations from "../validations";
@@ -9,14 +9,24 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 	// POST ${prefix}/register
 	server.post(
 		"/register",
-		{ schema: validations.auth.register.schemas, onError: hooks.onError.handleInternalError },
+		{
+			schema: validations.auth.register.schemas,
+			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
+				hooks.onError.handleInternalError(error, request, reply);
+			},
+		},
 		handlers.auth.register
 	);
 
 	// POST ${prefix}/login
 	server.post(
 		"/login",
-		{ schema: validations.auth.login.schemas, onError: hooks.onError.handleInternalError },
+		{
+			schema: validations.auth.login.schemas,
+			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
+				hooks.onError.handleInternalError(error, request, reply);
+			},
+		},
 		handlers.auth.login
 	);
 
@@ -25,7 +35,9 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 		"/logout",
 		{
 			preValidation: hooks.preValidation.handleAuthToken,
-			onError: hooks.onError.handleInternalError,
+			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
+				hooks.onError.handleInternalError(error, request, reply);
+			},
 		},
 		handlers.auth.logout
 	);

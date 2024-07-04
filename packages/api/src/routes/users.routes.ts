@@ -1,6 +1,6 @@
 // prefix: /users
 
-import { FastifyInstance } from "fastify";
+import { FastifyError, FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import handlers from "../handlers";
 import hooks from "../hooks";
 import validations from "../validations";
@@ -12,7 +12,9 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 		{
 			schema: validations.users.getUser.schemas,
 			preValidation: hooks.preValidation.handleAuthToken,
-			onError: hooks.onError.handleInternalError,
+			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
+				hooks.onError.handleInternalError(error, request, reply);
+			},
 		},
 		handlers.users.getUser
 	);
@@ -23,7 +25,9 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 		{
 			schema: validations.users.sendFriendRequest.schemas,
 			preValidation: hooks.preValidation.handleAuthToken,
-			onError: hooks.onError.handleInternalError,
+			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
+				hooks.onError.handleInternalError(error, request, reply);
+			},
 		},
 		handlers.users.sendFriendRequest
 	);
