@@ -12,6 +12,7 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 		{
 			schema: validations.users.getUser.schemas,
 			preValidation: hooks.preValidation.handleAuthToken,
+			onError: hooks.onError.handleInternalError,
 		},
 		handlers.users.getUser
 	);
@@ -22,6 +23,7 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 		{
 			schema: validations.users.sendFriendRequest.schemas,
 			preValidation: hooks.preValidation.handleAuthToken,
+			onError: hooks.onError.handleInternalError,
 		},
 		handlers.users.sendFriendRequest
 	);

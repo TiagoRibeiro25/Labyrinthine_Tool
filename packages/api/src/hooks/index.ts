@@ -1,5 +1,6 @@
 import handleAdminValidation from "./handleAdminValidation.hooks";
 import handleAuthToken from "./handleAuthToken.hooks";
+import handleInternalError from "./handleInternalError.hooks";
 
 export default {
 	preValidation: {
@@ -7,5 +8,9 @@ export default {
 	},
 	preHandler: {
 		handleAdminValidation,
+	},
+
+	onError: {
+		handleInternalError,
 	},
 };

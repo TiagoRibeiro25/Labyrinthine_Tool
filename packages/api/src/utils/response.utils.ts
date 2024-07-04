@@ -1,6 +1,4 @@
 import { FastifyReply } from "fastify";
-import constants from "../constants";
-import services from "../services";
 
 type Options = {
 	reply: FastifyReply;
@@ -45,32 +43,5 @@ export default {
 
 		// Send the response
 		options.reply.code(options.statusCode).send(response);
-	},
-
-	/**
-	 * Handles internal server errors and sends an error response.
-	 * It also sends a request to the logger service with the error details.
-	 * @param reply - The Fastify reply object.
-	 * @param error - The error object.
-	 * @param errorMessage - The error message.
-	 */
-	handleInternalError: async (
-		reply: FastifyReply,
-		error: Error | unknown,
-		errorMessage?: string
-	): Promise<void> => {
-		await services.logger.log({
-			type: "error",
-			message: errorMessage || "Internal server error",
-			data: { error: error?.toString() },
-		});
-
-		console.log(`\n\nINTERNAL SERVER ERROR\n\n${error}\n\n`);
-
-		reply.code(constants.HTTP.StatusInternalServerError).send({
-			message: "Internal server error",
-			statusCode: constants.HTTP.StatusInternalServerError,
-			error: errorMessage || "Internal server error",
-		});
 	},
 };

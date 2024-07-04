@@ -10,6 +10,7 @@ export default {
 			},
 		},
 	},
+
 	sendFriendRequest: {
 		schemas: {
 			params: {

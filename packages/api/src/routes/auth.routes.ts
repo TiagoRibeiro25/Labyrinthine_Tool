@@ -9,17 +9,24 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 	// POST ${prefix}/register
 	server.post(
 		"/register",
-		{ schema: validations.auth.register.schemas },
+		{ schema: validations.auth.register.schemas, onError: hooks.onError.handleInternalError },
 		handlers.auth.register
 	);
 
 	// POST ${prefix}/login
-	server.post("/login", { schema: validations.auth.login.schemas }, handlers.auth.login);
+	server.post(
+		"/login",
+		{ schema: validations.auth.login.schemas, onError: hooks.onError.handleInternalError },
+		handlers.auth.login
+	);
 
 	// DELETE ${prefix}/logout
 	server.delete(
 		"/logout",
-		{ preValidation: hooks.preValidation.handleAuthToken },
+		{
+			preValidation: hooks.preValidation.handleAuthToken,
+			onError: hooks.onError.handleInternalError,
+		},
 		handlers.auth.logout
 	);
 
