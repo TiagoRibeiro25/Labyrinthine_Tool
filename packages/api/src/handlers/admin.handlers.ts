@@ -84,8 +84,6 @@ export default {
 	 * @param reply - The Fastify reply object.
 	 */
 	deleteCosmetic: async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
-		// TODO: Internal Server Error
-
 		const requestParams = request.params as { cosmeticId: string };
 
 		// Check if the cosmetic exists
@@ -104,19 +102,14 @@ export default {
 		}
 
 		// Remove the cosmetic from the database
-
-		// const [cosmetic, _userCosmetics] = await db.main.$transaction([
-		// 	db.main.cosmetic.delete({
-		// 		where: { id: requestParams.cosmeticId },
-		// 	}),
-		// 	db.main.userCosmetic.deleteMany({
-		// 		where: { cosmeticId: requestParams.cosmeticId },
-		// 	}),
-		// ]);
-
 		const cosmetic = await db.main.cosmetic.delete({
 			where: { id: requestParams.cosmeticId },
-			include: { userCosmetics: true },
+		});
+
+		utils.response.send({
+			reply,
+			statusCode: constants.HTTP.StatusOK,
+			message: "Cosmetic removed successfully.",
 		});
 
 		// Log the event to the logger service
@@ -124,12 +117,6 @@ export default {
 			type: "info",
 			message: "Cosmetic removed successfully.",
 			data: cosmetic,
-		});
-
-		utils.response.send({
-			reply,
-			statusCode: constants.HTTP.StatusOK,
-			message: "Cosmetic removed successfully.",
 		});
 	},
 };
