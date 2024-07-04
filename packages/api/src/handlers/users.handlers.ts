@@ -176,16 +176,16 @@ export default {
 					data: { status: "accepted" },
 				});
 
-				// Log the event
-				await services.logger.log({
-					type: "info",
-					message: `The user ${senderId} (IP: ${request.ip}) accepted the friend request from the user ${receiverId}`,
-				});
-
 				utils.response.send({
 					reply,
 					statusCode: constants.HTTP.StatusOK,
 					message: "Friend request accepted",
+				});
+
+				// Log the event
+				await services.logger.log({
+					type: "info",
+					message: `The user ${senderId} (IP: ${request.ip}) accepted the friend request from the user ${receiverId}`,
 				});
 			} else {
 				// Else (if the status is "accepted") then both users are already friends

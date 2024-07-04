@@ -65,18 +65,18 @@ export default {
 			},
 		});
 
-		// Log the user creation
-		await services.logger.log({
-			type: "info",
-			message: "A new user has been created",
-			data: user,
-		});
-
 		// Send the response
 		utils.response.send({
 			reply,
 			statusCode: constants.HTTP.StatusCreated,
 			message: "Account created successfully",
+			data: user,
+		});
+
+		// Log the user creation
+		await services.logger.log({
+			type: "info",
+			message: "A new user has been created",
 			data: user,
 		});
 	},

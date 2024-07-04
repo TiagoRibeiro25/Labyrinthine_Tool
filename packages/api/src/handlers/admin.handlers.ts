@@ -55,6 +55,12 @@ export default {
 		});
 
 		if (!cosmetic) {
+			utils.response.send({
+				reply,
+				statusCode: constants.HTTP.StatusBadRequest,
+				message: "Failed to add the cosmetic.",
+			});
+
 			// Log the error to the logger service
 			await services.logger.log({
 				type: "error",
@@ -62,11 +68,6 @@ export default {
 				data: { name, type, source, image_url, icon_url },
 			});
 
-			utils.response.send({
-				reply,
-				statusCode: constants.HTTP.StatusBadRequest,
-				message: "Failed to add the cosmetic.",
-			});
 			return;
 		}
 
