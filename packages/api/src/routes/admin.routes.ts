@@ -48,5 +48,19 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 		handlers.admin.toggleUserAdminStatus
 	);
 
+	// DELETE ${prefix}/users/:userId
+	server.delete(
+		"/users/:userId",
+		{
+			schema: validations.admin.removeUser.schemas,
+			preValidation: hooks.preValidation.handleAuthToken,
+			preHandler: hooks.preHandler.handleAdminValidation,
+			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
+				hooks.onError.handleInternalError(error, request, reply);
+			},
+		},
+		handlers.admin.removeUser
+	);
+
 	done();
 };

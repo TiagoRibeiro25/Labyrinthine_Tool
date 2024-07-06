@@ -71,4 +71,16 @@ export default {
 			},
 		},
 	},
+
+	removeUser: {
+		schemas: {
+			params: {
+				type: "object",
+				properties: {
+					userId: { type: "string" },
+				},
+				required: ["userId"],
+			},
+		},
+	},
 };
