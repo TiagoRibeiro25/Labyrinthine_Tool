@@ -59,4 +59,16 @@ export default {
 			},
 		},
 	},
+
+	toggleUserAdminStatus: {
+		schemas: {
+			params: {
+				type: "object",
+				properties: {
+					userId: { type: "string" },
+				},
+				required: ["userId"],
+			},
+		},
+	},
 };

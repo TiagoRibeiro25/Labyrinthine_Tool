@@ -34,5 +34,19 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 		handlers.admin.deleteCosmetic
 	);
 
+	// PATCH ${prefix}/users/:userId (toggle admin status)
+	server.patch(
+		"/users/:userId",
+		{
+			schema: validations.admin.toggleUserAdminStatus.schemas,
+			preValidation: hooks.preValidation.handleAuthToken,
+			preHandler: hooks.preHandler.handleAdminValidation,
+			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
+				hooks.onError.handleInternalError(error, request, reply);
+			},
+		},
+		handlers.admin.toggleUserAdminStatus
+	);
+
 	done();
 };
