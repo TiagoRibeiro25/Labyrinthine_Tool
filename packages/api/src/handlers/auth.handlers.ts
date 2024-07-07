@@ -23,7 +23,16 @@ export default {
 			steamProfileUrl: string;
 		};
 
-		// TODO: Add a regex to validate the username
+		const usernameValidation = utils.validateData.username(username);
+		if (!usernameValidation.valid) {
+			utils.response.send({
+				reply,
+				statusCode: constants.HTTP.StatusBadRequest,
+				message: usernameValidation.message,
+			});
+
+			return;
+		}
 
 		// Check if there's a user with the same username
 		const isUsernameTaken = await db.main.user.findFirst({

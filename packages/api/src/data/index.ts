@@ -13,7 +13,6 @@ export default {
 			"Special",
 			"Supporter Edition",
 			"Valentine",
-			"",
 		],
 	},
 };
