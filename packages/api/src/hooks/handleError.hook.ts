@@ -3,6 +3,12 @@ import constants from "../constants";
 import services from "../services";
 import utils from "../utils";
 
+/**
+ * Handles errors and sends appropriate responses.
+ * @param error - The error object.
+ * @param _request - The Fastify request object.
+ * @param reply - The Fastify reply object.
+ */
 export default (error: FastifyError, _request: FastifyRequest, reply: FastifyReply): void => {
 	if (error.statusCode && error.statusCode < 500) {
 		return utils.response.send({
