@@ -12,7 +12,7 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 		{
 			schema: validations.auth.register.schemas,
 			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
-				hooks.onError.handleInternalError(error, request, reply);
+				hooks.onError.handleError(error, request, reply);
 			},
 		},
 		handlers.auth.register
@@ -24,7 +24,7 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 		{
 			schema: validations.auth.login.schemas,
 			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
-				hooks.onError.handleInternalError(error, request, reply);
+				hooks.onError.handleError(error, request, reply);
 			},
 		},
 		handlers.auth.login
@@ -36,7 +36,7 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 		{
 			preValidation: hooks.preValidation.handleAuthToken,
 			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
-				hooks.onError.handleInternalError(error, request, reply);
+				hooks.onError.handleError(error, request, reply);
 			},
 		},
 		handlers.auth.logout

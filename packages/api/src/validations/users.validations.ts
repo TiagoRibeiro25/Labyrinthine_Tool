@@ -44,7 +44,7 @@ export default {
 				},
 				required: ["userId"],
 			},
-			query: {
+			querystring: {
 				type: "object",
 				properties: {
 					page: { type: "number" },

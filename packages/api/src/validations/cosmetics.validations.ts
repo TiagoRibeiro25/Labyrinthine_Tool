@@ -10,4 +10,29 @@ export default {
 			},
 		},
 	},
+
+	getUserCosmetics: {
+		schemas: {
+			querystring: {
+				type: "object",
+				properties: {
+					userId: { type: "string" },
+					filter: { type: "string", enum: ["unlocked", "locked"] },
+				},
+				required: ["userId"],
+			},
+		},
+	},
+
+	unlockCosmetic: {
+		schemas: {
+			params: {
+				type: "object",
+				properties: {
+					cosmeticId: { type: "string" },
+				},
+				required: ["cosmeticId"],
+			},
+		},
+	},
 };

@@ -13,7 +13,7 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 			schema: validations.users.getUser.schemas,
 			preValidation: hooks.preValidation.handleAuthToken,
 			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
-				hooks.onError.handleInternalError(error, request, reply);
+				hooks.onError.handleError(error, request, reply);
 			},
 		},
 		handlers.users.getUser
@@ -26,7 +26,7 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 			schema: validations.users.sendFriendRequest.schemas,
 			preValidation: hooks.preValidation.handleAuthToken,
 			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
-				hooks.onError.handleInternalError(error, request, reply);
+				hooks.onError.handleError(error, request, reply);
 			},
 		},
 		handlers.users.sendFriendRequest
@@ -39,7 +39,7 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 			schema: validations.users.removeFriend.schemas,
 			preValidation: hooks.preValidation.handleAuthToken,
 			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
-				hooks.onError.handleInternalError(error, request, reply);
+				hooks.onError.handleError(error, request, reply);
 			},
 		},
 		handlers.users.removeFriend
@@ -52,7 +52,7 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 			schema: validations.users.getUserFriends.schemas,
 			preValidation: hooks.preValidation.handleAuthToken,
 			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
-				hooks.onError.handleInternalError(error, request, reply);
+				hooks.onError.handleError(error, request, reply);
 			},
 		},
 		handlers.users.getUserFriends

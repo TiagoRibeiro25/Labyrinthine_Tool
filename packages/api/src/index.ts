@@ -10,6 +10,8 @@ if (!utils.envs.areEnvsSet()) {
 	process.exit(1);
 }
 
+console.log("NODE_ENV:", constants.ENV.NODE_ENV);
+
 const server = fastify(config.fastify);
 
 plugins

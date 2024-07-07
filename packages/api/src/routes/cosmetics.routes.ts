@@ -13,10 +13,36 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 			schema: validations.cosmetics.getCosmetic.schemas,
 			preValidation: hooks.preValidation.handleAuthToken,
 			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
-				hooks.onError.handleInternalError(error, request, reply);
+				hooks.onError.handleError(error, request, reply);
 			},
 		},
 		handlers.cosmetics.getCosmetic
+	);
+
+	// GET ${prefix}/?userId=123&filter=(unlocked|locked)
+	server.get(
+		"/",
+		{
+			schema: validations.cosmetics.getUserCosmetics.schemas,
+			preValidation: hooks.preValidation.handleAuthToken,
+			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
+				hooks.onError.handleError(error, request, reply);
+			},
+		},
+		handlers.cosmetics.getUserCosmetics
+	);
+
+	// POST ${prefix}/:cosmeticId (unlock a cosmetic)
+	server.post(
+		"/:cosmeticId",
+		{
+			schema: validations.cosmetics.unlockCosmetic.schemas,
+			preValidation: hooks.preValidation.handleAuthToken,
+			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
+				hooks.onError.handleError(error, request, reply);
+			},
+		},
+		handlers.cosmetics.unlockCosmetic
 	);
 
 	done();

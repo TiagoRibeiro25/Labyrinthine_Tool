@@ -14,7 +14,7 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 			preValidation: hooks.preValidation.handleAuthToken,
 			preHandler: hooks.preHandler.handleAdminValidation,
 			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
-				hooks.onError.handleInternalError(error, request, reply);
+				hooks.onError.handleError(error, request, reply);
 			},
 		},
 		handlers.admin.addCosmetic
@@ -28,7 +28,7 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 			preValidation: hooks.preValidation.handleAuthToken,
 			preHandler: hooks.preHandler.handleAdminValidation,
 			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
-				hooks.onError.handleInternalError(error, request, reply);
+				hooks.onError.handleError(error, request, reply);
 			},
 		},
 		handlers.admin.deleteCosmetic
@@ -42,7 +42,7 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 			preValidation: hooks.preValidation.handleAuthToken,
 			preHandler: hooks.preHandler.handleAdminValidation,
 			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
-				hooks.onError.handleInternalError(error, request, reply);
+				hooks.onError.handleError(error, request, reply);
 			},
 		},
 		handlers.admin.toggleUserAdminStatus
@@ -56,7 +56,7 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 			preValidation: hooks.preValidation.handleAuthToken,
 			preHandler: hooks.preHandler.handleAdminValidation,
 			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
-				hooks.onError.handleInternalError(error, request, reply);
+				hooks.onError.handleError(error, request, reply);
 			},
 		},
 		handlers.admin.removeUser
