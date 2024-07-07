@@ -54,6 +54,7 @@ export default {
 				statusCode: constants.HTTP.StatusNotFound,
 				message: "User not found",
 			});
+
 			return;
 		}
 
@@ -125,6 +126,7 @@ export default {
 				statusCode: constants.HTTP.StatusForbidden,
 				message: "You can't send a friend request to yourself",
 			});
+
 			return;
 		}
 
@@ -140,6 +142,7 @@ export default {
 				statusCode: constants.HTTP.StatusNotFound,
 				message: "User not found",
 			});
+
 			return;
 		}
 
@@ -158,6 +161,7 @@ export default {
 						? "You have already sent a friend request to this user"
 						: "You are already friends with this user",
 			});
+
 			return;
 		}
 
@@ -234,6 +238,7 @@ export default {
 				statusCode: constants.HTTP.StatusForbidden,
 				message: "You can't remove yourself from the friend list",
 			});
+
 			return;
 		}
 
@@ -259,6 +264,7 @@ export default {
 				statusCode: constants.HTTP.StatusForbidden,
 				message: "Friend Relationship not found",
 			});
+
 			return;
 		}
 
@@ -310,6 +316,7 @@ export default {
 				statusCode: constants.HTTP.StatusNotFound,
 				message: "User not found",
 			});
+
 			return;
 		}
 

@@ -42,6 +42,7 @@ export default {
 				statusCode: constants.HTTP.StatusBadRequest,
 				message: "Username is already taken",
 			});
+
 			return;
 		}
 
@@ -112,6 +113,7 @@ export default {
 				statusCode: constants.HTTP.StatusNotFound,
 				message: "There's no user with that username",
 			});
+
 			return;
 		}
 
@@ -124,6 +126,7 @@ export default {
 				statusCode: constants.HTTP.StatusUnauthorized,
 				message: "Invalid credentials",
 			});
+
 			return;
 		}
 

@@ -39,6 +39,7 @@ export default {
 				statusCode: constants.HTTP.StatusBadRequest,
 				message: "There's already a cosmetic with the same name.",
 			});
+
 			return;
 		}
 
@@ -99,6 +100,7 @@ export default {
 				statusCode: constants.HTTP.StatusNotFound,
 				message: "Cosmetic not found.",
 			});
+
 			return;
 		}
 
@@ -145,6 +147,7 @@ export default {
 				statusCode: constants.HTTP.StatusNotFound,
 				message: "User not found.",
 			});
+
 			return;
 		}
 
@@ -205,6 +208,7 @@ export default {
 				statusCode: constants.HTTP.StatusNotFound,
 				message: "User not found.",
 			});
+
 			return;
 		}
 
