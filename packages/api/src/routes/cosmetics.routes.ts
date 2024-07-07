@@ -45,5 +45,18 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 		handlers.cosmetics.unlockCosmetic
 	);
 
+	// DELETE ${prefix}/:cosmeticId (lock a cosmetic)
+	server.delete(
+		"/:cosmeticId",
+		{
+			schema: validations.cosmetics.lockCosmetic.schemas,
+			preValidation: hooks.preValidation.handleAuthToken,
+			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
+				hooks.onError.handleError(error, request, reply);
+			},
+		},
+		handlers.cosmetics.lockCosmetic
+	);
+
 	done();
 };
