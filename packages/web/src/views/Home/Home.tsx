@@ -12,7 +12,7 @@ const Home: React.FC = (): React.JSX.Element => {
 
 			<Fade className="top-0 left-0 flex justify-center w-full h-full" duration={1200}>
 				<div className="top-0 left-0 flex flex-row w-full h-full bg-black bg-opacity-50">
-					<div className=" w-[80px] h-full enable-animation"></div>
+					<div className=" w-[80px] h-full enable-animation">{/* LAYOUT SIDE BAR */}</div>
 					<Fade
 						className="h-full top-0 left-0 w-full min-w-[500px] bg-black bg-opacity-50 backdrop-blur-md p-10"
 						delay={1200}
