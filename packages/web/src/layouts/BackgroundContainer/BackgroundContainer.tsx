@@ -3,16 +3,16 @@ import { Fade } from "react-awesome-reveal";
 import { useLocation } from "react-router-dom";
 import DefaultBgImage from "../../assets/images/Chapter_1_Entrance.webp";
 import NotFoundImage from "../../assets/images/do_not_enter.png";
-import Sidebar from "../Sidebar/Sidebar";
+import Navbar from "../Navbar/Navbar";
 
 type Props = {
 	children: React.ReactNode;
-	renderSidebar?: boolean;
+	renderNavbar?: boolean;
 };
 
 const BackgroundContainer: React.FC<Props> = ({
 	children,
-	renderSidebar = true,
+	renderNavbar = true,
 }): React.JSX.Element => {
 	const location = useLocation();
 
@@ -26,8 +26,8 @@ const BackgroundContainer: React.FC<Props> = ({
 				/>
 
 				<Fade className="top-0 left-0 flex justify-center w-full h-full" duration={1200}>
-					<div className="top-0 left-0 flex flex-row w-full h-full bg-black bg-opacity-50">
-						<header>{renderSidebar && <Sidebar />}</header>
+					<div className="top-0 left-0 flex flex-row w-full h-full bg-black bg-opacity-50 -z-40">
+						<header>{renderNavbar && <Navbar />}</header>
 
 						<Fade
 							className="h-full top-0 left-0 w-full min-w-[500px] bg-black bg-opacity-50 backdrop-blur-md p-10"
