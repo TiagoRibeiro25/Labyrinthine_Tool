@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const RedirectTo404: React.FC = (): React.JSX.Element | null => {
+	const navigate = useNavigate();
+
 	useEffect(() => {
-		window.location.href = "/404";
+		navigate("/404");
 	});
 
 	return null;
