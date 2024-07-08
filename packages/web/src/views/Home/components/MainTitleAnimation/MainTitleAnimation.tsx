@@ -10,13 +10,15 @@ type Props = PropsWithChildren & {
 
 const customAnimation: Keyframes = keyframes`
   from {
-    font-size: 7rem;
+    // font-size: 7rem;
+		scale: 1.7;
 		height: 100%;
     transform: translateY(40%);
   }
 
   to {
-    font-size: 4rem;
+    // font-size: 5rem;
+		scale: 1;
 		height: 100px
   }
 `;

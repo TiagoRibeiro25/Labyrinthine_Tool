@@ -52,7 +52,7 @@ const BackgroundContainer: React.FC<Props> = ({
 					delay={INITIAL_DELAY}
 					triggerOnce
 				>
-					<div className="w-full bg-black bg-opacity-65 -z-40">
+					<div className="w-full bg-black bg-opacity-45 -z-40">
 						{loadingState ? (
 							<div className="flex flex-row items-center justify-center h-full">
 								<h1 className="z-50 text-5xl font-bold labyrinth-font">{loadingMessage}</h1>
@@ -63,11 +63,13 @@ const BackgroundContainer: React.FC<Props> = ({
 								<header>{renderNavbar && <Navbar />}</header>
 
 								<Fade
-									className="w-full h-full min-w-[500px] bg-black bg-opacity-30 backdrop-blur-md"
+									className="w-full h-full bg-black bg-opacity-30 backdrop-blur-md"
 									duration={1200}
 									triggerOnce
 								>
-									<main className="h-full p-10">{children}</main>
+									<main className="h-full p-10 overflow-x-hidden overflow-y-auto">
+										{children}
+									</main>
 								</Fade>
 							</div>
 						)}
