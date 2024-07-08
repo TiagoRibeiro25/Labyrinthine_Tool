@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import Navigation from "./navigation";
+import Navigation from "./navigation/Navigation";
 
 import "./assets/fonts/Ubuntu/Ubuntu-Bold.ttf";
 import "./assets/fonts/Ubuntu/Ubuntu-Light.ttf";

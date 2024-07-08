@@ -1,6 +1,8 @@
 import React from "react";
 import { Fade } from "react-awesome-reveal";
-import Chapter_1_Entrance from "../../assets/images/Chapter_1_Entrance.webp";
+import { useLocation } from "react-router-dom";
+import DefaultBgImage from "../../assets/images/Chapter_1_Entrance.webp";
+import NotFoundImage from "../../assets/images/do_not_enter.png";
 import Sidebar from "../Sidebar/Sidebar";
 
 type Props = {
@@ -12,11 +14,13 @@ const BackgroundContainer: React.FC<Props> = ({
 	children,
 	renderSidebar = true,
 }): React.JSX.Element => {
+	const location = useLocation();
+
 	return (
 		<div className="h-[100dvh] min-h-[700px]">
 			<div className="h-full">
 				<img
-					src={Chapter_1_Entrance}
+					src={location.pathname === "/404" ? NotFoundImage : DefaultBgImage}
 					alt="Background Image"
 					className="absolute top-0 left-0 object-cover object-center w-full h-full -z-50"
 				/>
