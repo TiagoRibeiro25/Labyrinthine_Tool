@@ -11,9 +11,7 @@ import "./assets/fonts/Labyrinth/Labyrinth.ttf";
 const App: React.FC = (): React.JSX.Element => {
 	return (
 		<BrowserRouter>
-			<main className="h-[100dvh] min-h-[700px]">
-				<Navigation />
-			</main>
+			<Navigation />
 		</BrowserRouter>
 	);
 };
