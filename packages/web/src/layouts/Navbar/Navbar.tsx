@@ -6,7 +6,7 @@ import MobileBar from "./components/MobileBar/MobileBar";
 const Navbar: React.FC = (): React.JSX.Element => {
 	return (
 		<>
-			<Fade delay={1200} className="sm:h-full">
+			<Fade className="sm:h-full">
 				<DesktopBar />
 			</Fade>
 
