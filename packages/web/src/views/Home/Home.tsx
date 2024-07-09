@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import Marquee from "react-fast-marquee";
 import { Link } from "react-router-dom";
-import Button from "../../components/Icons/Button/Button";
+import Button from "../../components/Button/Button";
 import DownArrowIcon from "../../components/Icons/DownArrowIcon/DownArrowIcon";
 import constants from "../../constants";
 import MainTitleAnimation from "./components/MainTitleAnimation/MainTitleAnimation";
@@ -145,11 +145,9 @@ const Home: React.FC = (): React.JSX.Element => {
 								</p>
 
 								<div className="flex justify-center mt-12 lg:mt-6">
-									<Button reversedColors>
-										<a href={constants.STEAM_BUY_URL} target="_blank" rel="noreferrer">
-											Buy Labyrinthine on Steam
-										</a>
-									</Button>
+									<a href={constants.STEAM_BUY_URL} target="_blank" rel="noreferrer">
+										<Button reversedColors>Buy Labyrinthine on Steam</Button>
+									</a>
 								</div>
 							</div>
 						</Fade>
@@ -230,9 +228,11 @@ const Home: React.FC = (): React.JSX.Element => {
 				</section>
 
 				<section id="create-account" className="flex justify-center mt-28 pb-28">
-					<Link to={constants.ROUTES.AUTH.SIGNUP}>
-						<Button className="w-[208px]">Create an account now</Button>
-					</Link>
+					<Fade direction="up" triggerOnce duration={800} delay={100}>
+						<Link to={constants.ROUTES.AUTH.SIGNUP}>
+							<Button className="w-[208px]">Create an account now</Button>
+						</Link>
+					</Fade>
 				</section>
 			</div>
 		</div>
