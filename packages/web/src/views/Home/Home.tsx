@@ -114,9 +114,16 @@ const Home: React.FC = (): React.JSX.Element => {
 
 								<div className="flex justify-center mt-24">
 									<Fade direction="up" triggerOnce duration={500} delay={1700}>
-										<a href="#why-should-you-use">
+										<Link
+											to="#why-should-you-use"
+											onClick={(): void => {
+												document
+													.querySelector("#why-should-you-use")
+													?.scrollIntoView({ behavior: "smooth" });
+											}}
+										>
 											<DownArrowIcon className="w-8 h-8 cursor-pointer opacity-85< animate-bounce" />
-										</a>
+										</Link>
 									</Fade>
 								</div>
 							</div>
@@ -124,16 +131,16 @@ const Home: React.FC = (): React.JSX.Element => {
 					)}
 				</section>
 
-				<section id="why-should-you-use" className="mt-24">
+				<section id="why-should-you-use" className="pt-24">
 					<WhyYouShouldUseContent />
 				</section>
 
-				<section id="what-is-labyrinthine" className="mt-28">
+				<section id="what-is-labyrinthine" className="pt-28">
 					<Fade direction="up" triggerOnce duration={800} delay={100}>
 						<h2 className="text-3xl text-center labyrinth-font">What is Labyrinthine?</h2>
 					</Fade>
 
-					<div className="flex flex-col-reverse items-center mt-16 space-y-8 lg:items-start lg:space-x-12 lg:space-y-0 lg:flex-row">
+					<div className="flex flex-col-reverse items-center pt-16 space-y-8 lg:items-start lg:space-x-12 lg:space-y-0 lg:flex-row">
 						<Fade direction="left" triggerOnce duration={800} delay={200} className="lg:w-1/2">
 							<div className="flex flex-col mt-12 lg:mt-0">
 								<p className="text-lg text-justify sm:text-start lg:pt-4">
@@ -197,7 +204,7 @@ const Home: React.FC = (): React.JSX.Element => {
 					</Fade>
 				</section>
 
-				<section id="help-friends" className="mt-28">
+				<section id="help-friends" className="pt-28">
 					<Fade direction="up" triggerOnce duration={800} delay={100}>
 						<h2 className="text-3xl text-center labyrinth-font">Help Friends</h2>
 					</Fade>
@@ -227,7 +234,7 @@ const Home: React.FC = (): React.JSX.Element => {
 					</Fade>
 				</section>
 
-				<section id="create-account" className="flex justify-center mt-28 pb-28">
+				<section id="create-account" className="flex justify-center py-28">
 					<Fade direction="up" triggerOnce duration={800} delay={100}>
 						<Link to={constants.ROUTES.AUTH.SIGNUP}>
 							<Button className="w-[208px]">Create an account now</Button>
