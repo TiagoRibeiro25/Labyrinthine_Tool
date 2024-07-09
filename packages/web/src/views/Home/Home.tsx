@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import Marquee from "react-fast-marquee";
+import Button from "../../components/Icons/Button/Button";
 import DownArrowIcon from "../../components/Icons/DownArrowIcon/DownArrowIcon";
+import constants from "../../constants";
 import MainTitleAnimation from "./components/MainTitleAnimation/MainTitleAnimation";
 import WhyYouShouldUseContent from "./components/WhyYouShouldUseContent/WhyYouShouldUseContent";
 import cosmetics from "./cosmetics.json";
@@ -64,7 +66,7 @@ const Home: React.FC = (): React.JSX.Element => {
 							<h2 className="text-2xl text-center md:text-start">
 								An online tool made to help you with your{" "}
 								<a
-									href="https://store.steampowered.com/app/1302240/Labyrinthine/"
+									href={constants.STEAM_BUY_URL}
 									target="_blank"
 									rel="noreferrer"
 									className="labyrinth-font hover:underline animate-pulse"
@@ -86,7 +88,7 @@ const Home: React.FC = (): React.JSX.Element => {
 									<h4 className="mt-12 text-xl text-center md:text-start">
 										Now updated with the latest cosmetics from the{" "}
 										<a
-											href="https://store.steampowered.com/news/app/1302240/view/4141701971813405619"
+											href={constants.SUMMER_EVENT_ANNOUNCEMENT_URL}
 											target="_blank"
 											rel="noreferrer"
 											className="labyrinth-font hover:underline"
@@ -129,8 +131,72 @@ const Home: React.FC = (): React.JSX.Element => {
 					)}
 				</section>
 
-				<section id="why-should-you-use" className="pt-20">
+				<section id="why-should-you-use" className="mt-24">
 					<WhyYouShouldUseContent />
+				</section>
+
+				<section id="what-is-labyrinthine" className="mt-28">
+					<Fade direction="up" triggerOnce duration={800} delay={100}>
+						<h2 className="text-3xl text-center labyrinth-font">What is Labyrinthine?</h2>
+					</Fade>
+
+					<div className="flex flex-col-reverse items-center mt-16 space-y-8 md:items-start md:space-x-12 md:space-y-0 md:flex-row">
+						<Fade direction="left" triggerOnce duration={800} delay={200} className="md:w-1/2">
+							<p className="text-lg text-justify sm:text-start md:pt-4">
+								Labyrinthine is a co-op horror game like no other... Play with 1-4 players
+								online as you solve puzzles, collect items and run from the horrors that lie
+								within. Follow in the footsteps of Joan in the story mode or tackle
+								procedurally generated maps that scale with your level and bring a fresh
+								experience each game..
+							</p>
+						</Fade>
+
+						<Fade
+							direction="right"
+							triggerOnce
+							duration={800}
+							delay={200}
+							className="md:w-1/2"
+						>
+							<video autoPlay loop muted playsInline className="rounded-3xl">
+								<source src={constants.GAME_TAILER_URL} type="video/webm" />
+								Your browser does not support video playback
+							</video>
+						</Fade>
+					</div>
+
+					<div className="flex justify-center mt-12">
+						<Button reversedColors>
+							<a href={constants.STEAM_BUY_URL} target="_blank" rel="noreferrer">
+								Buy Labyrinthine on Steam
+							</a>
+						</Button>
+					</div>
+				</section>
+
+				<section id="important-note">
+					<Fade direction="up" triggerOnce duration={800} delay={100}>
+						<h2 className="mt-24 text-3xl text-center labyrinth-font">Important Note</h2>
+					</Fade>
+
+					<Fade direction="up" triggerOnce duration={800} delay={200}>
+						<p className="mt-8 text-xl text-justify sm:text-start">
+							This website is not affiliated with or endorsed by Labyrinthine, its developers,
+							or its publishers. All copyrights and trademarks are the property of their
+							respective owners.
+						</p>
+
+						<p className="mt-8 text-xl text-justify sm:text-start">
+							All cosmetics images are property of Labyrinthine and are used for illustrative
+							purposes only.
+						</p>
+
+						<p className="mt-8 text-xl text-justify sm:text-start">
+							I have no control over the availability of the game, its cosmetics, or the game's
+							updates. This website is a fan-made project to help players keep track of their
+							progress in the game.
+						</p>
+					</Fade>
 				</section>
 			</div>
 		</div>

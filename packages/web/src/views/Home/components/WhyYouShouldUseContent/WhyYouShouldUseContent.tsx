@@ -32,10 +32,10 @@ const WhyYouShouldUseContent: React.FC = (): React.JSX.Element => {
 	}, [arrowPosition]);
 
 	return (
-		<Fade direction="up" triggerOnce duration={800} delay={100} className="mt-24 text-center">
-			<h2 className="text-3xl labyrinth-font">Why should you use this tool?</h2>
+		<Fade direction="up" triggerOnce duration={800} delay={100} className="text-center">
+			<h2 className="mb-16 text-3xl labyrinth-font">Why should you use this tool?</h2>
 
-			<div className="flex flex-col items-center justify-between space-y-8 lg:space-y-0 lg:space-x-12 lg:flex-row">
+			<div className="flex flex-col items-center justify-between mb-8 space-y-8 lg:space-y-0 lg:space-x-12 lg:flex-row">
 				<ReasonToUseCard
 					Icon={OpenSourceIcon}
 					title="Open Source"
