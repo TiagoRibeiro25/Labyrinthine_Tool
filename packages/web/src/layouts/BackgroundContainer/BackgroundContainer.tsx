@@ -40,11 +40,13 @@ const BackgroundContainer: React.FC<Props> = ({
 	return (
 		<div className="h-[100dvh] min-h-[700px]">
 			<div className="h-full">
-				<img
-					src={location.pathname === "/404" ? NotFoundImage : DefaultBgImage}
-					alt="Background Image"
-					className="absolute top-0 left-0 object-cover object-center w-full h-full -z-50"
-				/>
+				<Fade triggerOnce>
+					<img
+						src={location.pathname === "/404" ? NotFoundImage : DefaultBgImage}
+						alt="Background Image"
+						className="absolute top-0 left-0 object-cover object-center w-full h-full -z-50"
+					/>
+				</Fade>
 
 				<Fade
 					className="flex justify-center h-full"

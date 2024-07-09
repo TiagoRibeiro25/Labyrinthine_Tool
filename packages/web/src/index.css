@@ -44,6 +44,7 @@ body {
 	margin: 0;
 	font-family: "Ubuntu", sans-serif;
 	color: white;
+	background: black;
 	scroll-behavior: smooth;
 	overflow: hidden;
 }

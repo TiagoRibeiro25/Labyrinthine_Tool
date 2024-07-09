@@ -7,11 +7,14 @@ import "./assets/fonts/Ubuntu/Ubuntu-Medium.ttf";
 import "./assets/fonts/Ubuntu/Ubuntu-Regular.ttf";
 
 import "./assets/fonts/Labyrinth/Labyrinth.ttf";
+import BackgroundContainer from "./layouts/BackgroundContainer/BackgroundContainer";
 
 const App: React.FC = (): React.JSX.Element => {
 	return (
 		<BrowserRouter>
-			<Navigation />
+			<BackgroundContainer>
+				<Navigation />
+			</BackgroundContainer>
 		</BrowserRouter>
 	);
 };

@@ -15,15 +15,8 @@ const Home: React.FC = (): React.JSX.Element => {
 	const [isTitleAnimationOver, setIsTitleAnimationOver] = useState<boolean>(false);
 
 	useEffect(() => {
-		const mainContainer = document.querySelector("main");
-		const scrollEvent = (): void => mainContainer?.scrollTo(0, 0);
-		scrollEvent();
-
-		mainContainer?.addEventListener("scroll", scrollEvent);
-
 		const timeout = setTimeout(() => {
 			setIsTitleAnimationOver(true);
-			mainContainer?.removeEventListener("scroll", scrollEvent);
 
 			// Check if there's a hash in the URL and scroll to it
 			if (window.location.hash) {
@@ -32,7 +25,6 @@ const Home: React.FC = (): React.JSX.Element => {
 		}, MAIN_TITLE_ANIMATION_DELAY + MAIN_TITLE_ANIMATION_DURATION - 500);
 
 		return (): void => {
-			mainContainer?.removeEventListener("scroll", scrollEvent);
 			clearTimeout(timeout);
 		};
 	}, []);
@@ -111,7 +103,7 @@ const Home: React.FC = (): React.JSX.Element => {
 													<img
 														src={cosmetic}
 														alt={cosmetic}
-														className="object-cover w-32 h-32 border-2 border-gray-900 rounded-3xl"
+														className="object-cover w-32 h-32 rounded-3xl"
 													/>
 												</div>
 											))}
@@ -140,15 +132,25 @@ const Home: React.FC = (): React.JSX.Element => {
 						<h2 className="text-3xl text-center labyrinth-font">What is Labyrinthine?</h2>
 					</Fade>
 
-					<div className="flex flex-col-reverse items-center mt-16 space-y-8 md:items-start md:space-x-12 md:space-y-0 md:flex-row">
-						<Fade direction="left" triggerOnce duration={800} delay={200} className="md:w-1/2">
-							<p className="text-lg text-justify sm:text-start md:pt-4">
-								Labyrinthine is a co-op horror game like no other... Play with 1-4 players
-								online as you solve puzzles, collect items and run from the horrors that lie
-								within. Follow in the footsteps of Joan in the story mode or tackle
-								procedurally generated maps that scale with your level and bring a fresh
-								experience each game..
-							</p>
+					<div className="flex flex-col-reverse items-center mt-16 space-y-8 lg:items-start lg:space-x-12 lg:space-y-0 lg:flex-row">
+						<Fade direction="left" triggerOnce duration={800} delay={200} className="lg:w-1/2">
+							<div className="flex flex-col mt-12 lg:mt-0">
+								<p className="text-lg text-justify sm:text-start lg:pt-4">
+									Labyrinthine is a co-op horror game like no other... Play with 1-4 players
+									online as you solve puzzles, collect items and run from the horrors that lie
+									within. Follow in the footsteps of Joan in the story mode or tackle
+									procedurally generated maps that scale with your level and bring a fresh
+									experience each game..
+								</p>
+
+								<div className="flex justify-center mt-12 lg:mt-6">
+									<Button reversedColors>
+										<a href={constants.STEAM_BUY_URL} target="_blank" rel="noreferrer">
+											Buy Labyrinthine on Steam
+										</a>
+									</Button>
+								</div>
+							</div>
 						</Fade>
 
 						<Fade
@@ -156,7 +158,7 @@ const Home: React.FC = (): React.JSX.Element => {
 							triggerOnce
 							duration={800}
 							delay={200}
-							className="md:w-1/2"
+							className="lg:w-1/2"
 						>
 							<video autoPlay loop muted playsInline className="rounded-3xl">
 								<source src={constants.GAME_TAILER_URL} type="video/webm" />
@@ -164,38 +166,38 @@ const Home: React.FC = (): React.JSX.Element => {
 							</video>
 						</Fade>
 					</div>
-
-					<div className="flex justify-center mt-12">
-						<Button reversedColors>
-							<a href={constants.STEAM_BUY_URL} target="_blank" rel="noreferrer">
-								Buy Labyrinthine on Steam
-							</a>
-						</Button>
-					</div>
 				</section>
 
-				<section id="important-note">
+				<section id="important-note" className="p-5 border border-double mt-28 rounded-3xl">
 					<Fade direction="up" triggerOnce duration={800} delay={100}>
-						<h2 className="mt-24 text-3xl text-center labyrinth-font">Important Note</h2>
+						<h2 className="text-3xl text-center labyrinth-font sm:text-start">
+							Important Note
+						</h2>
 					</Fade>
 
 					<Fade direction="up" triggerOnce duration={800} delay={200}>
-						<p className="mt-8 text-xl text-justify sm:text-start">
+						<p className="mt-8 text-lg text-justify sm:text-start">
 							This website is not affiliated with or endorsed by Labyrinthine, its developers,
 							or its publishers. All copyrights and trademarks are the property of their
 							respective owners.
 						</p>
 
-						<p className="mt-8 text-xl text-justify sm:text-start">
+						<p className="mt-8 text-lg text-justify sm:text-start">
 							All cosmetics images are property of Labyrinthine and are used for illustrative
 							purposes only.
 						</p>
 
-						<p className="mt-8 text-xl text-justify sm:text-start">
+						<p className="mt-8 text-lg text-justify sm:text-start">
 							I have no control over the availability of the game, its cosmetics, or the game's
 							updates. This website is a fan-made project to help players keep track of their
 							progress in the game.
 						</p>
+					</Fade>
+				</section>
+
+				<section id="help-friends" className="mt-28">
+					<Fade direction="up" triggerOnce duration={800} delay={100}>
+						<h2 className="text-3xl text-center labyrinth-font">Help Friends</h2>
 					</Fade>
 				</section>
 			</div>
