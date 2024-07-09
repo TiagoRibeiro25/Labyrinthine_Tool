@@ -63,7 +63,7 @@ const BackgroundContainer: React.FC<Props> = ({
 								<header>{renderNavbar && <Navbar />}</header>
 
 								<Fade
-									className="w-full h-full bg-black bg-opacity-30 backdrop-blur-md"
+									className="w-full h-full bg-black bg-opacity-50"
 									duration={1200}
 									triggerOnce
 								>

@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import Marquee from "react-fast-marquee";
-import DownArrowIcon from "./components/DownArrowIcon/DownArrowIcon";
-import FreeToUseIcon from "./components/FreeToUseIcon/FreeToUseIcon";
+import DownArrowIcon from "../../components/Icons/DownArrowIcon/DownArrowIcon";
 import MainTitleAnimation from "./components/MainTitleAnimation/MainTitleAnimation";
-import OpenSourceIcon from "./components/OpenSourceIcon/OpenSourceIcon";
-import ReasonToUseCard from "./components/ReasonToUseCard/ReasonToUseCard";
-import UpToDateIcon from "./components/UpToDateIcon/UpToDateIcon";
+import WhyYouShouldUseContent from "./components/WhyYouShouldUseContent/WhyYouShouldUseContent";
 import cosmetics from "./cosmetics.json";
 
 const MAIN_TITLE_ANIMATION_DELAY = 1200;
@@ -25,6 +22,11 @@ const Home: React.FC = (): React.JSX.Element => {
 		const timeout = setTimeout(() => {
 			setIsTitleAnimationOver(true);
 			mainContainer?.removeEventListener("scroll", scrollEvent);
+
+			// Check if there's a hash in the URL and scroll to it
+			if (window.location.hash) {
+				document.querySelector(window.location.hash)?.scrollIntoView({ behavior: "smooth" });
+			}
 		}, MAIN_TITLE_ANIMATION_DELAY + MAIN_TITLE_ANIMATION_DURATION - 500);
 
 		return (): void => {
@@ -35,7 +37,7 @@ const Home: React.FC = (): React.JSX.Element => {
 
 	return (
 		<div className="flex justify-center h-full">
-			<div className="h-full max-w-[985px]">
+			<div className="h-full max-w-[985px] w-auto">
 				<section className="flex flex-col items-center h-full pt-10" id="welcome">
 					<MainTitleAnimation
 						delay={MAIN_TITLE_ANIMATION_DELAY}
@@ -59,7 +61,7 @@ const Home: React.FC = (): React.JSX.Element => {
 
 					{isTitleAnimationOver && (
 						<Fade direction="up" triggerOnce duration={800} className="mt-10">
-							<h2 className="text-2xl">
+							<h2 className="text-2xl text-center md:text-start">
 								An online tool made to help you with your{" "}
 								<a
 									href="https://store.steampowered.com/app/1302240/Labyrinthine/"
@@ -73,7 +75,7 @@ const Home: React.FC = (): React.JSX.Element => {
 							</h2>
 
 							<Fade direction="up" triggerOnce duration={800} delay={600}>
-								<h3 className="mt-4 text-xl">
+								<h3 className="mt-4 text-xl text-center md:text-start">
 									Never lose track of your cosmetics again, and always know what you need to
 									find to complete your collection
 								</h3>
@@ -81,7 +83,7 @@ const Home: React.FC = (): React.JSX.Element => {
 
 							<div className="mt-20">
 								<Fade direction="up" triggerOnce duration={700} delay={1000}>
-									<h4 className="mt-12 text-xl">
+									<h4 className="mt-12 text-xl text-center md:text-start">
 										Now updated with the latest cosmetics from the{" "}
 										<a
 											href="https://store.steampowered.com/news/app/1302240/view/4141701971813405619"
@@ -96,7 +98,7 @@ const Home: React.FC = (): React.JSX.Element => {
 
 									<div className="flex mt-12">
 										<Marquee
-											className="hidden overflow-hidden sm:flex"
+											className="hidden overflow-hidden md:flex"
 											autoFill
 											gradient
 											gradientColor="black"
@@ -127,16 +129,8 @@ const Home: React.FC = (): React.JSX.Element => {
 					)}
 				</section>
 
-				<section id="why-should-you-use">
-					<Fade direction="up" triggerOnce duration={800} className="mt-24 text-center">
-						<h2 className="text-3xl labyrinth-font">Why should you use this tool?</h2>
-
-						<div className="flex flex-row justify-between mb-20 space-x-12">
-							<ReasonToUseCard Icon={OpenSourceIcon} title="Open Source" />
-							<ReasonToUseCard Icon={FreeToUseIcon} title="Free to Use" />
-							<ReasonToUseCard Icon={UpToDateIcon} title="Up to Date" />
-						</div>
-					</Fade>
+				<section id="why-should-you-use" className="pt-20">
+					<WhyYouShouldUseContent />
 				</section>
 			</div>
 		</div>
