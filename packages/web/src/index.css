@@ -48,3 +48,8 @@ body {
 	scroll-behavior: smooth;
 	overflow: hidden;
 }
+
+* {
+	scrollbar-color: white transparent;
+	scrollbar-width: thin;
+}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import Marquee from "react-fast-marquee";
+import { Link } from "react-router-dom";
 import Button from "../../components/Icons/Button/Button";
 import DownArrowIcon from "../../components/Icons/DownArrowIcon/DownArrowIcon";
 import constants from "../../constants";
@@ -168,7 +169,10 @@ const Home: React.FC = (): React.JSX.Element => {
 					</div>
 				</section>
 
-				<section id="important-note" className="p-5 border border-double mt-28 rounded-3xl">
+				<section
+					id="important-note"
+					className="p-5 bg-black bg-opacity-50 border border-double mt-28 rounded-3xl"
+				>
 					<Fade direction="up" triggerOnce duration={800} delay={100}>
 						<h2 className="text-3xl text-center labyrinth-font sm:text-start">
 							Important Note
@@ -199,6 +203,36 @@ const Home: React.FC = (): React.JSX.Element => {
 					<Fade direction="up" triggerOnce duration={800} delay={100}>
 						<h2 className="text-3xl text-center labyrinth-font">Help Friends</h2>
 					</Fade>
+
+					<Fade direction="up" triggerOnce duration={800} delay={100}>
+						<p className="mt-8 text-lg text-justify sm:text-start">
+							Do you have friends who play Labyrinthine? Or maybe you want to help other
+							players complete their cosmetics collection? With this tool, you can easily add
+							other players and see their progress. Never lose track of your friends' cosmetics
+							again!
+						</p>
+					</Fade>
+
+					<Fade className="mt-2" direction="up" triggerOnce duration={800} delay={100}>
+						<span className="text-sm text-gray-400">
+							If you don't know anyone who plays Labyrinthine, you can always join the{" "}
+							<a
+								href={constants.OFFICIAL_DISCORD_INVITE_URL}
+								target="_blank"
+								rel="noreferrer"
+								className="text-gray-300 labyrinth-font hover:underline"
+							>
+								Official Labyrinthine Discord
+							</a>{" "}
+							and find players to play with!
+						</span>
+					</Fade>
+				</section>
+
+				<section id="create-account" className="flex justify-center mt-28 pb-28">
+					<Link to={constants.ROUTES.AUTH.SIGNUP}>
+						<Button className="w-[208px]">Create an account now</Button>
+					</Link>
 				</section>
 			</div>
 		</div>

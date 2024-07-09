@@ -72,7 +72,7 @@ const WhyYouShouldUseContent: React.FC = (): React.JSX.Element => {
 						<div className="w-0 h-0 ml-auto mr-24 border-l-[20px] border-l-transparent border-b-[35px] border-r-[20px] border-r-transparent border-gray-200"></div>
 					)}
 
-					<div className="p-5 border border-gray-200 rounded-3xl">
+					<div className="p-5 bg-black bg-opacity-50 border border-gray-200 rounded-3xl">
 						{arrowPosition === "left" && (
 							<Fade triggerOnce fraction={0.7}>
 								<p className="text-justify">
