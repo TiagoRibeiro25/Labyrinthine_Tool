@@ -183,7 +183,7 @@ const Home: React.FC = (): React.JSX.Element => {
 						</h2>
 					</Fade>
 
-					<Fade direction="up" cascade triggerOnce duration={800} delay={200}>
+					<Fade direction="up" triggerOnce duration={800} delay={200}>
 						<p className="mt-8 text-lg text-justify sm:text-start">
 							This website is not affiliated with or endorsed by Labyrinthine, its developers,
 							or its publishers. All copyrights and trademarks are the property of their

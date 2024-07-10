@@ -56,11 +56,14 @@ const BackgroundContainer: React.FC<Props> = ({
 
 	useEffect(() => {
 		if (status === "success") {
-			updateFirstFetch();
 			setLoggedUser({
 				id: data.user.id,
 				username: data.user.username,
 			});
+		}
+
+		if (status !== "pending") {
+			updateFirstFetch();
 		}
 	}, [data, setLoggedUser, status, updateFirstFetch]);
 
@@ -70,7 +73,7 @@ const BackgroundContainer: React.FC<Props> = ({
 		} else {
 			updateFirstFetch();
 		}
-	}, [authToken, didFirstFetch, refetch, updateFirstFetch]);
+	}, [authToken, refetch, updateFirstFetch]);
 
 	const getBackgroundImage = (): string => {
 		if (location.pathname === constants.ROUTES.NOT_FOUND) {
