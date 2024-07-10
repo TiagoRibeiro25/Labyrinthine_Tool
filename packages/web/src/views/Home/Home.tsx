@@ -31,7 +31,7 @@ const Home: React.FC = (): React.JSX.Element => {
 	}, []);
 
 	return (
-		<div className="flex justify-center h-full">
+		<div className="flex justify-center h-full px-10">
 			<div className="h-full max-w-[985px] w-auto">
 				<section className="flex flex-col items-center h-full pt-10" id="welcome">
 					<MainTitleAnimation

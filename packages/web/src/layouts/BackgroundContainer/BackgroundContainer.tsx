@@ -47,7 +47,7 @@ const BackgroundContainer: React.FC<Props> = ({
 	}, [loading, loadingState]);
 
 	return (
-		<div className="h-[100dvh] min-h-[700px]">
+		<div className="h-[100dvh]">
 			<div className="h-full">
 				<Fade triggerOnce>
 					<img
@@ -78,9 +78,7 @@ const BackgroundContainer: React.FC<Props> = ({
 									duration={1200}
 									triggerOnce
 								>
-									<main className="h-full p-10 overflow-x-hidden overflow-y-auto">
-										{children}
-									</main>
+									<main className="h-full overflow-x-hidden overflow-y-auto">{children}</main>
 								</Fade>
 							</div>
 						)}

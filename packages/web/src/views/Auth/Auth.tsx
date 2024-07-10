@@ -9,7 +9,7 @@ const Auth: React.FC = (): React.JSX.Element => {
 	const location = useLocation();
 
 	return (
-		<div className="flex flex-col items-center pt-14">
+		<div className="flex flex-col items-center px-10 pt-14">
 			<Fade triggerOnce direction="up" duration={800}>
 				<h1 className="text-4xl font-bold labyrinth-font">
 					{location.pathname === constants.ROUTES.AUTH.LOGIN ? "Login" : "Create Account"}
@@ -23,7 +23,7 @@ const Auth: React.FC = (): React.JSX.Element => {
 				delay={200}
 				className="flex justify-center w-full"
 			>
-				<div className="w-full p-7 mt-20 bg-black bg-opacity-60 border rounded-3xl max-w-[700px]">
+				<div className="w-full p-7 my-20 bg-black bg-opacity-60 border rounded-3xl max-w-[700px]">
 					{location.pathname === constants.ROUTES.AUTH.LOGIN ? <Login /> : <SignUp />}
 				</div>
 			</Fade>
