@@ -7,15 +7,26 @@ import Checkbox from "../../../../components/Checkbox/Checkbox";
 import Input from "../../../../components/Input/Input";
 import constants from "../../../../constants";
 import LoadingDots from "../../../../layouts/BackgroundContainer/components/LoadingDots/LoadingDots";
+import useAuthStore from "../../../../stores/auth";
+import useWarningStore from "../../../../stores/warning";
 import { ErrorResponseBodyData, SuccessResponseBodyData } from "../../../../types";
 
 type SuccessResponseData = SuccessResponseBodyData & {
 	data: {
 		token: string;
+		user: {
+			id: string;
+			username: string;
+		};
 	};
 };
 
 const Login: React.FC = (): React.JSX.Element => {
+	const addWarning = useWarningStore((state) => state.addWarning);
+
+	const setLoggedUser = useAuthStore((state) => state.setLoggedUser);
+	const setAuthToken = useAuthStore((state) => state.setAuthToken);
+
 	const [username, setUsername] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 	const [rememberMe, setRememberMe] = useState<boolean>(false);
@@ -47,14 +58,14 @@ const Login: React.FC = (): React.JSX.Element => {
 		refetch();
 	};
 
+	// Handle the response
 	useEffect(() => {
-		// Handle the error messages
 		if (status === "error") {
-			const bodyData = (error as unknown as { response: ErrorResponseBodyData })?.response;
+			const err = error as unknown as { response: { data: ErrorResponseBodyData } };
+			const bodyData = err.response.data;
 
 			if (!bodyData) {
-				setUsernameError("Invalid username");
-				setPasswordError("Invalid password");
+				addWarning("An error occurred while trying to login", "error");
 			}
 
 			if (bodyData.message.startsWith("body/password")) {
@@ -76,9 +87,16 @@ const Login: React.FC = (): React.JSX.Element => {
 		}
 
 		if (status === "success") {
-			console.log(data);
+			setAuthToken(data.data.token);
+			setLoggedUser(data.data.user);
 		}
-	}, [data, error, status]);
+	}, [addWarning, data, error, setAuthToken, setLoggedUser, status]);
+
+	// When the user changes the input, remove the error(s) message(s)
+	useEffect(() => {
+		setUsernameError("");
+		setPasswordError("");
+	}, [username, password]);
 
 	return (
 		<form onSubmit={handleSubmit}>

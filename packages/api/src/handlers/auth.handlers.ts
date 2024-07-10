@@ -113,7 +113,7 @@ export default {
 					mode: "insensitive",
 				},
 			},
-			select: { id: true, password: true },
+			select: { id: true, password: true, username: true },
 		});
 
 		if (!user) {
@@ -146,7 +146,13 @@ export default {
 			reply,
 			statusCode: constants.HTTP.StatusOK,
 			message: "Logged in successfully",
-			data: { token: authToken },
+			data: {
+				token: authToken,
+				user: {
+					id: user.id,
+					username: user.username,
+				},
+			},
 		});
 	},
 
