@@ -88,7 +88,7 @@ const Home: React.FC = (): React.JSX.Element => {
 										>
 											Summer Event
 										</a>
-										:
+										<span className="hidden md:inline-block">:</span>
 									</h4>
 
 									<div className="flex mt-12">
@@ -112,7 +112,7 @@ const Home: React.FC = (): React.JSX.Element => {
 									</div>
 								</Fade>
 
-								<div className="flex justify-center mt-24">
+								<div className="flex justify-center mt-12">
 									<Fade direction="up" triggerOnce duration={500} delay={1700}>
 										<Link
 											to="#why-should-you-use"
@@ -131,11 +131,11 @@ const Home: React.FC = (): React.JSX.Element => {
 					)}
 				</section>
 
-				<section id="why-should-you-use" className="pt-24">
+				<section id="why-should-you-use" className="pt-36">
 					<WhyYouShouldUseContent />
 				</section>
 
-				<section id="what-is-labyrinthine" className="pt-28">
+				<section id="what-is-labyrinthine" className="pt-40">
 					<Fade direction="up" triggerOnce duration={800} delay={100}>
 						<h2 className="text-3xl text-center labyrinth-font">What is Labyrinthine?</h2>
 					</Fade>
@@ -176,7 +176,7 @@ const Home: React.FC = (): React.JSX.Element => {
 
 				<section
 					id="important-note"
-					className="p-5 bg-black bg-opacity-50 border border-double mt-28 rounded-3xl"
+					className="p-5 mt-40 bg-black bg-opacity-50 border border-double rounded-3xl"
 				>
 					<Fade direction="up" triggerOnce duration={800} delay={100}>
 						<h2 className="text-3xl text-center labyrinth-font sm:text-start">
@@ -204,7 +204,7 @@ const Home: React.FC = (): React.JSX.Element => {
 					</Fade>
 				</section>
 
-				<section id="help-friends" className="pt-28">
+				<section id="help-friends" className="pt-40">
 					<Fade direction="up" triggerOnce duration={800} delay={100}>
 						<h2 className="text-3xl text-center labyrinth-font">Help Friends</h2>
 					</Fade>
@@ -234,7 +234,7 @@ const Home: React.FC = (): React.JSX.Element => {
 					</Fade>
 				</section>
 
-				<section id="create-account" className="flex justify-center py-28">
+				<section id="create-account" className="flex justify-center py-40">
 					<Fade direction="up" triggerOnce duration={800} delay={100}>
 						<Link to={constants.ROUTES.AUTH.SIGNUP}>
 							<Button className="w-[208px]">Create an account now</Button>
