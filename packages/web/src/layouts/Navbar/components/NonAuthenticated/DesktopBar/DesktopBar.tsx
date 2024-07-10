@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import FriendsIcon from "../../../../components/Icons/FriendsIcon/FriendsIcon";
-import GamingIcon from "../../../../components/Icons/GamingIcon/GamingIcon";
-import QuestionIcon from "../../../../components/Icons/QuestionIcon/QuestionIcon";
-import UserIcon from "../../../../components/Icons/UserIcon/UserIcon";
-import WarningIcon from "../../../../components/Icons/WarningIcon/WarningIcon";
-import constants from "../../../../constants";
+import FriendsIcon from "../../../../../components/Icons/FriendsIcon/FriendsIcon";
+import GamingIcon from "../../../../../components/Icons/GamingIcon/GamingIcon";
+import QuestionIcon from "../../../../../components/Icons/QuestionIcon/QuestionIcon";
+import UserIcon from "../../../../../components/Icons/UserIcon/UserIcon";
+import WarningIcon from "../../../../../components/Icons/WarningIcon/WarningIcon";
+import constants from "../../../../../constants";
 
 const DesktopBar: React.FC = (): React.JSX.Element => {
 	const handleClick = (target: string): void => {

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import { Link } from "react-router-dom";
-import CloseIcon from "../../../../components/Icons/CloseIcon/CloseIcon";
-import FriendsIcon from "../../../../components/Icons/FriendsIcon/FriendsIcon";
-import GamingIcon from "../../../../components/Icons/GamingIcon/GamingIcon";
-import MoreIcon from "../../../../components/Icons/MoreIcon/MoreIcon";
-import QuestionIcon from "../../../../components/Icons/QuestionIcon/QuestionIcon";
-import UserIcon from "../../../../components/Icons/UserIcon/UserIcon";
-import WarningIcon from "../../../../components/Icons/WarningIcon/WarningIcon";
-import constants from "../../../../constants";
+import CloseIcon from "../../../../../components/Icons/CloseIcon/CloseIcon";
+import FriendsIcon from "../../../../../components/Icons/FriendsIcon/FriendsIcon";
+import GamingIcon from "../../../../../components/Icons/GamingIcon/GamingIcon";
+import MoreIcon from "../../../../../components/Icons/MoreIcon/MoreIcon";
+import QuestionIcon from "../../../../../components/Icons/QuestionIcon/QuestionIcon";
+import UserIcon from "../../../../../components/Icons/UserIcon/UserIcon";
+import WarningIcon from "../../../../../components/Icons/WarningIcon/WarningIcon";
+import constants from "../../../../../constants";
 
 const MobileBar: React.FC = (): React.JSX.Element => {
 	const [subMenuOpened, setSubMenuOpened] = useState<boolean>(false);
