@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import AuthBgImage from "../../assets/images/candle.webp";
 import DefaultBgImage from "../../assets/images/Chapter_1_Entrance.webp";
 import NotFoundImage from "../../assets/images/do_not_enter.png";
+import constants from "../../constants";
 import Navbar from "../Navbar/Navbar";
 import LoadingDots from "./components/LoadingDots/LoadingDots";
 
@@ -26,11 +27,11 @@ const BackgroundContainer: React.FC<Props> = ({
 	const [loadingState, setLoadingState] = useState<boolean>(true);
 
 	const getBgImage = (): string => {
-		if (location.pathname === "/404") {
+		if (location.pathname === constants.ROUTES.NOT_FOUND) {
 			return NotFoundImage;
 		}
 
-		if (location.pathname.startsWith("/auth")) {
+		if (location.pathname.startsWith(constants.ROUTES.AUTH.PREFIX)) {
 			return AuthBgImage;
 		}
 
@@ -41,7 +42,7 @@ const BackgroundContainer: React.FC<Props> = ({
 		let timeout: number | undefined;
 
 		if (loadingState) {
-			// TODO: Ping the server to check if the user is authenticated
+			// TODO (tiago): Ping the server to check if the user is authenticated
 			timeout = setTimeout(() => {
 				setLoadingState(false);
 			}, INITIAL_DURATION + INITIAL_DELAY);
