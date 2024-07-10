@@ -10,6 +10,10 @@ export default {
 
 	ROUTES: routes,
 
+	LOCAL_STORAGE_KEYS: {
+		AUTH_TOKEN: "authToken",
+	},
+
 	// TODO: Change this to an environment variable
 	API_URL: "http://localhost:5000/api/v1",
 };
