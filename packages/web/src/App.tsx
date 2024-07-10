@@ -9,6 +9,7 @@ import "./assets/fonts/Ubuntu/Ubuntu-Regular.ttf";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./assets/fonts/Labyrinth/Labyrinth.ttf";
 import BackgroundContainer from "./layouts/BackgroundContainer/BackgroundContainer";
+import WarningPopUp from "./layouts/WarningPopUp/WarningPopUp";
 
 const queryClient = new QueryClient();
 
@@ -16,9 +17,10 @@ const App: React.FC = (): React.JSX.Element => {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<BrowserRouter>
-				<BackgroundContainer>
+				<BackgroundContainer loadingMessage="Logging in...">
 					<Navigation />
 				</BackgroundContainer>
+				<WarningPopUp />
 			</BrowserRouter>
 		</QueryClientProvider>
 	);

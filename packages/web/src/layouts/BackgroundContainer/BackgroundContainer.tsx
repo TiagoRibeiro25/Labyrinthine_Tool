@@ -2,25 +2,29 @@ import { useQuery } from "@tanstack/react-query";
 import React, { PropsWithChildren, useEffect } from "react";
 import { Fade } from "react-awesome-reveal";
 import { useLocation } from "react-router-dom";
+import api from "../../api/axios";
 import AuthBgImage from "../../assets/images/candle.webp";
 import DefaultBgImage from "../../assets/images/Chapter_1_Entrance.webp";
 import NotFoundImage from "../../assets/images/do_not_enter.png";
 import constants from "../../constants";
 import useAuthStore from "../../stores/auth";
+import { BaseResponseBodyData } from "../../types";
 import Navbar from "../Navbar/Navbar";
 import LoadingDots from "./components/LoadingDots/LoadingDots";
 
-type ResponseData = {
-	user: {
-		id: string;
-		username: string;
-		discordUsername: string;
-		steamProfileUrl: string;
-		cosmetics: string[];
-		totalFriends: number;
-		friendRequestStatus: string;
-		isLoggedUser: boolean;
-		createdAt: string;
+type ResponseData = BaseResponseBodyData & {
+	data: {
+		user: {
+			id: string;
+			username: string;
+			discordUsername: string;
+			steamProfileUrl: string;
+			cosmetics: string[];
+			totalFriends: number;
+			friendRequestStatus: string;
+			isLoggedUser: boolean;
+			createdAt: string;
+		};
 	};
 };
 
@@ -44,12 +48,11 @@ const BackgroundContainer: React.FC<Props> = ({
 	const { data, status, refetch } = useQuery({
 		queryKey: ["getLoggedUser"],
 		queryFn: async () => {
-			const response = await fetch(constants.API_URL + "/users/me", {
-				method: "GET",
+			const response = await api.get("/users/me", {
 				headers: { Authorization: authToken },
 			});
 
-			return (await response.json()) as ResponseData;
+			return response.data as ResponseData;
 		},
 		enabled: false,
 	});
@@ -57,8 +60,8 @@ const BackgroundContainer: React.FC<Props> = ({
 	useEffect(() => {
 		if (status === "success") {
 			setLoggedUser({
-				id: data.user.id,
-				username: data.user.username,
+				id: data.data.user.id,
+				username: data.data.user.username,
 			});
 		}
 

@@ -23,7 +23,7 @@ const Home: React.FC = (): React.JSX.Element => {
 			if (window.location.hash) {
 				document.querySelector(window.location.hash)?.scrollIntoView({ behavior: "smooth" });
 			}
-		}, MAIN_TITLE_ANIMATION_DELAY + MAIN_TITLE_ANIMATION_DURATION);
+		}, MAIN_TITLE_ANIMATION_DELAY + MAIN_TITLE_ANIMATION_DURATION - 200);
 
 		return (): void => {
 			clearTimeout(timeout);
@@ -46,7 +46,7 @@ const Home: React.FC = (): React.JSX.Element => {
 						<Fade
 							direction="up"
 							triggerOnce
-							delay={MAIN_TITLE_ANIMATION_DELAY - 600}
+							delay={MAIN_TITLE_ANIMATION_DELAY - 800}
 							duration={MAIN_TITLE_ANIMATION_DURATION}
 							className="mt-10 text-center duration-500 ease-in-out"
 						>

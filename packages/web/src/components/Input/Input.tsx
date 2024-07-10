@@ -11,6 +11,7 @@ type Props = {
 	required?: boolean;
 	labelClassName?: string;
 	inputClassName?: string;
+	autoComplete?: string;
 };
 
 const Input: React.FC<Props> = ({
@@ -24,6 +25,7 @@ const Input: React.FC<Props> = ({
 	required,
 	labelClassName,
 	inputClassName,
+	autoComplete,
 }): React.JSX.Element => {
 	return (
 		<>
@@ -43,6 +45,7 @@ const Input: React.FC<Props> = ({
 				required={required}
 				value={value}
 				onChange={onChange}
+				autoComplete={autoComplete}
 			/>
 			{error && <p className="text-xs italic text-red-500">{error}</p>}
 		</>
