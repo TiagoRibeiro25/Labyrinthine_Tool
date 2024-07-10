@@ -176,7 +176,7 @@ const Home: React.FC = (): React.JSX.Element => {
 
 				<section
 					id="important-note"
-					className="p-5 mt-40 bg-black bg-opacity-50 border border-double rounded-3xl"
+					className="p-5 mt-40 bg-black bg-opacity-50 border rounded-3xl"
 				>
 					<Fade direction="up" triggerOnce duration={800} delay={100}>
 						<h2 className="text-3xl text-center labyrinth-font sm:text-start">
@@ -184,7 +184,7 @@ const Home: React.FC = (): React.JSX.Element => {
 						</h2>
 					</Fade>
 
-					<Fade direction="up" triggerOnce duration={800} delay={200}>
+					<Fade direction="up" cascade triggerOnce duration={800} delay={200}>
 						<p className="mt-8 text-lg text-justify sm:text-start">
 							This website is not affiliated with or endorsed by Labyrinthine, its developers,
 							or its publishers. All copyrights and trademarks are the property of their
@@ -210,7 +210,7 @@ const Home: React.FC = (): React.JSX.Element => {
 					</Fade>
 
 					<Fade direction="up" triggerOnce duration={800} delay={100}>
-						<p className="mt-8 text-lg text-justify sm:text-start">
+						<p className="mt-8 text-lg text-justify sm:text-center">
 							Do you have friends who play Labyrinthine? Or maybe you want to help other
 							players complete their cosmetics collection? With this tool, you can easily add
 							other players and see their progress. Never lose track of your friends' cosmetics
@@ -218,7 +218,13 @@ const Home: React.FC = (): React.JSX.Element => {
 						</p>
 					</Fade>
 
-					<Fade className="mt-2" direction="up" triggerOnce duration={800} delay={100}>
+					<Fade
+						className="flex mt-2 sm:justify-center"
+						direction="up"
+						triggerOnce
+						duration={800}
+						delay={100}
+					>
 						<span className="text-sm text-gray-400">
 							If you don't know anyone who plays Labyrinthine, you can always join the{" "}
 							<a
