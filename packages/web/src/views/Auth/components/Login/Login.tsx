@@ -17,7 +17,9 @@ const Login: React.FC = (): React.JSX.Element => {
 				placeholder="Enter your username"
 				id="username"
 				value={username}
-				onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
+				onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
+					setUsername(e.target.value);
+				}}
 				required
 			/>
 
@@ -28,14 +30,16 @@ const Login: React.FC = (): React.JSX.Element => {
 				placeholder="Enter your password"
 				id="password"
 				value={password}
-				onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+				onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
+					setPassword(e.target.value);
+				}}
 				required
 			/>
 
 			<Checkbox
 				label="Remember me"
 				selected={rememberMe}
-				onChange={() => setRememberMe(!rememberMe)}
+				onChange={(): void => setRememberMe(!rememberMe)}
 				className="mt-8 text-sm text-gray-300"
 			/>
 
