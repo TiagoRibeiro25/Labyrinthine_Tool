@@ -17,7 +17,7 @@ interface AuthState {
 
 const useAuthStore = create<AuthState>((set) => ({
 	loggedUser: null as LoggedUser | null,
-	authToken: localStorage.getItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN) || "", // TODO: Change this to http only cookie
+	authToken: localStorage.getItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN) || "",
 	didFirstFetch: false,
 
 	setLoggedUser: (loggedUser: LoggedUser) => set({ loggedUser }),

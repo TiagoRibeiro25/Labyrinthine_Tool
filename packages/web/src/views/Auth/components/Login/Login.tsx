@@ -89,8 +89,14 @@ const Login: React.FC = (): React.JSX.Element => {
 		if (status === "success") {
 			setAuthToken(data.data.token);
 			setLoggedUser(data.data.user);
+
+			console.log(rememberMe);
+
+			if (rememberMe) {
+				localStorage.setItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN, data.data.token);
+			}
 		}
-	}, [addWarning, data, error, setAuthToken, setLoggedUser, status]);
+	}, [addWarning, data, error, rememberMe, setAuthToken, setLoggedUser, status]);
 
 	// When the user changes the input, remove the error(s) message(s)
 	useEffect(() => {

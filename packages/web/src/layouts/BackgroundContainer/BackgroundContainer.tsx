@@ -8,11 +8,11 @@ import DefaultBgImage from "../../assets/images/Chapter_1_Entrance.webp";
 import NotFoundImage from "../../assets/images/do_not_enter.png";
 import constants from "../../constants";
 import useAuthStore from "../../stores/auth";
-import { BaseResponseBodyData } from "../../types";
+import { SuccessResponseBodyData } from "../../types";
 import Navbar from "../Navbar/Navbar";
 import LoadingDots from "./components/LoadingDots/LoadingDots";
 
-type ResponseData = BaseResponseBodyData & {
+type ResponseData = SuccessResponseBodyData & {
 	data: {
 		user: {
 			id: string;
