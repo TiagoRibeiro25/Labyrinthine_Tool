@@ -26,7 +26,7 @@ const BackgroundContainer: React.FC<Props> = ({
 	const location = useLocation();
 	const [loadingState, setLoadingState] = useState<boolean>(true);
 
-	const getBgImage = (): string => {
+	const getBackgroundImage = (): string => {
 		if (location.pathname === constants.ROUTES.NOT_FOUND) {
 			return NotFoundImage;
 		}
@@ -56,7 +56,7 @@ const BackgroundContainer: React.FC<Props> = ({
 			<div className="h-full">
 				<Fade triggerOnce>
 					<img
-						src={getBgImage()}
+						src={getBackgroundImage()}
 						alt="Background Image"
 						className="absolute top-0 left-0 object-cover object-center w-full h-full -z-50"
 					/>
