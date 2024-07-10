@@ -9,4 +9,7 @@ export default {
 	OFFICIAL_DISCORD_INVITE_URL: "https://discord.gg/RfzqA4A",
 
 	ROUTES: routes,
+
+	// TODO: Change this to an environment variable
+	API_URL: "http://localhost:5000/api/v1",
 };

@@ -9,7 +9,7 @@ import MainTitleAnimation from "./components/MainTitleAnimation/MainTitleAnimati
 import WhyYouShouldUseContent from "./components/WhyYouShouldUseContent/WhyYouShouldUseContent";
 import cosmetics from "./cosmetics.json";
 
-const MAIN_TITLE_ANIMATION_DELAY = 1200;
+const MAIN_TITLE_ANIMATION_DELAY = 1500;
 const MAIN_TITLE_ANIMATION_DURATION = 1000;
 
 const Home: React.FC = (): React.JSX.Element => {
@@ -23,7 +23,7 @@ const Home: React.FC = (): React.JSX.Element => {
 			if (window.location.hash) {
 				document.querySelector(window.location.hash)?.scrollIntoView({ behavior: "smooth" });
 			}
-		}, MAIN_TITLE_ANIMATION_DELAY + MAIN_TITLE_ANIMATION_DURATION - 500);
+		}, MAIN_TITLE_ANIMATION_DELAY + MAIN_TITLE_ANIMATION_DURATION);
 
 		return (): void => {
 			clearTimeout(timeout);
@@ -46,7 +46,7 @@ const Home: React.FC = (): React.JSX.Element => {
 						<Fade
 							direction="up"
 							triggerOnce
-							delay={MAIN_TITLE_ANIMATION_DELAY - 400}
+							delay={MAIN_TITLE_ANIMATION_DELAY - 600}
 							duration={MAIN_TITLE_ANIMATION_DURATION}
 							className="mt-10 text-center duration-500 ease-in-out"
 						>

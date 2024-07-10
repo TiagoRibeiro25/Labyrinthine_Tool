@@ -6,16 +6,21 @@ import "./assets/fonts/Ubuntu/Ubuntu-Light.ttf";
 import "./assets/fonts/Ubuntu/Ubuntu-Medium.ttf";
 import "./assets/fonts/Ubuntu/Ubuntu-Regular.ttf";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./assets/fonts/Labyrinth/Labyrinth.ttf";
 import BackgroundContainer from "./layouts/BackgroundContainer/BackgroundContainer";
 
+const queryClient = new QueryClient();
+
 const App: React.FC = (): React.JSX.Element => {
 	return (
-		<BrowserRouter>
-			<BackgroundContainer>
-				<Navigation />
-			</BackgroundContainer>
-		</BrowserRouter>
+		<QueryClientProvider client={queryClient}>
+			<BrowserRouter>
+				<BackgroundContainer>
+					<Navigation />
+				</BackgroundContainer>
+			</BrowserRouter>
+		</QueryClientProvider>
 	);
 };
 

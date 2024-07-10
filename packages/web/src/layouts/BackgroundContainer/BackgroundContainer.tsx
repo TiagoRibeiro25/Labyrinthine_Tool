@@ -1,15 +1,28 @@
-import React, { PropsWithChildren, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { PropsWithChildren, useEffect } from "react";
 import { Fade } from "react-awesome-reveal";
 import { useLocation } from "react-router-dom";
 import AuthBgImage from "../../assets/images/candle.webp";
 import DefaultBgImage from "../../assets/images/Chapter_1_Entrance.webp";
 import NotFoundImage from "../../assets/images/do_not_enter.png";
 import constants from "../../constants";
+import useAuthStore from "../../stores/auth";
 import Navbar from "../Navbar/Navbar";
 import LoadingDots from "./components/LoadingDots/LoadingDots";
 
-const INITIAL_DELAY = 200;
-const INITIAL_DURATION = 1200;
+type ResponseData = {
+	user: {
+		id: string;
+		username: string;
+		discordUsername: string;
+		steamProfileUrl: string;
+		cosmetics: string[];
+		totalFriends: number;
+		friendRequestStatus: string;
+		isLoggedUser: boolean;
+		createdAt: string;
+	};
+};
 
 type Props = PropsWithChildren & {
 	renderNavbar?: boolean;
@@ -20,11 +33,44 @@ type Props = PropsWithChildren & {
 const BackgroundContainer: React.FC<Props> = ({
 	children,
 	renderNavbar = true,
-	loading = false,
 	loadingMessage = "Loading",
 }): React.JSX.Element => {
 	const location = useLocation();
-	const [loadingState, setLoadingState] = useState<boolean>(true);
+	const authToken = useAuthStore((state) => state.authToken);
+	const didFirstFetch = useAuthStore((state) => state.didFirstFetch);
+	const updateFirstFetch = useAuthStore((state) => state.updateFirstFetch);
+	const setLoggedUser = useAuthStore((state) => state.setLoggedUser);
+
+	const { data, status, refetch } = useQuery({
+		queryKey: ["getLoggedUser"],
+		queryFn: async () => {
+			const response = await fetch(constants.API_URL + "/users/me", {
+				method: "GET",
+				headers: { Authorization: authToken },
+			});
+
+			return (await response.json()) as ResponseData;
+		},
+		enabled: false,
+	});
+
+	useEffect(() => {
+		if (status === "success") {
+			updateFirstFetch();
+			setLoggedUser({
+				id: data.user.id,
+				username: data.user.username,
+			});
+		}
+	}, [data, setLoggedUser, status, updateFirstFetch]);
+
+	useEffect(() => {
+		if (authToken) {
+			refetch();
+		} else {
+			updateFirstFetch();
+		}
+	}, [authToken, didFirstFetch, refetch, updateFirstFetch]);
 
 	const getBackgroundImage = (): string => {
 		if (location.pathname === constants.ROUTES.NOT_FOUND) {
@@ -38,19 +84,6 @@ const BackgroundContainer: React.FC<Props> = ({
 		return DefaultBgImage;
 	};
 
-	useEffect(() => {
-		let timeout: number | undefined;
-
-		if (loadingState) {
-			// TODO (tiago): Ping the server to check if the user is authenticated
-			timeout = setTimeout(() => {
-				setLoadingState(false);
-			}, INITIAL_DURATION + INITIAL_DELAY);
-		}
-
-		return (): void => clearTimeout(timeout);
-	}, [loading, loadingState]);
-
 	return (
 		<div className="h-[100dvh]">
 			<div className="h-full">
@@ -62,14 +95,9 @@ const BackgroundContainer: React.FC<Props> = ({
 					/>
 				</Fade>
 
-				<Fade
-					className="flex justify-center h-full"
-					duration={INITIAL_DURATION}
-					delay={INITIAL_DELAY}
-					triggerOnce
-				>
+				<Fade className="flex justify-center h-full" duration={1200} delay={200} triggerOnce>
 					<div className="w-full bg-black bg-opacity-45 -z-40">
-						{loadingState ? (
+						{!didFirstFetch ? (
 							<div className="flex flex-row items-center justify-center h-full">
 								<h1 className="z-50 text-5xl font-bold labyrinth-font">{loadingMessage}</h1>
 								<LoadingDots className="z-50 w-10 h-10 mt-4 ml-2" />
