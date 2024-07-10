@@ -112,10 +112,9 @@ const Home: React.FC = (): React.JSX.Element => {
 									</div>
 								</Fade>
 
-								<div className="flex justify-center mt-12">
+								<div className="flex justify-center mt-16">
 									<Fade direction="up" triggerOnce duration={500} delay={1700}>
-										<Link
-											to="#why-should-you-use"
+										<button
 											onClick={(): void => {
 												document
 													.querySelector("#why-should-you-use")
@@ -123,7 +122,7 @@ const Home: React.FC = (): React.JSX.Element => {
 											}}
 										>
 											<DownArrowIcon className="w-8 h-8 cursor-pointer opacity-85< animate-bounce" />
-										</Link>
+										</button>
 									</Fade>
 								</div>
 							</div>

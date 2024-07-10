@@ -1,6 +1,7 @@
 import React, { PropsWithChildren, useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import { useLocation } from "react-router-dom";
+import AuthBgImage from "../../assets/images/candle.webp";
 import DefaultBgImage from "../../assets/images/Chapter_1_Entrance.webp";
 import NotFoundImage from "../../assets/images/do_not_enter.png";
 import Navbar from "../Navbar/Navbar";
@@ -25,12 +26,15 @@ const BackgroundContainer: React.FC<Props> = ({
 	const [loadingState, setLoadingState] = useState<boolean>(true);
 
 	const getBgImage = (): string => {
-		switch (location.pathname) {
-			case "/404":
-				return NotFoundImage;
-			default:
-				return DefaultBgImage;
+		if (location.pathname === "/404") {
+			return NotFoundImage;
 		}
+
+		if (location.pathname.startsWith("/auth")) {
+			return AuthBgImage;
+		}
+
+		return DefaultBgImage;
 	};
 
 	useEffect(() => {
