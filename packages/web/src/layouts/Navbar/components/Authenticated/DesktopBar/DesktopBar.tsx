@@ -3,7 +3,6 @@ import LogoutIcon from "../../../../../components/Icons/LogoutIcon/LogoutIcon";
 import QuestionIcon from "../../../../../components/Icons/QuestionIcon/QuestionIcon";
 import constants from "../../../../../constants";
 import NavButton from "../../NavButton/NavButton";
-import LogoutConfirmationModal from "../LogoutConfirmationModal/LogoutConfirmationModal";
 import Modal from "../../../../../components/Modal/Modal";
 import LogoutConfirmationModalContent from "../LogoutConfirmationModalContent/LogoutConfirmationModalContent";
 
@@ -59,7 +58,7 @@ const DesktopBar: React.FC = (): React.JSX.Element => {
 					show={showLogoutModal}
 					onClose={(): void => setShowLogoutModal(false)}
 				>
-					<LogoutConfirmationModalContent />
+					<LogoutConfirmationModalContent onCancel={(): void => setShowLogoutModal(false)} />
 				</Modal>
 			</div>
 		</div>
