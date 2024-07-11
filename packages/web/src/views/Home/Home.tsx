@@ -5,17 +5,16 @@ import { Link } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import DownArrowIcon from "../../components/Icons/DownArrowIcon/DownArrowIcon";
 import constants from "../../constants";
+import useAuthStore from "../../stores/auth";
 import MainTitleAnimation from "./components/MainTitleAnimation/MainTitleAnimation";
 import WhyYouShouldUseContent from "./components/WhyYouShouldUseContent/WhyYouShouldUseContent";
 import cosmetics from "./cosmetics.json";
-import useAuthStore from "../../stores/auth";
 
 const MAIN_TITLE_ANIMATION_DELAY = 1500;
 const MAIN_TITLE_ANIMATION_DURATION = 1000;
 
 const Home: React.FC = (): React.JSX.Element => {
 	const isAuthenticated: boolean = !!useAuthStore((state) => state.loggedUser);
-
 	const [isTitleAnimationOver, setIsTitleAnimationOver] = useState<boolean>(false);
 
 	useEffect(() => {
