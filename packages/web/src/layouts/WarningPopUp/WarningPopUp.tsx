@@ -8,7 +8,10 @@ const WarningPopUp: React.FC = (): React.JSX.Element => {
 	const deleteWarning = useWarningStore((state) => state.deleteWarning);
 
 	return (
-		<div className="fixed z-50 space-y-5 sm:top-10 sm:right-10 top-0 bottom-0">
+		<div
+			id="warnings-container"
+			className="fixed z-50 space-y-5 sm:top-10 sm:right-10 top-0 right-0"
+		>
 			{warnings.map((warning, index) => (
 				<Fade
 					key={warning.id}

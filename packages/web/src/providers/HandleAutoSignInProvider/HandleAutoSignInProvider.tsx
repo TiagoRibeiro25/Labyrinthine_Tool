@@ -26,6 +26,7 @@ const HandleAutoSignInProvider: React.FC<PropsWithChildren> = ({ children }): Re
 	const setLoadingMessage = useMainLoadingStore((state) => state.setLoadingMessage);
 
 	const authToken = useAuthStore((state) => state.authToken);
+	const loggedUser = useAuthStore((state) => state.loggedUser);
 	const setLoggedUser = useAuthStore((state) => state.setLoggedUser);
 
 	const { data, status, refetch } = useQuery({
@@ -52,14 +53,14 @@ const HandleAutoSignInProvider: React.FC<PropsWithChildren> = ({ children }): Re
 	}, [data, setIsLoading, setLoggedUser, status]);
 
 	useEffect(() => {
-		if (authToken) {
+		if (authToken && !loggedUser) {
 			refetch();
 			setIsLoading(true);
 			setLoadingMessage("Loading user data...");
 		} else {
 			setIsLoading(false);
 		}
-	}, [authToken, refetch, setIsLoading, setLoadingMessage]);
+	}, [authToken, loggedUser, refetch, setIsLoading, setLoadingMessage]);
 
 	return <>{children}</>;
 };
