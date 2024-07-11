@@ -28,6 +28,7 @@ const HandleAutoSignInProvider: React.FC<PropsWithChildren> = ({ children }): Re
 	const authToken = useAuthStore((state) => state.authToken);
 	const loggedUser = useAuthStore((state) => state.loggedUser);
 	const setLoggedUser = useAuthStore((state) => state.setLoggedUser);
+	const signOut = useAuthStore((state) => state.signOut);
 
 	const { data, status, refetch } = useQuery({
 		queryKey: ["getLoggedUser"],
@@ -45,19 +46,24 @@ const HandleAutoSignInProvider: React.FC<PropsWithChildren> = ({ children }): Re
 				id: data.data.user.id,
 				username: data.data.user.username,
 			});
+		} else if (status === "error") {
+			signOut();
 		}
 
 		if (status !== "pending") {
 			setIsLoading(false);
 		}
-	}, [data, setIsLoading, setLoggedUser, status]);
+	}, [data, setIsLoading, setLoggedUser, signOut, status]);
 
 	useEffect(() => {
 		if (authToken && !loggedUser) {
 			refetch();
 			setIsLoading(true);
 			setLoadingMessage("Loading user data...");
+			return;
 		}
+
+		setIsLoading(false);
 	}, [authToken, loggedUser, refetch, setIsLoading, setLoadingMessage]);
 
 	return <>{children}</>;
