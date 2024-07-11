@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import LogoutIcon from "../../../../../components/Icons/LogoutIcon/LogoutIcon";
 import QuestionIcon from "../../../../../components/Icons/QuestionIcon/QuestionIcon";
 import constants from "../../../../../constants";
 import NavButton from "../../NavButton/NavButton";
+import LogoutConfirmationModal from "../LogoutConfirmationModal/LogoutConfirmationModal";
+import Modal from "../../../../../components/Modal/Modal";
+import LogoutConfirmationModalContent from "../LogoutConfirmationModalContent/LogoutConfirmationModalContent";
 
 const DesktopBar: React.FC = (): React.JSX.Element => {
 	const [isLogoutButtonHovered, setIsLogoutButtonHovered] = useState<boolean>(false);
+	const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);
 
 	const handleClick = (target: string): void => {
 		if (target === "main") {
@@ -39,6 +43,7 @@ const DesktopBar: React.FC = (): React.JSX.Element => {
 				<NavButton
 					onMouseEnter={(): void => setIsLogoutButtonHovered(true)}
 					onMouseLeave={(): void => setIsLogoutButtonHovered(false)}
+					onClick={(): void => setShowLogoutModal(true)}
 				>
 					<LogoutIcon className="w-10 h-10" />
 				</NavButton>
@@ -48,6 +53,14 @@ const DesktopBar: React.FC = (): React.JSX.Element => {
 						<p className="text-xs">Logout</p>
 					</div>
 				)}
+
+				<Modal
+					id="logout-modal"
+					show={showLogoutModal}
+					onClose={(): void => setShowLogoutModal(false)}
+				>
+					<LogoutConfirmationModalContent />
+				</Modal>
 			</div>
 		</div>
 	);
