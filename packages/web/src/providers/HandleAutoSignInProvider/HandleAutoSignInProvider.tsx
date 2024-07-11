@@ -26,14 +26,13 @@ const HandleAutoSignInProvider: React.FC<PropsWithChildren> = ({ children }): Re
 	const setLoadingMessage = useMainLoadingStore((state) => state.setLoadingMessage);
 
 	const authToken = useAuthStore((state) => state.authToken);
-	const updateFirstFetch = useAuthStore((state) => state.updateFirstFetch);
 	const setLoggedUser = useAuthStore((state) => state.setLoggedUser);
 
 	const { data, status, refetch } = useQuery({
 		queryKey: ["getLoggedUser"],
 		queryFn: async () => {
 			const response = await api.get("/users/me", {
-				headers: { Authorization: authToken },
+				// headers: { Authorization: authToken },
 			});
 
 			return response.data as ResponseData;
@@ -50,10 +49,9 @@ const HandleAutoSignInProvider: React.FC<PropsWithChildren> = ({ children }): Re
 		}
 
 		if (status !== "pending") {
-			updateFirstFetch();
 			setIsLoading(false);
 		}
-	}, [data, setIsLoading, setLoggedUser, status, updateFirstFetch]);
+	}, [data, setIsLoading, setLoggedUser, status]);
 
 	useEffect(() => {
 		if (authToken) {
@@ -61,10 +59,9 @@ const HandleAutoSignInProvider: React.FC<PropsWithChildren> = ({ children }): Re
 			setIsLoading(true);
 			setLoadingMessage("Loading user data...");
 		} else {
-			updateFirstFetch();
 			setIsLoading(false);
 		}
-	}, [authToken, refetch, setIsLoading, setLoadingMessage, updateFirstFetch]);
+	}, [authToken, refetch, setIsLoading, setLoadingMessage]);
 
 	return <>{children}</>;
 };

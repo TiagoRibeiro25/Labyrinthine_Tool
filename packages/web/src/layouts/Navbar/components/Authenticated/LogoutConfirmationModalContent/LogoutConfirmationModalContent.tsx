@@ -21,7 +21,7 @@ const LogoutConfirmationModalContent: React.FC<Props> = ({
 	};
 
 	return (
-		<form id="logout-form" onReset={handleReset} onSubmit={onConfirm}>
+		<form id="logout-form" onReset={handleReset} onSubmit={handleSubmit}>
 			<h2 className="text-center text-2xl font-bold labyrinth-font">
 				Are you sure you want to log out?
 			</h2>

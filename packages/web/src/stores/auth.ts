@@ -18,7 +18,16 @@ const useAuthStore = create<AuthState>((set) => ({
 	authToken: localStorage.getItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN) || "",
 
 	setLoggedUser: (loggedUser: LoggedUser) => set({ loggedUser }),
-	setAuthToken: (authToken: string) => set({ authToken }),
+	setAuthToken: (authToken: string) => {
+		set({ authToken });
+
+		// Check if there's an old token in the local storage
+		// If so, that means the user was logged in before with the "remember me" option checked
+		// So we set the token in the local storage again to keep the user logged in for future visits
+		if (localStorage.getItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN)) {
+			localStorage.setItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN, authToken);
+		}
+	},
 }));
 
 export default useAuthStore;
