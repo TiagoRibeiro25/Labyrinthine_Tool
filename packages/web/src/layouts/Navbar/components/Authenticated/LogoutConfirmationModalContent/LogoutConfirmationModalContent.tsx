@@ -12,7 +12,6 @@ const LogoutConfirmationModalContent: React.FC<Props> = ({
 }): React.JSX.Element => {
 	const handleAction = (event: React.FormEvent<HTMLFormElement>, action: () => void): void => {
 		event.preventDefault();
-		console.log(typeof action);
 		action();
 	};
 

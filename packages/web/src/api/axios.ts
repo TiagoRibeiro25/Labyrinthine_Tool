@@ -32,7 +32,6 @@ api.interceptors.response.use((response) => {
 	return response;
 });
 
-// On every api error, log the error to the console
 api.interceptors.response.use(
 	(response) => response,
 	(error) => {

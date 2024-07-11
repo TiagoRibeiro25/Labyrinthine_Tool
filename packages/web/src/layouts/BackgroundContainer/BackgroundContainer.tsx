@@ -5,9 +5,9 @@ import AuthBgImage from "../../assets/images/candle.webp";
 import DefaultBgImage from "../../assets/images/Chapter_1_Entrance.webp";
 import NotFoundImage from "../../assets/images/do_not_enter.png";
 import constants from "../../constants";
+import useMainLoadingStore from "../../stores/mainLoading";
 import Navbar from "../Navbar/Navbar";
 import LoadingDots from "./components/LoadingDots/LoadingDots";
-import useMainLoadingStore from "../../stores/mainLoading";
 
 type Props = PropsWithChildren & {
 	renderNavbar?: boolean;

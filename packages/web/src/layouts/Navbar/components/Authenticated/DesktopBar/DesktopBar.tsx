@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import LogoutIcon from "../../../../../components/Icons/LogoutIcon/LogoutIcon";
 import QuestionIcon from "../../../../../components/Icons/QuestionIcon/QuestionIcon";
+import Modal from "../../../../../components/Modal/Modal";
 import constants from "../../../../../constants";
 import NavButton from "../../NavButton/NavButton";
-import Modal from "../../../../../components/Modal/Modal";
 import LogoutConfirmationModalContent from "../LogoutConfirmationModalContent/LogoutConfirmationModalContent";
 
 const DesktopBar: React.FC = (): React.JSX.Element => {
