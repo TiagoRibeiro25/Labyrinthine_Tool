@@ -6,6 +6,7 @@ import MoreIcon from "../../../../../components/Icons/MoreIcon/MoreIcon";
 import QuestionIcon from "../../../../../components/Icons/QuestionIcon/QuestionIcon";
 import UserIcon from "../../../../../components/Icons/UserIcon/UserIcon";
 import constants from "../../../../../constants";
+import NavButton from "../../NavButton/NavButton";
 
 const MobileBar: React.FC = (): React.JSX.Element => {
 	const [subMenuOpened, setSubMenuOpened] = useState<boolean>(false);
@@ -26,54 +27,39 @@ const MobileBar: React.FC = (): React.JSX.Element => {
 		<>
 			<div className="sm:hidden h-[80px] w-full bg-black fixed bottom-0 left-0 z-20 items-center justify-between flex px-5">
 				<Fade triggerOnce className="pt-3" direction="left" duration={300} delay={100}>
-					<Link
+					<NavButton
 						to={constants.ROUTES.HOME}
-						className="w-12 text-6xl text-white transition-opacity duration-300 labyrinth-font opacity-85 hover:opacity-100"
+						className="w-12 text-6xl labyrinth-font"
 						onClick={(): void => handleClick("main")}
 					>
 						L
-					</Link>
+					</NavButton>
 				</Fade>
 
-				<Fade triggerOnce direction="up" duration={300} delay={100}>
-					<button
-						className="text-6xl text-white transition-opacity duration-300 labyrinth-font opacity-85 hover:opacity-100"
-						onClick={(): void => setSubMenuOpened(!subMenuOpened)}
-					>
+				<Fade className="justify-center flex" triggerOnce direction="up" duration={300} delay={100}>
+					<NavButton onClick={(): void => setSubMenuOpened(!subMenuOpened)}>
 						{subMenuOpened ? (
 							<CloseIcon className="w-20 h-20" />
 						) : (
 							<MoreIcon className="w-12 h-12" />
 						)}
-					</button>
+					</NavButton>
 				</Fade>
 
 				<Fade triggerOnce direction="right" duration={300} delay={100}>
-					<Link
-						to={constants.ROUTES.AUTH.LOGIN}
-						className="text-white transition-opacity duration-300 opacity-85 hover:opacity-100"
-					>
+					<NavButton to={constants.ROUTES.AUTH.LOGIN}>
 						<UserIcon className="w-12 h-12" />
-					</Link>
+					</NavButton>
 				</Fade>
 			</div>
 
 			{subMenuOpened && (
 				<div className="sm:hidden h-[80px] w-full fixed bottom-[80px] left-0 z-10 flex justify-evenly">
-					<Fade
-						triggerOnce
-						direction="up"
-						duration={300}
-						delay={100}
-						className="w-full h-full"
-					>
+					<Fade triggerOnce direction="up" duration={300} delay={100} className="w-full h-full">
 						<div className="flex items-center justify-between w-full h-full px-5 bg-black bg-opacity-70">
-							<Link
-								to={constants.ROUTES.HOME}
-								className="text-white transition-opacity duration-300 opacity-85 hover:opacity-100"
-							>
+							<NavButton to={constants.ROUTES.HOME}>
 								<QuestionIcon className="w-11 h-11" />
-							</Link>
+							</NavButton>
 						</div>
 					</Fade>
 				</div>

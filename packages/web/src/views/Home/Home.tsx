@@ -8,11 +8,14 @@ import constants from "../../constants";
 import MainTitleAnimation from "./components/MainTitleAnimation/MainTitleAnimation";
 import WhyYouShouldUseContent from "./components/WhyYouShouldUseContent/WhyYouShouldUseContent";
 import cosmetics from "./cosmetics.json";
+import useAuthStore from "../../stores/auth";
 
 const MAIN_TITLE_ANIMATION_DELAY = 1500;
 const MAIN_TITLE_ANIMATION_DURATION = 1000;
 
 const Home: React.FC = (): React.JSX.Element => {
+	const isAuthenticated: boolean = !!useAuthStore((state) => state.loggedUser);
+
 	const [isTitleAnimationOver, setIsTitleAnimationOver] = useState<boolean>(false);
 
 	useEffect(() => {
@@ -22,9 +25,7 @@ const Home: React.FC = (): React.JSX.Element => {
 
 				// Check if there's a hash in the URL and scroll to it
 				if (window.location.hash) {
-					document
-						.querySelector(window.location.hash)
-						?.scrollIntoView({ behavior: "smooth" });
+					document.querySelector(window.location.hash)?.scrollIntoView({ behavior: "smooth" });
 				}
 			},
 			MAIN_TITLE_ANIMATION_DELAY + MAIN_TITLE_ANIMATION_DURATION - 200
@@ -76,8 +77,8 @@ const Home: React.FC = (): React.JSX.Element => {
 
 							<Fade direction="up" triggerOnce duration={800} delay={600}>
 								<h3 className="mt-4 text-xl text-center md:text-start">
-									Never lose track of your cosmetics again, and always know what you need
-									to find to complete your collection
+									Never lose track of your cosmetics again, and always know what you need to find to
+									complete your collection
 								</h3>
 							</Fade>
 
@@ -146,20 +147,13 @@ const Home: React.FC = (): React.JSX.Element => {
 					</Fade>
 
 					<div className="flex flex-col-reverse items-center pt-16 space-y-8 lg:items-start lg:space-x-12 lg:space-y-0 lg:flex-row">
-						<Fade
-							direction="left"
-							triggerOnce
-							duration={800}
-							delay={200}
-							className="lg:w-1/2"
-						>
+						<Fade direction="left" triggerOnce duration={800} delay={200} className="lg:w-1/2">
 							<div className="flex flex-col mt-12 lg:mt-0">
 								<p className="text-lg text-justify sm:text-start lg:pt-4">
-									Labyrinthine is a co-op horror game like no other... Play with 1-4
-									players online as you solve puzzles, collect items and run from the
-									horrors that lie within. Follow in the footsteps of Joan in the story
-									mode or tackle procedurally generated maps that scale with your level
-									and bring a fresh experience each game..
+									Labyrinthine is a co-op horror game like no other... Play with 1-4 players online
+									as you solve puzzles, collect items and run from the horrors that lie within.
+									Follow in the footsteps of Joan in the story mode or tackle procedurally generated
+									maps that scale with your level and bring a fresh experience each game..
 								</p>
 
 								<div className="flex justify-center mt-12 lg:mt-6">
@@ -170,13 +164,7 @@ const Home: React.FC = (): React.JSX.Element => {
 							</div>
 						</Fade>
 
-						<Fade
-							direction="right"
-							triggerOnce
-							duration={800}
-							delay={200}
-							className="lg:w-1/2"
-						>
+						<Fade direction="right" triggerOnce duration={800} delay={200} className="lg:w-1/2">
 							<video autoPlay loop muted playsInline className="rounded-3xl">
 								<source src={constants.GAME_TAILER_URL} type="video/webm" />
 								Your browser does not support video playback
@@ -190,27 +178,25 @@ const Home: React.FC = (): React.JSX.Element => {
 					className="p-5 mt-40 bg-black bg-opacity-50 border rounded-3xl"
 				>
 					<Fade direction="up" triggerOnce duration={800} delay={100}>
-						<h2 className="text-3xl text-center labyrinth-font sm:text-start">
-							Important Note
-						</h2>
+						<h2 className="text-3xl text-center labyrinth-font sm:text-start">Important Note</h2>
 					</Fade>
 
 					<Fade direction="up" triggerOnce duration={800} delay={200}>
 						<p className="mt-8 text-lg text-justify sm:text-start">
-							This website is not affiliated with or endorsed by Labyrinthine, its
-							developers, or its publishers. All copyrights and trademarks are the
-							property of their respective owners.
+							This website is not affiliated with or endorsed by Labyrinthine, its developers, or
+							its publishers. All copyrights and trademarks are the property of their respective
+							owners.
 						</p>
 
 						<p className="mt-8 text-lg text-justify sm:text-start">
-							All cosmetics images are property of Labyrinthine and are used for
-							illustrative purposes only.
+							All cosmetics images are property of Labyrinthine and are used for illustrative
+							purposes only.
 						</p>
 
 						<p className="mt-8 text-lg text-justify sm:text-start">
-							I have no control over the availability of the game, its cosmetics, or the
-							game's updates. This website is a fan-made project to help players keep
-							track of their progress in the game.
+							I have no control over the availability of the game, its cosmetics, or the game's
+							updates. This website is a fan-made project to help players keep track of their
+							progress in the game.
 						</p>
 					</Fade>
 				</section>
@@ -222,10 +208,9 @@ const Home: React.FC = (): React.JSX.Element => {
 
 					<Fade direction="up" triggerOnce duration={800} delay={100}>
 						<p className="mt-8 text-lg text-justify sm:text-center">
-							Do you have friends who play Labyrinthine? Or maybe you want to help other
-							players complete their cosmetics collection? With this tool, you can easily
-							add other players and see their progress. Never lose track of your friends'
-							cosmetics again!
+							Do you have friends who play Labyrinthine? Or maybe you want to help other players
+							complete their cosmetics collection? With this tool, you can easily add other players
+							and see their progress. Never lose track of your friends' cosmetics again!
 						</p>
 					</Fade>
 
@@ -251,12 +236,14 @@ const Home: React.FC = (): React.JSX.Element => {
 					</Fade>
 				</section>
 
-				<section id="create-account" className="flex justify-center py-40">
-					<Fade direction="up" triggerOnce duration={800} delay={100}>
-						<Link to={constants.ROUTES.AUTH.SIGNUP}>
-							<Button className="w-[208px]">Create an account now</Button>
-						</Link>
-					</Fade>
+				<section id="create-account" className="flex justify-center py-32">
+					{!isAuthenticated && (
+						<Fade direction="up" triggerOnce duration={800} delay={100}>
+							<Link to={constants.ROUTES.AUTH.SIGNUP}>
+								<Button className="w-[208px]">Create an account now</Button>
+							</Link>
+						</Fade>
+					)}
 				</section>
 			</div>
 		</div>
