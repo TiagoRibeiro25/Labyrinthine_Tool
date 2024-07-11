@@ -45,7 +45,7 @@ const Login: React.FC = (): React.JSX.Element => {
 			return response.data as SuccessResponseData;
 		},
 		enabled: false,
-		retry: 0,
+		retry: false,
 	});
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {

@@ -35,6 +35,7 @@ const HandleAutoSignInProvider: React.FC<PropsWithChildren> = ({ children }): Re
 			return response.data as ResponseData;
 		},
 		enabled: false,
+		retry: false,
 	});
 
 	useEffect(() => {

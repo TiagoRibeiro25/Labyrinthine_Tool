@@ -18,7 +18,7 @@ const WarningPopUp: React.FC = (): React.JSX.Element => {
 					delay={100 + index * 10}
 				>
 					<div
-						className={`flex flex-row items-center rounded-md pl-3.5 p-2 border ${
+						className={`flex flex-row items-center rounded-md pl-3.5 p-2 border bg-black bg-opacity-75 ${
 							warning.type === "error"
 								? "text-red-500 border-red-500"
 								: "text-yellow-500 border-yellow-500"
