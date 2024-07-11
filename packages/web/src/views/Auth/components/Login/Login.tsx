@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../../../../api/axios";
 import Button from "../../../../components/Button/Button";
 import Checkbox from "../../../../components/Checkbox/Checkbox";
@@ -94,8 +94,6 @@ const Login: React.FC = (): React.JSX.Element => {
 			if (rememberMe) {
 				localStorage.setItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN, data.data.token);
 			}
-
-			// TODO: Redirect the user to the profile page
 		}
 	}, [addWarning, data, error, rememberMe, setAuthToken, setLoggedUser, status]);
 
