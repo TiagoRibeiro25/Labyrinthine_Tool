@@ -16,14 +16,19 @@ const Home: React.FC = (): React.JSX.Element => {
 	const [isTitleAnimationOver, setIsTitleAnimationOver] = useState<boolean>(false);
 
 	useEffect(() => {
-		const timeout = setTimeout(() => {
-			setIsTitleAnimationOver(true);
+		const timeout = setTimeout(
+			() => {
+				setIsTitleAnimationOver(true);
 
-			// Check if there's a hash in the URL and scroll to it
-			if (window.location.hash) {
-				document.querySelector(window.location.hash)?.scrollIntoView({ behavior: "smooth" });
-			}
-		}, MAIN_TITLE_ANIMATION_DELAY + MAIN_TITLE_ANIMATION_DURATION - 200);
+				// Check if there's a hash in the URL and scroll to it
+				if (window.location.hash) {
+					document
+						.querySelector(window.location.hash)
+						?.scrollIntoView({ behavior: "smooth" });
+				}
+			},
+			MAIN_TITLE_ANIMATION_DELAY + MAIN_TITLE_ANIMATION_DURATION - 200
+		);
 
 		return (): void => {
 			clearTimeout(timeout);
@@ -71,8 +76,8 @@ const Home: React.FC = (): React.JSX.Element => {
 
 							<Fade direction="up" triggerOnce duration={800} delay={600}>
 								<h3 className="mt-4 text-xl text-center md:text-start">
-									Never lose track of your cosmetics again, and always know what you need to
-									find to complete your collection
+									Never lose track of your cosmetics again, and always know what you need
+									to find to complete your collection
 								</h3>
 							</Fade>
 
@@ -99,11 +104,12 @@ const Home: React.FC = (): React.JSX.Element => {
 											gradientColor="black"
 											gradientWidth={200}
 										>
-											{cosmetics.map((cosmetic: string, index: number) => (
+											{cosmetics.map((cosmetic, index: number) => (
 												<div key={index} className="flex flex-col items-center mr-8">
 													<img
-														src={cosmetic}
-														alt={cosmetic}
+														// Fallback is the local image if the remote one fails to load (located in public folder)
+														src={cosmetic.img || cosmetic.fallback}
+														alt={cosmetic.alt + " Cosmetic"}
 														className="object-cover w-32 h-32 rounded-3xl"
 													/>
 												</div>
@@ -140,14 +146,20 @@ const Home: React.FC = (): React.JSX.Element => {
 					</Fade>
 
 					<div className="flex flex-col-reverse items-center pt-16 space-y-8 lg:items-start lg:space-x-12 lg:space-y-0 lg:flex-row">
-						<Fade direction="left" triggerOnce duration={800} delay={200} className="lg:w-1/2">
+						<Fade
+							direction="left"
+							triggerOnce
+							duration={800}
+							delay={200}
+							className="lg:w-1/2"
+						>
 							<div className="flex flex-col mt-12 lg:mt-0">
 								<p className="text-lg text-justify sm:text-start lg:pt-4">
-									Labyrinthine is a co-op horror game like no other... Play with 1-4 players
-									online as you solve puzzles, collect items and run from the horrors that lie
-									within. Follow in the footsteps of Joan in the story mode or tackle
-									procedurally generated maps that scale with your level and bring a fresh
-									experience each game..
+									Labyrinthine is a co-op horror game like no other... Play with 1-4
+									players online as you solve puzzles, collect items and run from the
+									horrors that lie within. Follow in the footsteps of Joan in the story
+									mode or tackle procedurally generated maps that scale with your level
+									and bring a fresh experience each game..
 								</p>
 
 								<div className="flex justify-center mt-12 lg:mt-6">
@@ -185,20 +197,20 @@ const Home: React.FC = (): React.JSX.Element => {
 
 					<Fade direction="up" triggerOnce duration={800} delay={200}>
 						<p className="mt-8 text-lg text-justify sm:text-start">
-							This website is not affiliated with or endorsed by Labyrinthine, its developers,
-							or its publishers. All copyrights and trademarks are the property of their
-							respective owners.
+							This website is not affiliated with or endorsed by Labyrinthine, its
+							developers, or its publishers. All copyrights and trademarks are the
+							property of their respective owners.
 						</p>
 
 						<p className="mt-8 text-lg text-justify sm:text-start">
-							All cosmetics images are property of Labyrinthine and are used for illustrative
-							purposes only.
+							All cosmetics images are property of Labyrinthine and are used for
+							illustrative purposes only.
 						</p>
 
 						<p className="mt-8 text-lg text-justify sm:text-start">
-							I have no control over the availability of the game, its cosmetics, or the game's
-							updates. This website is a fan-made project to help players keep track of their
-							progress in the game.
+							I have no control over the availability of the game, its cosmetics, or the
+							game's updates. This website is a fan-made project to help players keep
+							track of their progress in the game.
 						</p>
 					</Fade>
 				</section>
@@ -211,9 +223,9 @@ const Home: React.FC = (): React.JSX.Element => {
 					<Fade direction="up" triggerOnce duration={800} delay={100}>
 						<p className="mt-8 text-lg text-justify sm:text-center">
 							Do you have friends who play Labyrinthine? Or maybe you want to help other
-							players complete their cosmetics collection? With this tool, you can easily add
-							other players and see their progress. Never lose track of your friends' cosmetics
-							again!
+							players complete their cosmetics collection? With this tool, you can easily
+							add other players and see their progress. Never lose track of your friends'
+							cosmetics again!
 						</p>
 					</Fade>
 

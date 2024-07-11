@@ -14,16 +14,16 @@ import WarningPopUp from "./layouts/WarningPopUp/WarningPopUp";
 const queryClient = new QueryClient();
 
 const App: React.FC = (): React.JSX.Element => {
-	return (
-		<QueryClientProvider client={queryClient}>
-			<BrowserRouter>
-				<BackgroundContainer loadingMessage="Logging in...">
-					<Navigation />
-				</BackgroundContainer>
-				<WarningPopUp />
-			</BrowserRouter>
-		</QueryClientProvider>
-	);
+  return (
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <BackgroundContainer loadingMessage="Logging in...">
+          <Navigation />
+        </BackgroundContainer>
+        <WarningPopUp />
+      </BrowserRouter>
+    </QueryClientProvider>
+  );
 };
 
 export default App;

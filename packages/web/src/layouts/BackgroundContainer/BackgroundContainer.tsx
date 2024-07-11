@@ -101,11 +101,18 @@ const BackgroundContainer: React.FC<Props> = ({
 					/>
 				</Fade>
 
-				<Fade className="flex justify-center h-full" duration={1200} delay={200} triggerOnce>
+				<Fade
+					className="flex justify-center h-full"
+					duration={1200}
+					delay={200}
+					triggerOnce
+				>
 					<div className="w-full bg-black bg-opacity-45 -z-40">
 						{!didFirstFetch ? (
 							<div className="flex flex-row items-center justify-center h-full">
-								<h1 className="z-50 text-5xl font-bold labyrinth-font">{loadingMessage}</h1>
+								<h1 className="z-50 text-5xl font-bold labyrinth-font">
+									{loadingMessage}
+								</h1>
 								<LoadingDots className="z-50 w-10 h-10 mt-4 ml-2" />
 							</div>
 						) : (
@@ -117,7 +124,9 @@ const BackgroundContainer: React.FC<Props> = ({
 									duration={1200}
 									triggerOnce
 								>
-									<main className="h-full overflow-x-hidden overflow-y-auto">{children}</main>
+									<main className="h-full overflow-x-hidden overflow-y-auto">
+										{children}
+									</main>
 								</Fade>
 							</div>
 						)}

@@ -90,11 +90,12 @@ const Login: React.FC = (): React.JSX.Element => {
 			setAuthToken(data.data.token);
 			setLoggedUser(data.data.user);
 
-			console.log(rememberMe);
-
+			// Save the token in the local storage if the user wants to be remembered
 			if (rememberMe) {
 				localStorage.setItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN, data.data.token);
 			}
+
+			// TODO: Redirect the user to the profile page
 		}
 	}, [addWarning, data, error, rememberMe, setAuthToken, setLoggedUser, status]);
 
