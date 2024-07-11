@@ -10,18 +10,18 @@ const LogoutConfirmationModalContent: React.FC<Props> = ({
 	onConfirm,
 	onCancel,
 }): React.JSX.Element => {
-	const handleReset = (event: React.FormEvent<HTMLFormElement>) => {
+	const handleAction = (event: React.FormEvent<HTMLFormElement>, action: () => void): void => {
 		event.preventDefault();
-		onCancel();
-	};
-
-	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-		onConfirm();
+		console.log(typeof action);
+		action();
 	};
 
 	return (
-		<form id="logout-form" onReset={handleReset} onSubmit={handleSubmit}>
+		<form
+			id="logout-form"
+			onReset={(event) => handleAction(event, onCancel)}
+			onSubmit={(event) => handleAction(event, onConfirm)}
+		>
 			<h2 className="text-center text-2xl font-bold labyrinth-font">
 				Are you sure you want to log out?
 			</h2>

@@ -31,10 +31,7 @@ const HandleAutoSignInProvider: React.FC<PropsWithChildren> = ({ children }): Re
 	const { data, status, refetch } = useQuery({
 		queryKey: ["getLoggedUser"],
 		queryFn: async () => {
-			const response = await api.get("/users/me", {
-				// headers: { Authorization: authToken },
-			});
-
+			const response = await api.get("/users/me");
 			return response.data as ResponseData;
 		},
 		enabled: false,

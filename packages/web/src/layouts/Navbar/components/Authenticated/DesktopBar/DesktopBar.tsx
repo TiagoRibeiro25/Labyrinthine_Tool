@@ -58,7 +58,12 @@ const DesktopBar: React.FC = (): React.JSX.Element => {
 					show={showLogoutModal}
 					onClose={(): void => setShowLogoutModal(false)}
 				>
-					<LogoutConfirmationModalContent onCancel={(): void => setShowLogoutModal(false)} />
+					<LogoutConfirmationModalContent
+						onConfirm={(): void => {
+							console.log("logout");
+						}}
+						onCancel={(): void => setShowLogoutModal(false)}
+					/>
 				</Modal>
 			</div>
 		</div>

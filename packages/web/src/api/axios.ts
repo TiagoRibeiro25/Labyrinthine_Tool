@@ -21,9 +21,11 @@ api.interceptors.request.use((request) => {
 });
 
 api.interceptors.response.use((response) => {
-	if (response.headers.authorization) {
-		const authToken = response.headers.authorization;
-		useAuthStore.getState().setAuthToken(authToken);
+	// Check if the response has a new auth token
+	const refreshedAuthToken = response.headers.authorization;
+	if (refreshedAuthToken) {
+		// If it does, update the auth token in the store
+		useAuthStore.getState().setAuthToken(refreshedAuthToken);
 	}
 
 	return response;
