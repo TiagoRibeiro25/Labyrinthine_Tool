@@ -57,8 +57,6 @@ const HandleAutoSignInProvider: React.FC<PropsWithChildren> = ({ children }): Re
 			refetch();
 			setIsLoading(true);
 			setLoadingMessage("Loading user data...");
-		} else {
-			setIsLoading(false);
 		}
 	}, [authToken, loggedUser, refetch, setIsLoading, setLoadingMessage]);
 
