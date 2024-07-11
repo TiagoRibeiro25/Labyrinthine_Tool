@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import constants from "../constants";
 
 type Warning = {
 	id: number;
@@ -27,7 +28,7 @@ const useWarningStore = create<WarningState>((set) => ({
 			set((state) => ({
 				warnings: state.warnings.filter((w) => w.id !== warning.id),
 			}));
-		}, 5000);
+		}, constants.WARNINGS.MILLISECONDS_BEFORE_REMOVAL);
 	},
 
 	deleteWarning: (id: number) => {

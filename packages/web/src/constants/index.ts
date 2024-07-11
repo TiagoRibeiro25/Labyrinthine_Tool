@@ -10,6 +10,10 @@ export default {
 
 	ROUTES: routes,
 
+	WARNINGS: {
+		MILLISECONDS_BEFORE_REMOVAL: 5000,
+	},
+
 	LOCAL_STORAGE_KEYS: {
 		AUTH_TOKEN: "authToken",
 	},
