@@ -48,14 +48,14 @@ const Login: React.FC = (): React.JSX.Element => {
 		retry: false,
 	});
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault();
 
 		if (usernameError || passwordError || !username || !password) {
 			return;
 		}
 
-		refetch();
+		await refetch();
 	};
 
 	// Handle the response
