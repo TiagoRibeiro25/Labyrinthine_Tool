@@ -136,7 +136,7 @@ const AuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.Elem
 				onClose={(): void => setShowLogoutModal(false)}
 			>
 				{isLoading ? (
-					<p>Loading...</p>
+					<h2 className="text-2xl font-bold text-center labyrinth-font mt-3">Signning out...</h2>
 				) : (
 					<LogoutConfirmationModalContent
 						onConfirm={handleLogout}
