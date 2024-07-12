@@ -9,6 +9,7 @@ import constants from "../../constants";
 import useMainLoadingStore from "../../stores/mainLoading";
 import Navbar from "../Navbar/Navbar";
 import LoadingDots from "./components/LoadingDots/LoadingDots";
+import LoadingBg from "../../assets/images/loading.jpg";
 
 type Props = PropsWithChildren & {
 	renderNavbar?: boolean;
@@ -25,6 +26,10 @@ const BackgroundContainer: React.FC<Props> = ({
 	const loadingMessage = useMainLoadingStore((state) => state.loadingMessage);
 
 	const getBackgroundImage = (): string => {
+		if (isLoading) {
+			return LoadingBg;
+		}
+
 		if (location.pathname === constants.ROUTES.NOT_FOUND) {
 			return NotFoundImage;
 		}
