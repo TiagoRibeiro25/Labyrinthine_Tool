@@ -11,7 +11,7 @@ interface mainLoadingState {
 
 const useMainLoadingStore = create<mainLoadingState>((set) => ({
 	isLoading: true,
-	loadingMessage: "Loading...",
+	loadingMessage: "Loading",
 
 	setIsLoading: (isLoading: boolean) => {
 		set({ isLoading });
