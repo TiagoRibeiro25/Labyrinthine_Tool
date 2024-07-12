@@ -18,5 +18,9 @@ export default {
 		AUTH_TOKEN: "authToken",
 	},
 
+	SESSION_STORAGE_KEYS: {
+		WHY_SHOULD_YOU_USE_ARROW_POSITION: "whyShouldYouUseArrowPosition",
+	},
+
 	API_URL: import.meta.env.VITE_API_URL,
 };

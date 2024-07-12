@@ -4,6 +4,7 @@ import FreeToUseIcon from "../../../../components/Icons/FreeToUseIcon/FreeToUseI
 import OpenSourceIcon from "../../../../components/Icons/OpenSourceIcon/OpenSourceIcon";
 import UpToDateIcon from "../../../../components/Icons/UpToDateIcon/UpToDateIcon";
 import ReasonToUseCard from "./components/ReasonToUseCard/ReasonToUseCard";
+import constants from "../../../../constants";
 
 type ArrowPositon = "left" | "center" | "right";
 const DEFAULT_ARROW_POSITION = "left";
@@ -15,7 +16,9 @@ const WhyYouShouldUseContent: React.FC = (): React.JSX.Element => {
 		// If it's null, it means it's the first time the component is being rendered
 		if (!arrowPosition) {
 			// Try to get the arrowPosition state from the session storage
-			const cachedValue = sessionStorage.getItem("whyShouldYouUseArrowPosition");
+			const cachedValue = sessionStorage.getItem(
+				constants.SESSION_STORAGE_KEYS.WHY_SHOULD_YOU_USE_ARROW_POSITION
+			);
 
 			// If it exists and is a valid value, set it
 			if (cachedValue && ["left", "center", "right"].includes(cachedValue)) {
@@ -27,7 +30,10 @@ const WhyYouShouldUseContent: React.FC = (): React.JSX.Element => {
 
 		// Update the session storage with the new value on every arrowPosition change
 		else {
-			sessionStorage.setItem("whyShouldYouUseArrowPosition", arrowPosition);
+			sessionStorage.setItem(
+				constants.SESSION_STORAGE_KEYS.WHY_SHOULD_YOU_USE_ARROW_POSITION,
+				arrowPosition
+			);
 		}
 	}, [arrowPosition]);
 
@@ -76,11 +82,10 @@ const WhyYouShouldUseContent: React.FC = (): React.JSX.Element => {
 						{arrowPosition === "left" && (
 							<Fade triggerOnce fraction={0.7}>
 								<p className="text-justify">
-									By being open source, it means that the code is available for anyone to see
-									and contribute to. This allows anyone to see how the tool works and even
-									suggest improvements. There's no hidden code or secrets, everything is out in
-									the open. If you're a developer or just curious, you can check out the code
-									on{" "}
+									By being open source, it means that the code is available for anyone to see and
+									contribute to. This allows anyone to see how the tool works and even suggest
+									improvements. There's no hidden code or secrets, everything is out in the open. If
+									you're a developer or just curious, you can check out the code on{" "}
 									<a
 										href="#"
 										target="_blank"
@@ -97,9 +102,9 @@ const WhyYouShouldUseContent: React.FC = (): React.JSX.Element => {
 						{arrowPosition === "center" && (
 							<Fade triggerOnce fraction={0.4}>
 								<p className="text-justify">
-									You don't need to pay anything to use this tool. It's completely free to use
-									and always will be. There are no ads, no subscriptions, and no hidden fees.
-									Just use the tool as much as you want, whenever you want, for free.
+									You don't need to pay anything to use this tool. It's completely free to use and
+									always will be. There are no ads, no subscriptions, and no hidden fees. Just use
+									the tool as much as you want, whenever you want, for free.
 								</p>
 							</Fade>
 						)}
@@ -107,10 +112,9 @@ const WhyYouShouldUseContent: React.FC = (): React.JSX.Element => {
 						{arrowPosition === "right" && (
 							<Fade triggerOnce fraction={0.4}>
 								<p className="text-justify">
-									As soon as new cosmetics are added to the game, they are added to the tool. I
-									try to keep the tool up to date as soon as possible after new cosmetics are
-									added. This means you can always rely on the tool to have the latest
-									information.
+									As soon as new cosmetics are added to the game, they are added to the tool. I try
+									to keep the tool up to date as soon as possible after new cosmetics are added.
+									This means you can always rely on the tool to have the latest information.
 								</p>
 							</Fade>
 						)}
