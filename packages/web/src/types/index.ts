@@ -9,3 +9,9 @@ export type ErrorResponseBodyData = {
 	error?: string;
 	code?: string;
 };
+
+export type FriendStatus =
+	| "none"
+	| "waiting for the other user to accept"
+	| "the other user is waiting for you to accept"
+	| "friends";

@@ -65,7 +65,7 @@ export default {
 		for (const request of user.receivedRequests) {
 			if (request.senderId === loggedUserId) {
 				friendRequestStatus =
-					request.status === "pending" ? "waiting for the other user to accept" : "accepted";
+					request.status === "pending" ? "waiting for the other user to accept" : "friends";
 				break;
 			}
 		}
@@ -77,7 +77,7 @@ export default {
 					friendRequestStatus =
 						request.status === "pending"
 							? "the other user is waiting for you to accept"
-							: "accepted";
+							: "friends";
 					break;
 				}
 			}
