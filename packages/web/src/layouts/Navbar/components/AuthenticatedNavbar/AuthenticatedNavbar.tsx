@@ -23,7 +23,6 @@ const AuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.Elem
 	const signOut = useAuthStore((state) => state.signOut);
 
 	const [subMenuOpened, setSubMenuOpened] = useState<boolean>(false);
-
 	const [isLogoutButtonHovered, setIsLogoutButtonHovered] = useState<boolean>(false);
 	const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);
 
@@ -111,8 +110,8 @@ const AuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.Elem
 					</Fade>
 
 					<Fade triggerOnce direction="right" duration={300} delay={100}>
-						<NavButton to={constants.ROUTES.AUTH.LOGIN}>
-							<UserIcon className="w-12 h-12" />
+						<NavButton onClick={(): void => setShowLogoutModal(true)}>
+							<LogoutIcon className="w-12 h-12 mt-2" />
 						</NavButton>
 					</Fade>
 				</div>

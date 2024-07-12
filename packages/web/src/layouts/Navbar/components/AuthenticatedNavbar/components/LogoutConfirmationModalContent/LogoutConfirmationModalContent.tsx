@@ -29,12 +29,12 @@ const LogoutConfirmationModalContent: React.FC<Props> = ({
 				The next time you log in, you will need to enter your credentials again.
 			</p>
 
-			<div className="flex justify-around">
-				<Button type="submit" className="w-32">
+			<div className="flex justify-around sm:flex-row flex-col items-center space-y-5 sm:space-y-0">
+				<Button type="submit" className="sm:w-32 w-full">
 					Confirm
 				</Button>
 
-				<Button type="reset" className="w-32" reversedColors>
+				<Button type="reset" className="sm:w-32 w-full" reversedColors>
 					Cancel
 				</Button>
 			</div>
