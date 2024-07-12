@@ -23,16 +23,17 @@ const useFetch = ({ route, body, runOnMount = true, method = "get" }: Props) => 
 			return;
 		}
 
+		// Reset the state except for the loading state
 		setIsLoading(true);
 		setIsError(false);
+		setResponseData(null);
+		setError(null);
 
 		try {
 			const response = await api[method](route, { ...(body as object) });
 			const bodyData = response.data as SuccessResponseBodyData;
 			setResponseData(bodyData);
 		} catch (err) {
-			// const responseBody = (err as AxiosError).response?.data as ErrorResponseBodyData;
-			// setResponseData(responseBody);
 			setIsError(true);
 			setError(err as AxiosError);
 		} finally {

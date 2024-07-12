@@ -52,13 +52,13 @@ const HandleAutoSignInProvider: React.FC<PropsWithChildren> = ({ children }): Re
 			return;
 		}
 
-		if (data && !isError) {
+		if (data) {
 			const bodyData = data as ResponseData;
 			setLoggedUser({
 				id: bodyData.data.user.id,
 				username: bodyData.data.user.username,
 			});
-		} else {
+		} else if (isError) {
 			signOut();
 		}
 
