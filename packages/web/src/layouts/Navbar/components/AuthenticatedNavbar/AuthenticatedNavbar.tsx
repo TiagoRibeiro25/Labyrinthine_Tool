@@ -12,25 +12,20 @@ import useAuthStore from "../../../../stores/auth";
 import NavButton from "../NavButton/NavButton";
 import LogoutConfirmationModalContent from "./components/LogoutConfirmationModalContent/LogoutConfirmationModalContent";
 
-const AuthenticatedNavbar: React.FC = (): React.JSX.Element => {
+type Props = {
+	onButtonClick: (
+		target: string,
+		setSubMenuOpenedAction: React.Dispatch<React.SetStateAction<boolean>>
+	) => void;
+};
+
+const AuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.Element => {
 	const signOut = useAuthStore((state) => state.signOut);
 
 	const [subMenuOpened, setSubMenuOpened] = useState<boolean>(false);
 
 	const [isLogoutButtonHovered, setIsLogoutButtonHovered] = useState<boolean>(false);
 	const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);
-
-	const handleClick = (target: string): void => {
-		if (target === "main") {
-			document.querySelector("main")?.scrollTo({ top: 0, behavior: "smooth" });
-		} else {
-			setTimeout(() => {
-				document.querySelector(target)?.scrollIntoView({ behavior: "smooth" });
-			}, 100);
-		}
-
-		setSubMenuOpened(false);
-	};
 
 	const { refetch, isLoading } = useFetch({
 		method: "delete",
@@ -55,8 +50,8 @@ const AuthenticatedNavbar: React.FC = (): React.JSX.Element => {
 				<div className="pt-6">
 					<NavButton
 						to={constants.ROUTES.HOME}
-						onClick={(): void => handleClick("main")}
 						className="text-6xl labyrinth-font"
+						onClick={(): void => onButtonClick("main", setSubMenuOpened)}
 					>
 						L
 					</NavButton>
@@ -93,7 +88,7 @@ const AuthenticatedNavbar: React.FC = (): React.JSX.Element => {
 						<NavButton
 							to={constants.ROUTES.HOME}
 							className="w-12 text-6xl labyrinth-font"
-							onClick={(): void => handleClick("main")}
+							onClick={(): void => onButtonClick("main", setSubMenuOpened)}
 						>
 							L
 						</NavButton>
@@ -106,7 +101,7 @@ const AuthenticatedNavbar: React.FC = (): React.JSX.Element => {
 						duration={300}
 						delay={100}
 					>
-						<NavButton onClick={(): void => setSubMenuOpened(!subMenuOpened)}>
+						<NavButton onClick={(): void => onButtonClick("main", setSubMenuOpened)}>
 							{subMenuOpened ? (
 								<CloseIcon className="w-20 h-20" />
 							) : (

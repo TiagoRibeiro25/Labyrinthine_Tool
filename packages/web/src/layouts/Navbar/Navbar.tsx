@@ -1,25 +1,32 @@
 import React from "react";
-import { Fade } from "react-awesome-reveal";
 import useAuthStore from "../../stores/auth";
-import NonAuthenticatedDesktopBar from "./components/NonAuthenticated/DesktopBar/DesktopBar";
-import NonAuthenticatedMobileBar from "./components/NonAuthenticated/MobileBar/MobileBar";
 import AuthenticatedNavbar from "./components/AuthenticatedNavbar/AuthenticatedNavbar";
+import NonAuthenticatedNavbar from "./components/NonAuthenticatedNavbar/NonAuthenticatedNavbar";
 
 const Navbar: React.FC = (): React.JSX.Element => {
 	const isAuthenticated: boolean = !!useAuthStore((state) => state.loggedUser);
 
+	const handleClick = (
+		target: string,
+		setSubMenuOpenedAction: React.Dispatch<React.SetStateAction<boolean>>
+	): void => {
+		if (target === "main") {
+			document.querySelector("main")?.scrollTo({ top: 0, behavior: "smooth" });
+		} else {
+			setTimeout(() => {
+				document.querySelector(target)?.scrollIntoView({ behavior: "smooth" });
+			}, 100);
+		}
+
+		setSubMenuOpenedAction(false);
+	};
+
 	return (
 		<>
 			{isAuthenticated ? (
-				<AuthenticatedNavbar />
+				<AuthenticatedNavbar onButtonClick={handleClick} />
 			) : (
-				<>
-					<Fade className="sm:h-full">
-						<NonAuthenticatedDesktopBar />
-					</Fade>
-
-					<NonAuthenticatedMobileBar />
-				</>
+				<NonAuthenticatedNavbar onButtonClick={handleClick} />
 			)}
 		</>
 	);
