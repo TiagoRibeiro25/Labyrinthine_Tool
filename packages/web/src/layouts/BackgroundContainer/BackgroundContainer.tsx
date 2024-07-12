@@ -3,6 +3,7 @@ import { Fade } from "react-awesome-reveal";
 import { useLocation } from "react-router-dom";
 import AuthBgImage from "../../assets/images/candle.webp";
 import DefaultBgImage from "../../assets/images/Chapter_1_Entrance.webp";
+import UserBgImage from "../../assets/images/chap1.jpg";
 import NotFoundImage from "../../assets/images/do_not_enter.png";
 import constants from "../../constants";
 import useMainLoadingStore from "../../stores/mainLoading";
@@ -32,6 +33,10 @@ const BackgroundContainer: React.FC<Props> = ({
 			return AuthBgImage;
 		}
 
+		if (location.pathname.startsWith(constants.ROUTES.USER.PREFIX)) {
+			return UserBgImage;
+		}
+
 		return DefaultBgImage;
 	};
 
@@ -47,7 +52,7 @@ const BackgroundContainer: React.FC<Props> = ({
 				</Fade>
 
 				<Fade className="flex justify-center h-full" duration={1200} delay={200} triggerOnce>
-					<div className="w-full bg-black bg-opacity-55 -z-40">
+					<div className="w-full bg-black bg-opacity-40 -z-40">
 						{isLoading ? (
 							<div className="flex flex-row items-center justify-center h-full">
 								<h1 className="z-50 text-5xl font-bold labyrinth-font">{loadingMessage}</h1>
