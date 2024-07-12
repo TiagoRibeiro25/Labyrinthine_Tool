@@ -18,6 +18,5 @@ export default {
 		AUTH_TOKEN: "authToken",
 	},
 
-	// TODO: Change this to an environment variable
-	API_URL: "http://localhost:5000/api/v1",
+	API_URL: import.meta.env.VITE_API_URL,
 };
