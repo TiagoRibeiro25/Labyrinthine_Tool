@@ -1,18 +1,21 @@
 import { useState, useEffect, useCallback } from "react";
 import api from "../api/axios";
 import { AxiosError } from "axios";
+import { ErrorResponseBodyData, SuccessResponseBodyData } from "../types";
 
 type Props = {
 	route: string;
 	params?: unknown;
+	runOnMount?: boolean;
 };
 
-const useGet = ({ route, params }: Props) => {
+type ResponseData = SuccessResponseBodyData | ErrorResponseBodyData;
+
+const useGet = ({ route, params, runOnMount = true }: Props) => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [error, setError] = useState<AxiosError | null>(null);
-	const [responseData, setResponseData] = useState(null);
+	const [responseData, setResponseData] = useState<ResponseData | null>(null);
 	const [isError, setIsError] = useState<boolean>(false);
-	const [status, setStatus] = useState<number | null>(null);
 
 	const fetchData = useCallback(async () => {
 		setIsLoading(true);
@@ -20,8 +23,8 @@ const useGet = ({ route, params }: Props) => {
 
 		try {
 			const response = await api.get(route, { params });
-			setStatus(response.status);
-			setResponseData(response.data);
+			const bodyData = response.data.data as SuccessResponseBodyData;
+			setResponseData(bodyData);
 		} catch (err) {
 			setError(err as AxiosError);
 			setIsError(true);
@@ -31,22 +34,22 @@ const useGet = ({ route, params }: Props) => {
 	}, [route, params]);
 
 	useEffect(() => {
-		// Call fetchData when the component mounts
-		fetchData();
+		if (runOnMount) {
+			fetchData();
+		}
 
 		return () => {
 			setIsLoading(false);
 			setIsError(false);
 			setError(null);
 			setResponseData(null);
-			setStatus(null);
 		};
-	}, [fetchData]);
+	}, [fetchData, runOnMount]);
 
 	// Define a function to refetch data with the same URL
 	const refetchData = () => fetchData();
 
-	return { isLoading, isError, error, data: responseData, status, refetch: refetchData };
+	return { isLoading, isError, error, data: responseData, refetch: refetchData };
 };
 
 export default useGet;

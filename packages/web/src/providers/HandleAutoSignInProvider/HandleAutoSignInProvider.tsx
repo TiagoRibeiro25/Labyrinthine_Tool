@@ -1,9 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
 import React, { PropsWithChildren, useEffect } from "react";
-import api from "../../api/axios";
 import useAuthStore from "../../stores/auth";
 import useMainLoadingStore from "../../stores/mainLoading";
 import { SuccessResponseBodyData } from "../../types";
+import useGet from "../../hooks/useGet";
 
 type ResponseData = SuccessResponseBodyData & {
 	data: {
@@ -30,41 +29,35 @@ const HandleAutoSignInProvider: React.FC<PropsWithChildren> = ({ children }): Re
 	const setLoggedUser = useAuthStore((state) => state.setLoggedUser);
 	const signOut = useAuthStore((state) => state.signOut);
 
-	const { data, status, refetch } = useQuery({
-		queryKey: ["getLoggedUser"],
-		queryFn: async () => {
-			const response = await api.get("/users/me");
-			return response.data as ResponseData;
-		},
-		enabled: false,
-		retry: false,
+	const { data, refetch, isLoading, isError } = useGet({
+		route: "/users/me",
+		runOnMount: false,
 	});
 
 	useEffect(() => {
-		if (status === "success") {
-			setLoggedUser({
-				id: data.data.user.id,
-				username: data.data.user.username,
-			});
-		} else if (status === "error") {
-			signOut();
-		}
-
-		if (status !== "pending") {
-			setIsLoading(false);
-		}
-	}, [data, setIsLoading, setLoggedUser, signOut, status]);
-
-	useEffect(() => {
-		if (authToken && !loggedUser) {
+		if (authToken && !loggedUser && !isLoading && !isError) {
 			refetch();
 			setIsLoading(true);
 			setLoadingMessage("Loading user data...");
-			return;
+		}
+	}, [authToken, isError, isLoading, loggedUser, refetch, setIsLoading, setLoadingMessage]);
+
+	useEffect(() => {
+		if (data && !isError) {
+			const bodyData = data as ResponseData;
+
+			setLoggedUser({
+				id: bodyData.data.user.id,
+				username: bodyData.data.user.username,
+			});
+		} else if (isError) {
+			signOut();
 		}
 
-		setIsLoading(false);
-	}, [authToken, loggedUser, refetch, setIsLoading, setLoadingMessage]);
+		if (!isLoading) {
+			setIsLoading(false);
+		}
+	}, [data, isError, isLoading, setIsLoading, setLoggedUser, signOut]);
 
 	return <>{children}</>;
 };
