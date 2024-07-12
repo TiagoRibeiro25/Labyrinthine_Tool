@@ -23,7 +23,7 @@ const NonAuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.E
 	return (
 		<>
 			<div className="hidden sm:flex flex-col items-center justify-between w-[80px] h-full bg-black bg-opacity-70">
-				<div className="pt-6">
+				<Fade triggerOnce direction="left" duration={300} delay={100} className="pt-6">
 					<NavButton
 						to={constants.ROUTES.HOME}
 						className="text-6xl labyrinth-font"
@@ -31,68 +31,72 @@ const NonAuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.E
 					>
 						L
 					</NavButton>
-				</div>
+				</Fade>
 
 				<div className="flex flex-col items-center w-full space-y-5">
-					<NavButton
-						to={constants.ROUTES.HOME + "#why-should-you-use"}
-						onClick={(): void => onButtonClick("#why-should-you-use", setSubMenuOpened)}
-					>
-						<QuestionIcon className="w-11 h-11" />
-					</NavButton>
-					<NavButton
-						to={constants.ROUTES.HOME + "#what-is-labyrinthine"}
-						onClick={(): void => onButtonClick("#what-is-labyrinthine", setSubMenuOpened)}
-					>
-						<GamingIcon className="w-11 h-11" />
-					</NavButton>
-					<NavButton
-						to={constants.ROUTES.HOME + "#important-note"}
-						onClick={(): void => onButtonClick("#important-note", setSubMenuOpened)}
-					>
-						<WarningIcon className="w-11 h-11" />
-					</NavButton>
-					<NavButton
-						to={constants.ROUTES.HOME + "#help-friends"}
-						onClick={(): void => onButtonClick("#help-friends", setSubMenuOpened)}
-					>
-						<FriendsIcon className="w-11 h-11" />
-					</NavButton>
+					<Fade triggerOnce direction="left" duration={300} delay={100}>
+						<NavButton
+							to={constants.ROUTES.HOME + "#why-should-you-use"}
+							onClick={(): void => onButtonClick("#why-should-you-use", setSubMenuOpened)}
+						>
+							<QuestionIcon className="w-11 h-11" />
+						</NavButton>
+						<NavButton
+							to={constants.ROUTES.HOME + "#what-is-labyrinthine"}
+							onClick={(): void => onButtonClick("#what-is-labyrinthine", setSubMenuOpened)}
+						>
+							<GamingIcon className="w-11 h-11" />
+						</NavButton>
+						<NavButton
+							to={constants.ROUTES.HOME + "#important-note"}
+							onClick={(): void => onButtonClick("#important-note", setSubMenuOpened)}
+						>
+							<WarningIcon className="w-11 h-11" />
+						</NavButton>
+						<NavButton
+							to={constants.ROUTES.HOME + "#help-friends"}
+							onClick={(): void => onButtonClick("#help-friends", setSubMenuOpened)}
+						>
+							<FriendsIcon className="w-11 h-11" />
+						</NavButton>
+					</Fade>
 				</div>
 
 				<div className="pb-6">
-					<NavButton to={constants.ROUTES.AUTH.LOGIN}>
-						<UserIcon className="w-10 h-10" />
-					</NavButton>
+					<Fade triggerOnce direction="left" duration={300} delay={100} className="pt-6">
+						<NavButton to={constants.ROUTES.AUTH.LOGIN}>
+							<UserIcon className="w-10 h-10" />
+						</NavButton>
+					</Fade>
 				</div>
-			</div>
 
-			<div className="sm:hidden h-[80px] w-full bg-black fixed bottom-0 left-0 z-20 items-center justify-between flex px-5">
-				<Fade triggerOnce className="pt-3" direction="left" duration={300} delay={100}>
-					<NavButton
-						to={constants.ROUTES.HOME}
-						className="w-12 text-6xl labyrinth-font"
-						onClick={(): void => onButtonClick("main", setSubMenuOpened)}
-					>
-						L
-					</NavButton>
-				</Fade>
+				<div className="sm:hidden h-[80px] w-full bg-black fixed bottom-0 left-0 z-20 items-center justify-between flex px-5">
+					<Fade triggerOnce className="pt-3" direction="left" duration={300} delay={100}>
+						<NavButton
+							to={constants.ROUTES.HOME}
+							className="w-12 text-6xl labyrinth-font"
+							onClick={(): void => onButtonClick("main", setSubMenuOpened)}
+						>
+							L
+						</NavButton>
+					</Fade>
 
-				<Fade triggerOnce direction="up" duration={300} delay={100}>
-					<NavButton onClick={(): void => onButtonClick("main", setSubMenuOpened)}>
-						{subMenuOpened ? (
-							<CloseIcon className="w-20 h-20" />
-						) : (
-							<MoreIcon className="w-12 h-12" />
-						)}
-					</NavButton>
-				</Fade>
+					<Fade triggerOnce direction="up" duration={300} delay={100}>
+						<NavButton onClick={(): void => onButtonClick("main", setSubMenuOpened)}>
+							{subMenuOpened ? (
+								<CloseIcon className="w-20 h-20" />
+							) : (
+								<MoreIcon className="w-12 h-12" />
+							)}
+						</NavButton>
+					</Fade>
 
-				<Fade triggerOnce direction="right" duration={300} delay={100}>
-					<NavButton to={constants.ROUTES.AUTH.LOGIN}>
-						<UserIcon className="w-12 h-12" />
-					</NavButton>
-				</Fade>
+					<Fade triggerOnce direction="right" duration={300} delay={100}>
+						<NavButton to={constants.ROUTES.AUTH.LOGIN}>
+							<UserIcon className="w-12 h-12" />
+						</NavButton>
+					</Fade>
+				</div>
 			</div>
 
 			{subMenuOpened && (

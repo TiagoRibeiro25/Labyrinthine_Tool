@@ -16,14 +16,14 @@ const ReasonToUseCard: React.FC<Props> = ({
 }): React.JSX.Element => {
 	return (
 		// TODO: Make this a button element
-		<div
+		<button
 			className={classNames(
 				"transition-transform duration-200 ease-in-out bg-black border cursor-pointer bg-opacity-40 w-60 h-60 rounded-3xl hover:scale-105",
 				selected ? "lg:border-gray-200 border-gray-700" : "border-gray-700"
 			)}
 			onClick={onClick}
 		>
-			<div className="flex items-center justify-center w-full h-40">
+			<div className="flex items-center justify-center w-full h-40 pb-5">
 				<Icon
 					// @ts-expect-error Typescript doesn't know about tailwind classes
 					className="w-20 h-20"
@@ -32,7 +32,7 @@ const ReasonToUseCard: React.FC<Props> = ({
 			<h3>
 				<span className="labyrinth-font">{title}</span>
 			</h3>
-		</div>
+		</button>
 	);
 };
 

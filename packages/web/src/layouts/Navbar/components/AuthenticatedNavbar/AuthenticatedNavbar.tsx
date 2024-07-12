@@ -44,9 +44,8 @@ const AuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.Elem
 	return (
 		<>
 			{/* DESKTOP NAVBAR */}
-			{/* TODO: Add Fade */}
 			<div className="hidden sm:flex flex-col items-center justify-between w-[80px] h-full bg-black bg-opacity-70">
-				<div className="pt-6">
+				<Fade triggerOnce direction="left" duration={300} delay={100} className="pt-6">
 					<NavButton
 						to={constants.ROUTES.HOME}
 						className="text-6xl labyrinth-font"
@@ -54,22 +53,26 @@ const AuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.Elem
 					>
 						L
 					</NavButton>
-				</div>
+				</Fade>
 
 				<div className="flex flex-col items-center w-full space-y-5">
-					<NavButton to={constants.ROUTES.HOME}>
-						<QuestionIcon className="w-11 h-11" />
-					</NavButton>
+					<Fade triggerOnce direction="left" duration={300} delay={100} className="pt-6">
+						<NavButton to={constants.ROUTES.HOME}>
+							<QuestionIcon className="w-11 h-11" />
+						</NavButton>
+					</Fade>
 				</div>
 
 				<div className="pb-6">
-					<NavButton
-						onMouseEnter={(): void => setIsLogoutButtonHovered(true)}
-						onMouseLeave={(): void => setIsLogoutButtonHovered(false)}
-						onClick={(): void => setShowLogoutModal(true)}
-					>
-						<LogoutIcon className="w-10 h-10" />
-					</NavButton>
+					<Fade triggerOnce direction="left" duration={300} delay={100} className="pt-6">
+						<NavButton
+							onMouseEnter={(): void => setIsLogoutButtonHovered(true)}
+							onMouseLeave={(): void => setIsLogoutButtonHovered(false)}
+							onClick={(): void => setShowLogoutModal(true)}
+						>
+							<LogoutIcon className="w-10 h-10" />
+						</NavButton>
+					</Fade>
 
 					{isLogoutButtonHovered && (
 						<div className="absolute bottom-8 left-20 flex items-center justify-center w-24 h-10 bg-black bg-opacity-70 rounded-lg">
@@ -80,7 +83,6 @@ const AuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.Elem
 			</div>
 
 			{/* MOBILE NAVBAR */}
-			{/* TODO: Add logout button */}
 			<>
 				<div className="sm:hidden h-[80px] w-full bg-black fixed bottom-0 left-0 z-20 items-center justify-between flex px-5">
 					<Fade triggerOnce className="pt-3" direction="left" duration={300} delay={100}>
