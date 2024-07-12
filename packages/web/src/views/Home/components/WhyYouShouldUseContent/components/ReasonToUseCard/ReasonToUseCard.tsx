@@ -2,7 +2,7 @@ import classNames from "classnames";
 import React from "react";
 
 type Props = {
-	Icon: React.FC;
+	Icon: React.FC<{ className: string }>;
 	title: string;
 	onClick: () => void;
 	selected?: boolean;
@@ -23,10 +23,7 @@ const ReasonToUseCard: React.FC<Props> = ({
 			onClick={onClick}
 		>
 			<div className="flex items-center justify-center w-full h-40 pb-5">
-				<Icon
-					// @ts-expect-error Typescript doesn't know about tailwind classes
-					className="w-20 h-20"
-				/>
+				<Icon className="w-20 h-20" />
 			</div>
 			<h3>
 				<span className="labyrinth-font">{title}</span>
