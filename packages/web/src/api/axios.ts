@@ -30,8 +30,8 @@ api.interceptors.response.use(
 			useAuthStore.getState().setAuthToken(refreshedAuthToken);
 		}
 
-		//DEBUG: Add a delay of 3 second to all requests
-		await new Promise((resolve) => setTimeout(resolve, 3000));
+		//DEBUG: Add a delay of 1.5 second to all requests
+		await new Promise((resolve) => setTimeout(resolve, 1500));
 
 		return response;
 	},

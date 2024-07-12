@@ -6,7 +6,7 @@ import Input from "../../../../components/Input/Input";
 import constants from "../../../../constants";
 import LoadingDots from "../../../../layouts/BackgroundContainer/components/LoadingDots/LoadingDots";
 import useAuthStore from "../../../../stores/auth";
-import { SuccessResponseBodyData } from "../../../../types";
+import { ErrorResponseBodyData, SuccessResponseBodyData } from "../../../../types";
 import useFetch from "../../../../hooks/useFetch";
 
 type SuccessResponseData = SuccessResponseBodyData & {
@@ -30,7 +30,7 @@ const Login: React.FC = (): React.JSX.Element => {
 	const [usernameError, setUsernameError] = useState<string>("");
 	const [passwordError, setPasswordError] = useState<string>("");
 
-	const { refetch, isLoading, data, isError } = useFetch({
+	const { refetch, isLoading, data, isError, error } = useFetch({
 		method: "post",
 		route: "/auth/login",
 		body: { username, password },
@@ -49,22 +49,24 @@ const Login: React.FC = (): React.JSX.Element => {
 
 	// Handle the response
 	useEffect(() => {
-		if (isLoading || !data) {
+		if (isLoading) {
 			return;
 		}
 
-		if (isError) {
-			if (data.message.startsWith("body/password")) {
+		if (isError && error) {
+			const bodyData = error.response?.data as ErrorResponseBodyData;
+
+			if (bodyData.message.startsWith("body/password")) {
 				// Cut the "body/password" part of the message and replace it with "Password"
-				setPasswordError("Password " + data.message.split(" ").slice(1).join(" "));
-			} else if (data.message.startsWith("body/username")) {
+				setPasswordError("Password " + bodyData.message.split(" ").slice(1).join(" "));
+			} else if (bodyData.message.startsWith("body/username")) {
 				// Cut the "body/username" part of the message and replace it with "Username"
-				setUsernameError("Username " + data.message.split(" ").slice(1).join(" "));
-			} else if (data.message === "There's no user with that username") {
-				setUsernameError(data.message);
-			} else if (data.message === "Invalid credentials") {
+				setUsernameError("Username " + bodyData.message.split(" ").slice(1).join(" "));
+			} else if (bodyData.message === "There's no user with that username") {
+				setUsernameError(bodyData.message);
+			} else if (bodyData.message === "Invalid credentials") {
 				setPasswordError("Wrong password");
-			} else if (data.statusCode === 400) {
+			} else if (bodyData.statusCode === 400) {
 				setUsernameError("Invalid username");
 				setPasswordError("Invalid password");
 			}
@@ -73,16 +75,21 @@ const Login: React.FC = (): React.JSX.Element => {
 		}
 
 		// If it reaches here, it means the request was successful
-		const bodyData = data as SuccessResponseData;
+		if (data) {
+			const bodyData = data as SuccessResponseData;
 
-		setAuthToken(bodyData.data.token);
-		setLoggedUser(bodyData.data.user);
+			setAuthToken(bodyData.data.token);
+			setLoggedUser(bodyData.data.user);
 
-		// Save the token in the local storage if the user wants to be remembered
-		if (rememberMe) {
-			localStorage.setItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN, bodyData.data.token);
+			// Save the token in the local storage if the user wants to be remembered
+			if (rememberMe) {
+				localStorage.setItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN, bodyData.data.token);
+			}
 		}
-	}, [data, isError, isLoading, rememberMe, setAuthToken, setLoggedUser]);
+
+		// We don't want to re-run this effect when "rememberMe" changes
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [data, error, isError, isLoading, setAuthToken, setLoggedUser]);
 
 	// When the user changes the input, remove the error(s) message(s)
 	useEffect(() => {

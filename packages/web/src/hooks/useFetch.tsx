@@ -19,6 +19,10 @@ const useFetch = ({ route, body, runOnMount = true, method = "get" }: Props) => 
 	const [isError, setIsError] = useState<boolean>(false);
 
 	const fetchData = useCallback(async () => {
+		if (isLoading) {
+			return;
+		}
+
 		setIsLoading(true);
 		setIsError(false);
 
@@ -27,14 +31,14 @@ const useFetch = ({ route, body, runOnMount = true, method = "get" }: Props) => 
 			const bodyData = response.data as SuccessResponseBodyData;
 			setResponseData(bodyData);
 		} catch (err) {
-			const responseBody = (err as AxiosError).response?.data as ErrorResponseBodyData;
-			setResponseData(responseBody);
-			setError(err as AxiosError);
+			// const responseBody = (err as AxiosError).response?.data as ErrorResponseBodyData;
+			// setResponseData(responseBody);
 			setIsError(true);
+			setError(err as AxiosError);
 		} finally {
 			setIsLoading(false);
 		}
-	}, [method, route, body]);
+	}, [isLoading, method, route, body]);
 
 	useEffect(() => {
 		if (runOnMount) {

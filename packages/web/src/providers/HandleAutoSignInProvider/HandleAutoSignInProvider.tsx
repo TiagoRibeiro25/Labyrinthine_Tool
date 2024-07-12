@@ -33,15 +33,23 @@ const HandleAutoSignInProvider: React.FC<PropsWithChildren> = ({ children }): Re
 	const { data, isLoading, isError, refetch } = useFetch({ route: "/users/me", runOnMount: false });
 
 	useEffect(() => {
-		if (authToken && !loggedUser && !isLoading) {
-			refetch();
+		if (!authToken || isLoading || isError || data) {
+			return;
 		}
-	}, [authToken, isLoading, loggedUser, refetch]);
+
+		// This means that the user is already logged in
+		if (authToken && loggedUser) {
+			return;
+		}
+
+		refetch();
+	}, [authToken, data, isError, isLoading, loggedUser, refetch]);
 
 	useEffect(() => {
 		if (isLoading) {
 			setIsLoading(true);
 			setLoadingMessage("Loading user data");
+			return;
 		}
 
 		if (data && !isError) {
@@ -50,13 +58,11 @@ const HandleAutoSignInProvider: React.FC<PropsWithChildren> = ({ children }): Re
 				id: bodyData.data.user.id,
 				username: bodyData.data.user.username,
 			});
-		} else if (isError) {
+		} else {
 			signOut();
 		}
 
-		if (!isLoading) {
-			setIsLoading(false);
-		}
+		setIsLoading(false);
 	}, [data, isError, isLoading, setIsLoading, setLoadingMessage, setLoggedUser, signOut]);
 
 	return <>{children}</>;
