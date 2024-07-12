@@ -8,7 +8,7 @@ import NotFound from "../views/NotFound/NotFound";
 import Profile from "../views/User/Profile/Profile";
 
 const DEFAULT_NON_AUTHENTICATED_ROUTE = constants.ROUTES.AUTH.LOGIN;
-const DEFAULT_AUTHENTICATED_ROUTE = constants.ROUTES.USER.PROFILE.replace(":id", "me");
+const DEFAULT_AUTHENTICATED_ROUTE = constants.ROUTES.USER.OWN_PROFILE;
 
 const Navigation: React.FC = (): React.JSX.Element => {
 	const isAuthenticated: boolean = !!useAuthStore((state) => state.loggedUser);

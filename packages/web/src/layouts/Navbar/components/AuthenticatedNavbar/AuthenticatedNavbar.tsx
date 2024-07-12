@@ -3,14 +3,13 @@ import { Fade } from "react-awesome-reveal";
 import CloseIcon from "../../../../components/Icons/CloseIcon/CloseIcon";
 import LogoutIcon from "../../../../components/Icons/LogoutIcon/LogoutIcon";
 import MoreIcon from "../../../../components/Icons/MoreIcon/MoreIcon";
-import QuestionIcon from "../../../../components/Icons/QuestionIcon/QuestionIcon";
-import UserIcon from "../../../../components/Icons/UserIcon/UserIcon";
 import Modal from "../../../../components/Modal/Modal";
 import constants from "../../../../constants";
 import useFetch from "../../../../hooks/useFetch";
 import useAuthStore from "../../../../stores/auth";
 import NavButton from "../NavButton/NavButton";
 import LogoutConfirmationModalContent from "./components/LogoutConfirmationModalContent/LogoutConfirmationModalContent";
+import ProfileIcon from "../../../../components/Icons/ProfileIcon/ProfileIcon";
 
 type Props = {
 	onButtonClick: (
@@ -57,8 +56,8 @@ const AuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.Elem
 
 				<div className="flex flex-col items-center w-full space-y-5">
 					<Fade triggerOnce direction="left" duration={300} delay={100} className="pt-6">
-						<NavButton to={constants.ROUTES.HOME}>
-							<QuestionIcon className="w-11 h-11" />
+						<NavButton to={constants.ROUTES.USER.OWN_PROFILE}>
+							<ProfileIcon className="w-14 h-14" />
 						</NavButton>
 					</Fade>
 				</div>
@@ -102,7 +101,7 @@ const AuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.Elem
 						duration={300}
 						delay={100}
 					>
-						<NavButton onClick={(): void => onButtonClick("main", setSubMenuOpened)}>
+						<NavButton onClick={(): void => setSubMenuOpened(!subMenuOpened)}>
 							{subMenuOpened ? (
 								<CloseIcon className="w-20 h-20" />
 							) : (
@@ -122,8 +121,8 @@ const AuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.Elem
 					<div className="sm:hidden h-[80px] w-full fixed bottom-[80px] left-0 z-10 flex justify-evenly">
 						<Fade triggerOnce direction="up" duration={300} delay={100} className="w-full h-full">
 							<div className="flex items-center justify-between w-full h-full px-5 bg-black bg-opacity-70">
-								<NavButton to={constants.ROUTES.HOME}>
-									<QuestionIcon className="w-11 h-11" />
+								<NavButton to={constants.ROUTES.USER.OWN_PROFILE}>
+									<ProfileIcon className="w-14 h-14" />
 								</NavButton>
 							</div>
 						</Fade>

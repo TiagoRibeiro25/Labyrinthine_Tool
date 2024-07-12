@@ -82,7 +82,7 @@ const NonAuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.E
 					</Fade>
 
 					<Fade triggerOnce direction="up" duration={300} delay={100}>
-						<NavButton onClick={(): void => onButtonClick("main", setSubMenuOpened)}>
+						<NavButton onClick={(): void => setSubMenuOpened(!subMenuOpened)}>
 							{subMenuOpened ? (
 								<CloseIcon className="w-20 h-20" />
 							) : (
