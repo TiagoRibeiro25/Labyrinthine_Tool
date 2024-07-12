@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useEffect } from "react";
 import useAuthStore from "../../stores/auth";
 import useMainLoadingStore from "../../stores/mainLoading";
 import { SuccessResponseBodyData } from "../../types";
-import useGet from "../../hooks/useGet";
+import useFetch from "../../hooks/useFetch";
 
 type ResponseData = SuccessResponseBodyData & {
 	data: {
@@ -24,10 +24,19 @@ const HandleAutoSignInProvider: React.FC<PropsWithChildren> = ({ children }): Re
 	const setIsLoading = useMainLoadingStore((state) => state.setIsLoading);
 	const setLoadingMessage = useMainLoadingStore((state) => state.setLoadingMessage);
 
+	const authToken = useAuthStore((state) => state.authToken);
+	const loggedUser = useAuthStore((state) => state.loggedUser);
+
 	const setLoggedUser = useAuthStore((state) => state.setLoggedUser);
 	const signOut = useAuthStore((state) => state.signOut);
 
-	const { data, isLoading, isError } = useGet({ route: "/users/me" });
+	const { data, isLoading, isError, refetch } = useFetch({ route: "/users/me", runOnMount: false });
+
+	useEffect(() => {
+		if (authToken && !loggedUser && !isLoading) {
+			refetch();
+		}
+	}, [authToken, isLoading, loggedUser, refetch]);
 
 	useEffect(() => {
 		if (isLoading) {

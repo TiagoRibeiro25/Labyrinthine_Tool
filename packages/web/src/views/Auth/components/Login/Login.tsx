@@ -1,15 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import api from "../../../../api/axios";
 import Button from "../../../../components/Button/Button";
 import Checkbox from "../../../../components/Checkbox/Checkbox";
 import Input from "../../../../components/Input/Input";
 import constants from "../../../../constants";
 import LoadingDots from "../../../../layouts/BackgroundContainer/components/LoadingDots/LoadingDots";
 import useAuthStore from "../../../../stores/auth";
-import useWarningStore from "../../../../stores/warning";
-import { ErrorResponseBodyData, SuccessResponseBodyData } from "../../../../types";
+import { SuccessResponseBodyData } from "../../../../types";
+import useFetch from "../../../../hooks/useFetch";
 
 type SuccessResponseData = SuccessResponseBodyData & {
 	data: {
@@ -22,8 +20,6 @@ type SuccessResponseData = SuccessResponseBodyData & {
 };
 
 const Login: React.FC = (): React.JSX.Element => {
-	const addWarning = useWarningStore((state) => state.addWarning);
-
 	const setLoggedUser = useAuthStore((state) => state.setLoggedUser);
 	const setAuthToken = useAuthStore((state) => state.setAuthToken);
 
@@ -34,18 +30,11 @@ const Login: React.FC = (): React.JSX.Element => {
 	const [usernameError, setUsernameError] = useState<string>("");
 	const [passwordError, setPasswordError] = useState<string>("");
 
-	const { refetch, status, isFetching, data, error } = useQuery({
-		queryKey: ["login"],
-		queryFn: async () => {
-			const response = await api.post("/auth/login", {
-				username,
-				password,
-			});
-
-			return response.data as SuccessResponseData;
-		},
-		enabled: false,
-		retry: false,
+	const { refetch, isLoading, data, isError } = useFetch({
+		method: "post",
+		route: "/auth/login",
+		body: { username, password },
+		runOnMount: false,
 	});
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
@@ -60,27 +49,22 @@ const Login: React.FC = (): React.JSX.Element => {
 
 	// Handle the response
 	useEffect(() => {
-		// FIXME: The problem is, when the user logs out, it renders the login page again but the values are cached so it stays logged in
+		if (isLoading || !data) {
+			return;
+		}
 
-		if (status === "error") {
-			const err = error as unknown as { response: { data: ErrorResponseBodyData } };
-			const bodyData = err.response.data;
-
-			if (!bodyData) {
-				addWarning("An error occurred while trying to login", "error");
-			}
-
-			if (bodyData.message.startsWith("body/password")) {
+		if (isError) {
+			if (data.message.startsWith("body/password")) {
 				// Cut the "body/password" part of the message and replace it with "Password"
-				setPasswordError("Password " + bodyData.message.split(" ").slice(1).join(" "));
-			} else if (bodyData.message.startsWith("body/username")) {
+				setPasswordError("Password " + data.message.split(" ").slice(1).join(" "));
+			} else if (data.message.startsWith("body/username")) {
 				// Cut the "body/username" part of the message and replace it with "Username"
-				setUsernameError("Username " + bodyData.message.split(" ").slice(1).join(" "));
-			} else if (bodyData.message === "There's no user with that username") {
-				setUsernameError(bodyData.message);
-			} else if (bodyData.message === "Invalid credentials") {
+				setUsernameError("Username " + data.message.split(" ").slice(1).join(" "));
+			} else if (data.message === "There's no user with that username") {
+				setUsernameError(data.message);
+			} else if (data.message === "Invalid credentials") {
 				setPasswordError("Wrong password");
-			} else {
+			} else if (data.statusCode === 400) {
 				setUsernameError("Invalid username");
 				setPasswordError("Invalid password");
 			}
@@ -88,16 +72,17 @@ const Login: React.FC = (): React.JSX.Element => {
 			return;
 		}
 
-		if (status === "success") {
-			setAuthToken(data.data.token);
-			setLoggedUser(data.data.user);
+		// If it reaches here, it means the request was successful
+		const bodyData = data as SuccessResponseData;
 
-			// Save the token in the local storage if the user wants to be remembered
-			if (rememberMe) {
-				localStorage.setItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN, data.data.token);
-			}
+		setAuthToken(bodyData.data.token);
+		setLoggedUser(bodyData.data.user);
+
+		// Save the token in the local storage if the user wants to be remembered
+		if (rememberMe) {
+			localStorage.setItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN, bodyData.data.token);
 		}
-	}, [addWarning, data, error, rememberMe, setAuthToken, setLoggedUser, status]);
+	}, [data, isError, isLoading, rememberMe, setAuthToken, setLoggedUser]);
 
 	// When the user changes the input, remove the error(s) message(s)
 	useEffect(() => {
@@ -147,7 +132,7 @@ const Login: React.FC = (): React.JSX.Element => {
 					Dont have an account? Sign up
 				</Link>
 
-				{isFetching ? (
+				{isLoading ? (
 					<LoadingDots className="w-10 h-10" />
 				) : (
 					<Button

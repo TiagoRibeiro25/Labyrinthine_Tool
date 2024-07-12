@@ -5,13 +5,14 @@ import { ErrorResponseBodyData, SuccessResponseBodyData } from "../types";
 
 type Props = {
 	route: string;
-	params?: unknown;
+	body?: unknown;
 	runOnMount?: boolean;
+	method?: "get" | "post" | "put" | "patch" | "delete";
 };
 
 type ResponseData = SuccessResponseBodyData | ErrorResponseBodyData;
 
-const useGet = ({ route, params, runOnMount = true }: Props) => {
+const useFetch = ({ route, body, runOnMount = true, method = "get" }: Props) => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [error, setError] = useState<AxiosError | null>(null);
 	const [responseData, setResponseData] = useState<ResponseData | null>(null);
@@ -22,28 +23,23 @@ const useGet = ({ route, params, runOnMount = true }: Props) => {
 		setIsError(false);
 
 		try {
-			const response = await api.get(route, { params });
-			const bodyData = response.data.data as SuccessResponseBodyData;
+			const response = await api[method](route, { ...(body as object) });
+			const bodyData = response.data as SuccessResponseBodyData;
 			setResponseData(bodyData);
 		} catch (err) {
+			const responseBody = (err as AxiosError).response?.data as ErrorResponseBodyData;
+			setResponseData(responseBody);
 			setError(err as AxiosError);
 			setIsError(true);
 		} finally {
 			setIsLoading(false);
 		}
-	}, [route, params]);
+	}, [method, route, body]);
 
 	useEffect(() => {
 		if (runOnMount) {
 			fetchData();
 		}
-
-		return () => {
-			setIsLoading(false);
-			setIsError(false);
-			setError(null);
-			setResponseData(null);
-		};
 	}, [fetchData, runOnMount]);
 
 	// Define a function to refetch data with the same URL
@@ -52,4 +48,4 @@ const useGet = ({ route, params, runOnMount = true }: Props) => {
 	return { isLoading, isError, error, data: responseData, refetch: refetchData };
 };
 
-export default useGet;
+export default useFetch;
