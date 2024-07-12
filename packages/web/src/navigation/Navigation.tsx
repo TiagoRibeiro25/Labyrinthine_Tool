@@ -11,7 +11,10 @@ const DEFAULT_NON_AUTHENTICATED_ROUTE = constants.ROUTES.AUTH.LOGIN;
 const DEFAULT_AUTHENTICATED_ROUTE = constants.ROUTES.USER.OWN_PROFILE;
 
 const Navigation: React.FC = (): React.JSX.Element => {
-	const isAuthenticated: boolean = !!useAuthStore((state) => state.loggedUser);
+	// The reason why we are using "state.authToken" instead of "state.loggedUser" is because initially the user data is not set
+	// yet, but the token is. So we can use the token to determine if the user is authenticated or not. If the token is invalid or
+	// expired, eventually the value of "state.authToken" will be null and it will update automatically.
+	const isAuthenticated: boolean = !!useAuthStore((state) => state.authToken);
 
 	return (
 		<Routes>
