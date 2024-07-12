@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import api from "../../../api/axios";
 import { FriendStatus, SuccessResponseBodyData } from "../../../types";
+import LoadingDots from "../../../layouts/BackgroundContainer/components/LoadingDots/LoadingDots";
 
 export type User = {
 	id: string;
@@ -38,9 +39,20 @@ const Profile: React.FC = (): React.JSX.Element => {
 	return (
 		<div className="flex justify-center h-full px-10">
 			<div className="h-full max-w-[985px] w-full my-10 bg-black bg-opacity-30 rounded-3xl">
-				{isSuccess && data && <UserInfo user={data.data.user} />}
+				{isSuccess && data && (
+					<>
+						<UserInfo user={data.data.user} />
+					</>
+				)}
 
-				{/* {isLoading ? <div>Loading...</div> : } */}
+				{isLoading && (
+					<div className="h-full flex md:flex-row flex-col justify-center items-center">
+						<h1 className="z-50 text-5xl font-bold labyrinth-font text-center">
+							Searching for user
+						</h1>
+						<LoadingDots className="z-50 w-10 h-10 mt-4 ml-2" />
+					</div>
+				)}
 			</div>
 		</div>
 	);

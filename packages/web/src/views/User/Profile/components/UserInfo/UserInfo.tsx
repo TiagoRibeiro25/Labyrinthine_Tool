@@ -51,9 +51,9 @@ const UserInfo: React.FC<Props> = ({ user }): React.JSX.Element => {
 			/>
 
 			<div className="w-full">
-				<h1 className="text-3xl font-bold mb-3">{user.username}</h1>
+				<h1 className="text-3xl font-bold mb-4">{user.username}</h1>
 
-				<div id="socials" className="space-y-1">
+				<div id="socials" className="space-y-2">
 					<span className="flex flex-row items-center text-gray-400">
 						<SteamIcon className="mr-1" />
 						{user.steamProfileUrl ? (
@@ -66,16 +66,14 @@ const UserInfo: React.FC<Props> = ({ user }): React.JSX.Element => {
 								{steamUsername}
 							</a>
 						) : (
-							<span>Unkown</span>
+							<>Unkown</>
 						)}
 					</span>
 
-					{user.discordUsername && (
-						<div className="flex flex-row items-center ">
-							<DiscordIcon className="mr-1" />
-							{user.discordUsername}
-						</div>
-					)}
+					<span className="flex flex-row items-center text-gray-400">
+						<DiscordIcon className="mr-1" />
+						{user.discordUsername ? <>{user.discordUsername}</> : <>Unkown</>}
+					</span>
 				</div>
 			</div>
 

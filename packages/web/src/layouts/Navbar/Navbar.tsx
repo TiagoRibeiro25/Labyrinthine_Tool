@@ -1,10 +1,9 @@
 import React from "react";
 import { Fade } from "react-awesome-reveal";
 import useAuthStore from "../../stores/auth";
-import AuthenticatedDesktopBar from "./components/Authenticated/DesktopBar/DesktopBar";
-import AuthenticatedMobileBar from "./components/Authenticated/MobileBar/MobileBar";
 import NonAuthenticatedDesktopBar from "./components/NonAuthenticated/DesktopBar/DesktopBar";
 import NonAuthenticatedMobileBar from "./components/NonAuthenticated/MobileBar/MobileBar";
+import AuthenticatedNavbar from "./components/AuthenticatedNavbar/AuthenticatedNavbar";
 
 const Navbar: React.FC = (): React.JSX.Element => {
 	const isAuthenticated: boolean = !!useAuthStore((state) => state.loggedUser);
@@ -12,13 +11,7 @@ const Navbar: React.FC = (): React.JSX.Element => {
 	return (
 		<>
 			{isAuthenticated ? (
-				<>
-					<Fade className="sm:h-full">
-						<AuthenticatedDesktopBar />
-					</Fade>
-
-					<AuthenticatedMobileBar />
-				</>
+				<AuthenticatedNavbar />
 			) : (
 				<>
 					<Fade className="sm:h-full">

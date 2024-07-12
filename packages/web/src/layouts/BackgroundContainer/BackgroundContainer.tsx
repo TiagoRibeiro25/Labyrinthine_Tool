@@ -59,8 +59,10 @@ const BackgroundContainer: React.FC<Props> = ({
 				<Fade className="flex justify-center h-full" duration={1200} delay={200} triggerOnce>
 					<div className="w-full bg-black bg-opacity-40 -z-40">
 						{isLoading ? (
-							<div className="flex flex-row items-center justify-center h-full">
-								<h1 className="z-50 text-5xl font-bold labyrinth-font">{loadingMessage}</h1>
+							<div className="flex md:flex-row flex-col items-center justify-center h-full">
+								<h1 className="z-50 text-5xl font-bold labyrinth-font text-center">
+									{loadingMessage}
+								</h1>
 								<LoadingDots className="z-50 w-10 h-10 mt-4 ml-2" />
 							</div>
 						) : (

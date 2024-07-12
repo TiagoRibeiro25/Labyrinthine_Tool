@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Fade } from "react-awesome-reveal";
-import { Link } from "react-router-dom";
 import CloseIcon from "../../../../../components/Icons/CloseIcon/CloseIcon";
 import FriendsIcon from "../../../../../components/Icons/FriendsIcon/FriendsIcon";
 import GamingIcon from "../../../../../components/Icons/GamingIcon/GamingIcon";
