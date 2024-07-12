@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import LogoutIcon from "../../../../../components/Icons/LogoutIcon/LogoutIcon";
 import QuestionIcon from "../../../../../components/Icons/QuestionIcon/QuestionIcon";
 import Modal from "../../../../../components/Modal/Modal";
 import constants from "../../../../../constants";
+import useFetch from "../../../../../hooks/useFetch";
+import useAuthStore from "../../../../../stores/auth";
 import NavButton from "../../NavButton/NavButton";
 import LogoutConfirmationModalContent from "../LogoutConfirmationModalContent/LogoutConfirmationModalContent";
-import { useQuery } from "@tanstack/react-query";
-import { SuccessResponseBodyData } from "../../../../../types";
-import api from "../../../../../api/axios";
-import useAuthStore from "../../../../../stores/auth";
 
 const DesktopBar: React.FC = (): React.JSX.Element => {
-	const loggedUser = useAuthStore((state) => state.loggedUser);
 	const signOut = useAuthStore((state) => state.signOut);
 
 	const [isLogoutButtonHovered, setIsLogoutButtonHovered] = useState<boolean>(false);
@@ -27,14 +24,10 @@ const DesktopBar: React.FC = (): React.JSX.Element => {
 		}
 	};
 
-	const { refetch, isLoading } = useQuery({
-		queryKey: ["logout"],
-		queryFn: async () => {
-			const response = await api.delete("/auth/logout");
-			return response.data as SuccessResponseBodyData;
-		},
-		enabled: false,
-		retry: false,
+	const { refetch, isLoading } = useFetch({
+		method: "delete",
+		route: "/auth/logout",
+		runOnMount: false,
 	});
 
 	const handleLogout = async (): Promise<void> => {
