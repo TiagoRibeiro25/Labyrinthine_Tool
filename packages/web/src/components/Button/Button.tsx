@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React, { PropsWithChildren } from "react";
 
 type Props = PropsWithChildren & {
@@ -19,11 +20,13 @@ const Button: React.FC<Props> = ({
 	return (
 		<button
 			type={type}
-			className={
+			className={classNames(
+				"px-4 py-2 font-bold rounded-xl border-2 border-white ease-in-out transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed",
 				reversedColors
-					? `px-4 py-2 font-bold bg-transparent text-white rounded-xl hover:bg-white hover:text-black border-2 border-white ease-in-out transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${className}`
-					: `px-4 py-2 font-bold bg-white text-black rounded-xl hover:bg-gray-950 hover:text-white border-2 border-white ease-in-out transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${className}`
-			}
+					? "hover:bg-white hover:text-black bg-transparent"
+					: "bg-white text-black hover:bg-black hover:text-white",
+				className
+			)}
 			onClick={onClick}
 			disabled={disabled}
 		>

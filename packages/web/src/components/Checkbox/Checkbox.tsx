@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React from "react";
 
 type Props = {
@@ -7,14 +8,9 @@ type Props = {
 	className?: string;
 };
 
-const Checkbox: React.FC<Props> = ({
-	label,
-	selected,
-	onChange,
-	className,
-}): React.JSX.Element => {
+const Checkbox: React.FC<Props> = ({ label, selected, onChange, className }): React.JSX.Element => {
 	return (
-		<label className={`flex items-center font-bold ${className}`}>
+		<label className={classNames("flex items-center font-bold", className)}>
 			<input
 				className="mr-2 leading-tight"
 				type="checkbox"

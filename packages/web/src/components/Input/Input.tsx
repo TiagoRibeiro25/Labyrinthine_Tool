@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React from "react";
 
 type Props = {
@@ -30,15 +31,20 @@ const Input: React.FC<Props> = ({
 	return (
 		<>
 			<label
-				className={`block mb-2 text-sm font-bold tracking-wide uppercase ${labelClassName}`}
+				className={classNames(
+					"block mb-2 text-sm font-bold tracking-wide uppercase",
+					labelClassName
+				)}
 				htmlFor={id}
 			>
 				{label}
 			</label>
 			<input
-				className={`block w-full px-4 py-3 mb-3 leading-tight text-gray-200 bg-gray-950 border rounded-lg appearance-none focus:outline-none focus:bg-gray-800 transition-all duration-200 ${
-					error ? "border-red-500" : ""
-				} ${inputClassName}`}
+				className={classNames(
+					"block w-full px-4 py-3 mb-3 leading-tight text-gray-200 bg-gray-950 border rounded-lg appearance-none focus:outline-none focus:bg-gray-800 transition-all duration-200",
+					error ? "border-red-500" : "",
+					inputClassName
+				)}
 				id={id}
 				type={type}
 				placeholder={placeholder}

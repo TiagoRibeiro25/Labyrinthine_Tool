@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React from "react";
 
 type Props = {
@@ -16,10 +17,10 @@ const ReasonToUseCard: React.FC<Props> = ({
 	return (
 		// TODO: Make this a button element
 		<div
-			// className="transition-transform duration-200 ease-in-out bg-black border border-gray-700 cursor-pointer bg-opacity-40 w-60 h-60 rounded-3xl hover:scale-110"
-			className={`transition-transform duration-200 ease-in-out bg-black border cursor-pointer bg-opacity-40 w-60 h-60 rounded-3xl hover:scale-105 ${
+			className={classNames(
+				"transition-transform duration-200 ease-in-out bg-black border cursor-pointer bg-opacity-40 w-60 h-60 rounded-3xl hover:scale-105",
 				selected ? "lg:border-gray-200 border-gray-700" : "border-gray-700"
-			}`}
+			)}
 			onClick={onClick}
 		>
 			<div className="flex items-center justify-center w-full h-40">

@@ -83,6 +83,9 @@ export default {
 			}
 		}
 
+		// Fetch total amount of cosmetics that exist in the game
+		const totalCosmetics = await db.main.cosmetic.count();
+
 		const totalFriends =
 			user.receivedRequests.map((request) => request.status === "accepted").length +
 			user.sentRequests.map((request) => request.status === "accepted").length;
@@ -97,7 +100,8 @@ export default {
 					username: user.username,
 					discordUsername: user.discordUsername,
 					steamProfileUrl: user.steamProfileUrl,
-					cosmetics: user.userCosmetics.map((cosmetic) => cosmetic.cosmeticId),
+					unlockedCosmetics: user.userCosmetics.map((cosmetic) => cosmetic.cosmeticId),
+					totalCosmetics,
 					totalFriends,
 					friendRequestStatus,
 					isLoggedUser: userId === loggedUserId,

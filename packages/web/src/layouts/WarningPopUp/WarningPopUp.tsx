@@ -2,6 +2,7 @@ import React from "react";
 import { Fade } from "react-awesome-reveal";
 import CloseIcon from "../../components/Icons/CloseIcon/CloseIcon";
 import useWarningStore from "../../stores/warning";
+import classNames from "classnames";
 
 const WarningPopUp: React.FC = (): React.JSX.Element => {
 	const warnings = useWarningStore((state) => state.warnings);
@@ -21,11 +22,13 @@ const WarningPopUp: React.FC = (): React.JSX.Element => {
 					delay={100 + index * 10}
 				>
 					<div
-						className={`flex flex-row items-center rounded-md pl-3.5 p-2 border bg-black bg-opacity-75 sm:ml-[80px] ${
-							warning.type === "error"
-								? "text-red-500 border-red-500"
-								: "text-yellow-500 border-yellow-500"
-						}`}
+						className={classNames(
+							"flex flex-row items-center rounded-md pl-3.5 p-2 border bg-black bg-opacity-75 sm:ml-[80px]",
+							{
+								"text-red-500 border-red-500": warning.type === "error",
+								"text-yellow-500 border-yellow-500": warning.type === "warning",
+							}
+						)}
 					>
 						{warning.text}
 

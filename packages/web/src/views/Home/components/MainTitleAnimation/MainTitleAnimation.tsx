@@ -1,4 +1,5 @@
 import { Keyframes, keyframes } from "@emotion/react";
+import classNames from "classnames";
 import React, { PropsWithChildren } from "react";
 import Reveal from "react-awesome-reveal";
 
@@ -35,7 +36,7 @@ const MainTitleAnimation: React.FC<Props> = ({
 			delay={delay}
 			duration={duration}
 			keyframes={customAnimation}
-			className={className}
+			className={classNames(className)}
 		>
 			{children}
 		</Reveal>
