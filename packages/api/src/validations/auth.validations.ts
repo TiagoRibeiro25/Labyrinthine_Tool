@@ -8,7 +8,7 @@ export default {
 					username: {
 						type: "string",
 						minLength: 3,
-						maxLength: 255,
+						maxLength: 20,
 					},
 					password: {
 						type: "string",
@@ -18,7 +18,7 @@ export default {
 					discordUsername: {
 						type: "string",
 						minLength: 3,
-						maxLength: 255,
+						maxLength: 30,
 					},
 					steamProfileUrl: {
 						type: "string",
@@ -39,7 +39,7 @@ export default {
 					username: {
 						type: "string",
 						minLength: 3,
-						maxLength: 255,
+						maxLength: 20,
 					},
 					password: {
 						type: "string",

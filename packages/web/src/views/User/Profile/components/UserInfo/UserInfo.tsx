@@ -6,6 +6,7 @@ import ActionButton from "./components/ActionButton/ActionButton";
 import classNames from "classnames";
 import { User } from "../../Profile";
 import utils from "../../../../../utils";
+import UserAvatar from "../../../../../assets/images/avatars/1.webp";
 
 type Props = {
 	user: User;
@@ -43,15 +44,15 @@ const UserInfo: React.FC<Props> = ({ user }): React.JSX.Element => {
 	}, [user.steamProfileUrl]);
 
 	return (
-		<div className="bg-black bg-opacity-50 p-10 rounded-3xl flex flex-row space-x-8 justify-between">
+		<div className="bg-black bg-opacity-50 p-10 sm:rounded-3xl flex lg:flex-row flex-col lg:space-x-8 space-x-0 justify-between items-center lg:items-start">
 			<img
-				src="https://via.placeholder.com/150"
+				src={UserAvatar}
 				alt="Profile Picture"
-				className="rounded-3xl border w-44 h-44"
+				className="rounded-3xl border lg:w-44 lg:h-44 w-60 h-60 object-cover"
 			/>
 
-			<div className="w-full">
-				<h1 className="text-3xl font-bold mb-4">{user.username}</h1>
+			<div className="w-full lg:my-0 my-6 flex lg:items-start flex-col items-center">
+				<h1 className="text-3xl font-bold mb-4 truncate">{user.username}</h1>
 
 				<div id="socials" className="space-y-2">
 					<span className="flex flex-row items-center text-gray-400">
@@ -77,7 +78,7 @@ const UserInfo: React.FC<Props> = ({ user }): React.JSX.Element => {
 				</div>
 			</div>
 
-			<div className="w-[300px] flex flex-col items-center justify-between">
+			<div className="min-w-[170px] flex flex-col items-center justify-between space-y-5">
 				<CosmeticIcon
 					className={classNames("w-16 h-16 opacity-85", {
 						"text-red-500": scoreColor === "red",
@@ -87,7 +88,7 @@ const UserInfo: React.FC<Props> = ({ user }): React.JSX.Element => {
 					})}
 				/>
 
-				<h2 className="text-2xl font-bold text-center mt-2">
+				<h2 className="text-2xl font-bold text-center">
 					<span
 						className={classNames({
 							"text-red-500": scoreColor === "red",
