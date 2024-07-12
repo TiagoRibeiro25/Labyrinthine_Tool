@@ -15,7 +15,6 @@ const ReasonToUseCard: React.FC<Props> = ({
 	selected,
 }): React.JSX.Element => {
 	return (
-		// TODO: Make this a button element
 		<button
 			className={classNames(
 				"transition-transform duration-200 ease-in-out bg-black border cursor-pointer bg-opacity-40 w-60 h-60 rounded-3xl hover:scale-105",
