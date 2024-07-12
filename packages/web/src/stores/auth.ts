@@ -14,9 +14,13 @@ interface AuthState {
 	signOut: () => void;
 }
 
-const useAuthStore = create<AuthState>((set) => ({
-	loggedUser: null as LoggedUser | null,
+const initial_state = {
+	loggedUser: null,
 	authToken: localStorage.getItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN) || "",
+};
+
+const useAuthStore = create<AuthState>((set) => ({
+	...initial_state,
 
 	setLoggedUser: (loggedUser: LoggedUser) => set({ loggedUser }),
 	setAuthToken: (authToken: string) => {
@@ -31,8 +35,8 @@ const useAuthStore = create<AuthState>((set) => ({
 	},
 
 	signOut: () => {
-		set({ loggedUser: null, authToken: "" });
 		localStorage.removeItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN);
+		set({ ...initial_state });
 	},
 }));
 

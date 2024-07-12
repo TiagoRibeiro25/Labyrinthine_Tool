@@ -21,19 +21,20 @@ api.interceptors.request.use((request) => {
 	return request;
 });
 
-api.interceptors.response.use((response) => {
-	// Check if the response has a new auth token
-	const refreshedAuthToken = response.headers.authorization;
-	if (refreshedAuthToken) {
-		// If it does, update the auth token in the store
-		useAuthStore.getState().setAuthToken(refreshedAuthToken);
-	}
-
-	return response;
-});
-
 api.interceptors.response.use(
-	(response) => response,
+	async (response) => {
+		// Check if the response has a new auth token
+		const refreshedAuthToken = response.headers.authorization as string | undefined;
+		if (refreshedAuthToken) {
+			// If it does, update the auth token in the store
+			useAuthStore.getState().setAuthToken(refreshedAuthToken);
+		}
+
+		//DEBUG: Add a delay of 3 second to all requests
+		await new Promise((resolve) => setTimeout(resolve, 3000));
+
+		return response;
+	},
 	(error) => {
 		const addWarning = useWarningStore.getState().addWarning;
 

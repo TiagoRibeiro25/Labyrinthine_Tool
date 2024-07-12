@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import api from "../../../../api/axios";
 import Button from "../../../../components/Button/Button";
 import Checkbox from "../../../../components/Checkbox/Checkbox";
@@ -60,6 +60,8 @@ const Login: React.FC = (): React.JSX.Element => {
 
 	// Handle the response
 	useEffect(() => {
+		// FIXME: The problem is, when the user logs out, it renders the login page again but the values are cached so it stays logged in
+
 		if (status === "error") {
 			const err = error as unknown as { response: { data: ErrorResponseBodyData } };
 			const bodyData = err.response.data;
