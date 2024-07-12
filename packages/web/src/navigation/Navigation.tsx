@@ -16,8 +16,6 @@ const Navigation: React.FC = (): React.JSX.Element => {
 	// expired, eventually the value of "state.authToken" will be null and it will update automatically.
 	const isAuthenticated: boolean = !!useAuthStore((state) => state.authToken);
 
-	// FIXME: Doesn't redirect to login on sign out
-
 	return (
 		<Routes>
 			<Route path={constants.ROUTES.HOME} element={<Home />} />
