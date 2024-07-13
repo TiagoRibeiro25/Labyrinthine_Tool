@@ -16,5 +16,6 @@ export default {
 		PROFILE: USER_PREFIX + "/:id",
 		OWN_PROFILE: USER_PREFIX + "/me",
 		EDIT_PROFILE: USER_PREFIX + "/me/edit",
+		FRIENDS: USER_PREFIX + "/:id/friends",
 	},
 };

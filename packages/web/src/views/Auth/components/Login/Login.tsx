@@ -8,6 +8,7 @@ import LoadingDots from "../../../../layouts/BackgroundContainer/components/Load
 import useAuthStore from "../../../../stores/auth";
 import { ErrorResponseBodyData, SuccessResponseBodyData } from "../../../../types";
 import useFetch from "../../../../hooks/useFetch";
+import utils from "./utils";
 
 type SuccessResponseData = SuccessResponseBodyData & {
 	data: {
@@ -55,22 +56,9 @@ const Login: React.FC = (): React.JSX.Element => {
 
 		if (isError && error) {
 			const bodyData = error.response?.data as ErrorResponseBodyData;
-
-			if (bodyData.message.startsWith("body/password")) {
-				// Cut the "body/password" part of the message and replace it with "Password"
-				setPasswordError("Password " + bodyData.message.split(" ").slice(1).join(" "));
-			} else if (bodyData.message.startsWith("body/username")) {
-				// Cut the "body/username" part of the message and replace it with "Username"
-				setUsernameError("Username " + bodyData.message.split(" ").slice(1).join(" "));
-			} else if (bodyData.message === "There's no user with that username") {
-				setUsernameError(bodyData.message);
-			} else if (bodyData.message === "Invalid credentials") {
-				setPasswordError("Wrong password");
-			} else if (bodyData.statusCode === 400) {
-				setUsernameError("Invalid username");
-				setPasswordError("Invalid password");
-			}
-
+			const errorData = utils.handleResponseErrorData(bodyData);
+			setUsernameError(errorData.username || "");
+			setPasswordError(errorData.password || "");
 			return;
 		}
 

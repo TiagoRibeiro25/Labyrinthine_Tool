@@ -9,13 +9,21 @@ import { Fade } from "react-awesome-reveal";
 import Friends from "./components/Friends/Friends";
 import constants from "../../../constants";
 
+export type Friend = {
+	id: string;
+	username: string;
+	profilePictureId: string;
+};
+
 export type User = {
 	id: string;
 	username: string;
+	profilePictureId: string;
 	discordUsername?: string;
 	steamProfileUrl?: string;
 	unlockedCosmetics: string[];
 	totalCosmetics: number;
+	someFriends: Friend[];
 	totalFriends: number;
 	friendRequestStatus: FriendStatus;
 	isLoggedUser: boolean;
@@ -48,12 +56,20 @@ const Profile: React.FC = (): React.JSX.Element => {
 
 	return (
 		<div className="flex justify-center h-full sm:px-10">
-			<div className="h-full max-w-[985px] w-full sm:my-10 bg-black bg-opacity-30 sm:rounded-3xl">
+			<div className="max-w-[985px] w-full sm:my-10 bg-black bg-opacity-30 sm:rounded-3xl">
 				{isSuccess && data && id && (
-					<Fade triggerOnce direction="up" duration={400} delay={100}>
-						<UserInfo user={data.data.user} />
-						{/* <Friends totalFriends={data.data.user.totalFriends} userId={id} /> */}
-					</Fade>
+					<>
+						<Fade triggerOnce cascade direction="up" duration={700} delay={200}>
+							<UserInfo user={data.data.user} />
+							{data.data.user.totalFriends > 0 && (
+								<Friends
+									totalFriends={data.data.user.totalFriends}
+									userId={id}
+									someFriends={data.data.user.someFriends}
+								/>
+							)}
+						</Fade>
+					</>
 				)}
 
 				{isLoading && (

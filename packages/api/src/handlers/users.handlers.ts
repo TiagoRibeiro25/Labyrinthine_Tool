@@ -30,6 +30,7 @@ export default {
 			select: {
 				id: true,
 				username: true,
+				profilePictureId: true,
 				discordUsername: true,
 				steamProfileUrl: true,
 				createdAt: true,
@@ -39,11 +40,29 @@ export default {
 				},
 				receivedRequests: {
 					where: { receiverId: userId },
-					select: { senderId: true, status: true },
+					select: {
+						senderId: true,
+						status: true,
+						sender: {
+							select: {
+								username: true,
+								profilePictureId: true,
+							},
+						},
+					},
 				},
 				sentRequests: {
 					where: { senderId: userId },
-					select: { receiverId: true, status: true },
+					select: {
+						receiverId: true,
+						status: true,
+						receiver: {
+							select: {
+								username: true,
+								profilePictureId: true,
+							},
+						},
+					},
 				},
 			},
 		});
@@ -86,9 +105,21 @@ export default {
 		// Fetch total amount of cosmetics that exist in the game
 		const totalCosmetics = await db.main.cosmetic.count();
 
-		const totalFriends =
-			user.receivedRequests.map((request) => request.status === "accepted").length +
-			user.sentRequests.map((request) => request.status === "accepted").length;
+		const receivedRequests = user.receivedRequests.map((request) => {
+			return {
+				id: request.senderId,
+				username: request.sender.username,
+				profilePicureId: request.sender.profilePictureId,
+			};
+		});
+
+		const sentRequests = user.sentRequests.map((request) => {
+			return {
+				id: request.receiverId,
+				username: request.receiver.username,
+				profilePicureId: request.receiver.profilePictureId,
+			};
+		});
 
 		utils.response.send({
 			reply,
@@ -99,10 +130,16 @@ export default {
 					id: user.id,
 					username: user.username,
 					discordUsername: user.discordUsername,
+					profilePictureId: user.profilePictureId,
 					steamProfileUrl: user.steamProfileUrl,
 					unlockedCosmetics: user.userCosmetics.map((cosmetic) => cosmetic.cosmeticId),
 					totalCosmetics,
-					totalFriends,
+					// Show the first 10 friends
+					someFriends:
+						receivedRequests.length >= 10
+							? receivedRequests
+							: [...receivedRequests, ...sentRequests.slice(0, 10 - receivedRequests.length)],
+					totalFriends: receivedRequests.length + sentRequests.length,
 					friendRequestStatus,
 					isLoggedUser: userId === loggedUserId,
 					createdAt: user.createdAt,
@@ -342,10 +379,10 @@ export default {
 				receiverId: true,
 				updatedAt: true, // Friends since
 				receiver: {
-					select: { id: true, username: true },
+					select: { id: true, username: true, profilePictureId: true },
 				},
 				sender: {
-					select: { id: true, username: true },
+					select: { id: true, username: true, profilePictureId: true },
 				},
 			},
 		});
@@ -362,6 +399,7 @@ export default {
 					return {
 						id: friend.id,
 						username: friend.username,
+						profilePictureId: friend.profilePictureId,
 						friends_since: friendship.updatedAt,
 					};
 				}),
