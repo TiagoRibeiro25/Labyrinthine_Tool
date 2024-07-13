@@ -20,12 +20,13 @@ export type Friend = {
 export type Cosmetic = {
 	id: string;
 	name: string;
+	profilePictureId?: string;
 };
 
 export type User = {
 	id: string;
 	username: string;
-	profilePictureId: string;
+	profilePictureId?: string;
 	discordUsername?: string;
 	steamProfileUrl?: string;
 	unlockedCosmetics: number;

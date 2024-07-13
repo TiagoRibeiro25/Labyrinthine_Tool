@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Friend } from "../../Profile";
 import Marquee from "react-fast-marquee";
 import constants from "../../../../../constants";
+import utils from "../../../../../utils";
 
 const FriendItem: React.FC<{ friend: Friend }> = ({ friend }): React.JSX.Element => {
 	return (
@@ -12,7 +13,7 @@ const FriendItem: React.FC<{ friend: Friend }> = ({ friend }): React.JSX.Element
 				}
 			>
 				<img
-					src={constants.PROFILE_PICTURES[friend.profilePictureId]}
+					src={utils.picture.getProfilePicture(friend.profilePictureId)}
 					alt="Friend"
 					className="w-12 h-12 rounded"
 				/>

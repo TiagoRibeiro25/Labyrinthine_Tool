@@ -41,6 +41,7 @@ export default {
 							select: {
 								id: true,
 								name: true,
+								pictureId: true,
 							},
 						},
 					},

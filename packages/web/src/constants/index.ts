@@ -11,7 +11,7 @@ export default {
 	OFFICIAL_DISCORD_INVITE_URL: "https://discord.gg/RfzqA4A",
 
 	ROUTES: routes,
-	COSMETICS: cosmetics,
+	COSMETICS_PICTURES: cosmetics,
 	PROFILE_PICTURES: profilePictures,
 
 	WARNINGS: {

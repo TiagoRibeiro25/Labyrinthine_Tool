@@ -28,6 +28,11 @@ export default {
 						minLength: 3,
 						maxLength: 255,
 					},
+					pictureId: {
+						type: "string",
+						minLength: 3,
+						maxLength: 255,
+					},
 					notes: {
 						type: "string",
 						minLength: 5,

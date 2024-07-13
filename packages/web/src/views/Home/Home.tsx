@@ -8,11 +8,12 @@ import constants from "../../constants";
 import useAuthStore from "../../stores/auth";
 import MainTitleAnimation from "./components/MainTitleAnimation/MainTitleAnimation";
 import WhyYouShouldUseContent from "./components/WhyYouShouldUseContent/WhyYouShouldUseContent";
+import utils from "../../utils";
 
 const MAIN_TITLE_ANIMATION_DELAY = 1500;
 const MAIN_TITLE_ANIMATION_DURATION = 1000;
 
-const DISPLAYED_SUMMER_COSMETICS = [
+const DISPLAYED_SUMMER_COSMETICS_PICTURE_IDS = [
 	"15e0b5cc-327d-484e-b67f-28bcd5de176c",
 	"179e3ccd-4a4a-43a7-9e9f-c70b396bb552",
 	"1e8ceb0a-3a76-452f-8ca6-568bf75fe9e8",
@@ -117,10 +118,10 @@ const Home: React.FC = (): React.JSX.Element => {
 											gradientColor="black"
 											gradientWidth={200}
 										>
-											{DISPLAYED_SUMMER_COSMETICS.map((cosmeticId) => (
-												<div key={cosmeticId} className="flex flex-col items-center mr-8">
+											{DISPLAYED_SUMMER_COSMETICS_PICTURE_IDS.map((pictureId) => (
+												<div key={pictureId} className="flex flex-col items-center mr-8">
 													<img
-														src={constants.COSMETICS[cosmeticId].picture}
+														src={utils.picture.getCosmeticPicture(pictureId)}
 														alt="Cosmetic"
 														className="object-cover w-32 h-32 rounded-3xl"
 													/>

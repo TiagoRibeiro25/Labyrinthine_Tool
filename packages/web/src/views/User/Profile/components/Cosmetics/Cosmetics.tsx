@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import constants from "../../../../../constants";
 import { Cosmetic } from "../../Profile";
 import Marquee from "react-fast-marquee";
+import utils from "../../../../../utils";
 
 type Props = {
 	someUnlockedCosmetics: Cosmetic[];
@@ -43,7 +44,7 @@ const Cosmetics: React.FC<Props> = ({
 							<div key={cosmetic.id} className="mr-2">
 								<Link to={constants.ROUTES.USER.PROFILE.replace(":id", cosmetic.id)}>
 									<img
-										src={constants.COSMETICS[cosmetic.id].picture}
+										src={utils.picture.getCosmeticPicture(cosmetic.profilePictureId)}
 										alt="Cosmetic"
 										className="w-12 h-12 rounded"
 									/>
@@ -63,7 +64,7 @@ const Cosmetics: React.FC<Props> = ({
 									}
 								>
 									<img
-										src={constants.COSMETICS[cosmetic.id].picture}
+										src={utils.picture.getCosmeticPicture(cosmetic.profilePictureId)}
 										alt="Cosmetic"
 										className="w-16 h-16 rounded"
 									/>

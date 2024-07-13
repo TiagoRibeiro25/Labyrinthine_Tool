@@ -4,6 +4,13 @@ import classNames from "classnames";
 import { Link } from "react-router-dom";
 import constants from "../../../../../../../constants";
 
+const STATUS: { [key: string]: string } = {
+	none: "Add Friend",
+	"waiting for the other user to accept": "Cancel Request",
+	"the other user is waiting for you to accept": "Accept Request",
+	friends: "Remove Friend",
+};
+
 type Props = {
 	isLoggedUser: boolean;
 	friendStatus: string;
@@ -30,10 +37,7 @@ const ActionButton: React.FC<Props> = ({
 				</Link>
 			) : (
 				<Button className={classNames(className)} onClick={handleClick}>
-					{friendStatus === "none" && "Add Friend"}
-					{friendStatus === "waiting for the other user to accept" && "Cancel Request"}
-					{friendStatus === "the other user is waiting for you to accept" && "Accept Request"}
-					{friendStatus === "friends" && "Remove Friend"}
+					{STATUS[friendStatus]}
 				</Button>
 			)}
 		</>

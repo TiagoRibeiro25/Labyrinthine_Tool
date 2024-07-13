@@ -8,6 +8,12 @@ type Cosmetic = {
 };
 
 export default {
+	// TODO: Add a placeholder image
+	default: {
+		picture: PICTURE_PREFIX + "/f2b899ee-a3ac-4cf2-bd22-7c5c74d59e3b.png",
+		inGamePicture: IN_GAME_PREFIX + "/.webp",
+	},
+
 	"f2b899ee-a3ac-4cf2-bd22-7c5c74d59e3b": {
 		picture: PICTURE_PREFIX + "/f2b899ee-a3ac-4cf2-bd22-7c5c74d59e3b.png",
 		inGamePicture: IN_GAME_PREFIX + "/f2b899ee-a3ac-4cf2-bd22-7c5c74d59e3b.webp",

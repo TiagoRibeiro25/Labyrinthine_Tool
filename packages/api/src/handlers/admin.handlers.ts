@@ -11,6 +11,7 @@ type AddCosmeticBody = {
 	image_url: string;
 	icon_url: string;
 	notes?: string;
+	pictureId?: string;
 };
 
 export default {
@@ -20,7 +21,8 @@ export default {
 	 * @param reply - The Fastify reply object.
 	 */
 	addCosmetic: async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
-		const { name, type, source, image_url, icon_url, notes } = request.body as AddCosmeticBody;
+		const { name, type, source, image_url, icon_url, notes, pictureId } =
+			request.body as AddCosmeticBody;
 
 		// Check if there's already a cosmetic with the same name
 		const doesCosmeticAlreadyExist = await db.main.cosmetic.findFirst({
@@ -50,6 +52,7 @@ export default {
 				type,
 				source,
 				notes,
+				pictureId,
 			},
 		});
 
