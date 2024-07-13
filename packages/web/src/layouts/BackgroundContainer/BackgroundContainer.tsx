@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useEffect } from "react";
 import { Fade } from "react-awesome-reveal";
 import { useLocation } from "react-router-dom";
 import AuthBgImage from "../../assets/images/candle.webp";
@@ -44,6 +44,11 @@ const BackgroundContainer: React.FC<Props> = ({
 
 		return DefaultBgImage;
 	};
+
+	// Scroll to top on route change
+	useEffect(() => {
+		document.querySelector("main")?.scrollTo(0, 0);
+	}, [location.pathname]);
 
 	return (
 		<div className="h-[100dvh]">
