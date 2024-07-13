@@ -1,8 +1,25 @@
 import { Link } from "react-router-dom";
-import constants from "../../../../../constants";
 import { Friend } from "../../Profile";
 import Marquee from "react-fast-marquee";
-import utils from "../../../../../utils";
+import constants from "../../../../../constants";
+
+const FriendItem: React.FC<{ friend: Friend }> = ({ friend }): React.JSX.Element => {
+	return (
+		<div key={friend.id} className="mr-2">
+			<Link
+				to={
+					constants.ROUTES.USER.PROFILE.replace(":id", friend.id) + "?username=" + friend.username
+				}
+			>
+				<img
+					src={constants.PROFILE_PICTURES[friend.profilePictureId]}
+					alt="Friend"
+					className="w-12 h-12 rounded"
+				/>
+			</Link>
+		</div>
+	);
+};
 
 type Props = {
 	totalFriends: number;
@@ -33,35 +50,13 @@ const Friends: React.FC<Props> = ({ totalFriends, someFriends, userId }): React.
 						pauseOnHover={true}
 					>
 						{someFriends.map((friend) => (
-							<div key={friend.id} className="mr-2">
-								<Link to={constants.ROUTES.USER.PROFILE.replace(":id", friend.id)}>
-									<img
-										src={utils.profilePicture.getPicture(friend.profilePictureId)}
-										alt="Friend"
-										className="w-12 h-12 rounded"
-									/>
-								</Link>
-							</div>
+							<FriendItem key={friend.id} friend={friend} />
 						))}
 					</Marquee>
 				) : (
 					<div className="flex flex-row">
 						{someFriends.map((friend) => (
-							<div key={friend.id} className="mr-2">
-								<Link
-									to={
-										constants.ROUTES.USER.PROFILE.replace(":id", friend.id) +
-										"?username=" +
-										friend.username
-									}
-								>
-									<img
-										src={utils.profilePicture.getPicture(friend.profilePictureId)}
-										alt="Friend"
-										className="w-12 h-12 rounded"
-									/>
-								</Link>
-							</div>
+							<FriendItem key={friend.id} friend={friend} />
 						))}
 					</div>
 				)}

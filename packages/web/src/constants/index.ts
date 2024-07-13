@@ -1,4 +1,5 @@
 import cosmetics from "./cosmetics";
+import profilePictures from "./profilePictures";
 import routes from "./routes";
 
 export default {
@@ -11,6 +12,7 @@ export default {
 
 	ROUTES: routes,
 	COSMETICS: cosmetics,
+	PROFILE_PICTURES: profilePictures,
 
 	WARNINGS: {
 		MILLISECONDS_BEFORE_REMOVAL: 5000,

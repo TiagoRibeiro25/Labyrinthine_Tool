@@ -45,7 +45,7 @@ type SuccessResponseData = SuccessResponseBodyData & {
 
 const Profile: React.FC = (): React.JSX.Element => {
 	const navigate = useNavigate();
-	const { id } = useParams(); // User id
+	const { id } = useParams();
 
 	const { isLoading, isSuccess, data, isError } = useQuery({
 		queryKey: ["user", { id }],

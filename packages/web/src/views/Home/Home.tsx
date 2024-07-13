@@ -8,10 +8,23 @@ import constants from "../../constants";
 import useAuthStore from "../../stores/auth";
 import MainTitleAnimation from "./components/MainTitleAnimation/MainTitleAnimation";
 import WhyYouShouldUseContent from "./components/WhyYouShouldUseContent/WhyYouShouldUseContent";
-import cosmetics from "./cosmetics.json";
 
 const MAIN_TITLE_ANIMATION_DELAY = 1500;
 const MAIN_TITLE_ANIMATION_DURATION = 1000;
+
+const DISPLAYED_SUMMER_COSMETICS = [
+	"15e0b5cc-327d-484e-b67f-28bcd5de176c",
+	"179e3ccd-4a4a-43a7-9e9f-c70b396bb552",
+	"1e8ceb0a-3a76-452f-8ca6-568bf75fe9e8",
+	"2228c9e2-9c1f-4903-8732-1bfe16d131b0",
+	"512476b9-80e0-495b-b147-4cd05faedf71",
+	"5908a9e0-3679-4611-a29b-a3721597b897",
+	"5bd135e9-81d6-4bf6-9b1c-a04e99a353d2",
+	"74be6a01-3a14-4cf9-9555-cb4ce4ea66a8",
+	"a4193b7e-e0af-47a7-8429-260f9474d92e",
+	"c789c232-0b45-4f99-ac56-467c7b71b47c",
+	"c8ffd747-aacf-4786-9cf1-89d3c9fdc731",
+];
 
 const Home: React.FC = (): React.JSX.Element => {
 	const isAuthenticated: boolean = !!useAuthStore((state) => state.loggedUser);
@@ -104,12 +117,11 @@ const Home: React.FC = (): React.JSX.Element => {
 											gradientColor="black"
 											gradientWidth={200}
 										>
-											{cosmetics.map((cosmetic, index: number) => (
-												<div key={index} className="flex flex-col items-center mr-8">
+											{DISPLAYED_SUMMER_COSMETICS.map((cosmeticId) => (
+												<div key={cosmeticId} className="flex flex-col items-center mr-8">
 													<img
-														// Fallback is the local image if the remote one fails to load (located in public folder)
-														src={cosmetic.img || cosmetic.fallback}
-														alt={cosmetic.alt + " Cosmetic"}
+														src={constants.COSMETICS[cosmeticId].picture}
+														alt="Cosmetic"
 														className="object-cover w-32 h-32 rounded-3xl"
 													/>
 												</div>

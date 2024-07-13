@@ -6,6 +6,7 @@ import ActionButton from "./components/ActionButton/ActionButton";
 import classNames from "classnames";
 import { User } from "../../Profile";
 import utils from "../../../../../utils";
+import constants from "../../../../../constants";
 
 type Props = {
 	user: User;
@@ -45,7 +46,7 @@ const UserInfo: React.FC<Props> = ({ user }): React.JSX.Element => {
 	return (
 		<div className="bg-black bg-opacity-50 p-10 sm:rounded-3xl flex lg:flex-row flex-col lg:space-x-8 space-x-0 justify-between items-center lg:items-start">
 			<img
-				src={utils.profilePicture.getPicture(user.profilePictureId)}
+				src={constants.PROFILE_PICTURES[user.profilePictureId]}
 				alt="Profile Picture"
 				className="rounded-3xl border lg:w-44 lg:h-44 w-60 h-60 object-cover"
 			/>

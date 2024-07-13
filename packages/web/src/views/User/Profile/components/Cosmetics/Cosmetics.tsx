@@ -43,7 +43,7 @@ const Cosmetics: React.FC<Props> = ({
 							<div key={cosmetic.id} className="mr-2">
 								<Link to={constants.ROUTES.USER.PROFILE.replace(":id", cosmetic.id)}>
 									<img
-										src={"/cosmetics/icons/" + cosmetic.id + ".png"}
+										src={constants.COSMETICS[cosmetic.id].picture}
 										alt="Cosmetic"
 										className="w-12 h-12 rounded"
 									/>
@@ -63,7 +63,7 @@ const Cosmetics: React.FC<Props> = ({
 									}
 								>
 									<img
-										src={"/cosmetics/icons/" + cosmetic.id + ".png"}
+										src={constants.COSMETICS[cosmetic.id].picture}
 										alt="Cosmetic"
 										className="w-16 h-16 rounded"
 									/>

@@ -116,7 +116,7 @@ export default {
 			return {
 				id: request.senderId,
 				username: request.sender.username,
-				profilePicureId: request.sender.profilePictureId,
+				profilePictureId: request.sender.profilePictureId,
 			};
 		});
 
@@ -124,7 +124,7 @@ export default {
 			return {
 				id: request.receiverId,
 				username: request.receiver.username,
-				profilePicureId: request.receiver.profilePictureId,
+				profilePictureId: request.receiver.profilePictureId,
 			};
 		});
 
