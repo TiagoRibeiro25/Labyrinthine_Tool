@@ -13,6 +13,7 @@ import "./assets/fonts/Labyrinth/Labyrinth.ttf";
 
 const queryClient = new QueryClient();
 
+//TODO: STORE ALL IMAGES OF ALL COSMETICS (and user avatars) in the front end
 const App: React.FC = (): React.JSX.Element => {
 	return (
 		<QueryClientProvider client={queryClient}>

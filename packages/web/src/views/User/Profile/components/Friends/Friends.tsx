@@ -12,14 +12,17 @@ type Props = {
 
 const Friends: React.FC<Props> = ({ totalFriends, someFriends, userId }): React.JSX.Element => {
 	return (
-		<div className="bg-black bg-opacity-50 p-10 sm:rounded-3xl mt-12 flex flex-row">
-			<div className="flex flex-col">
+		<div className="bg-black bg-opacity-50 p-10 sm:rounded-3xl mt-12 flex lg:flex-row flex-col">
+			<div className="flex lg:flex-col flex-row lg:items-start items-center">
 				<h2 className="text-2xl sm:text-3xl labyrinth-font">Friends</h2>
-				<Link to={constants.ROUTES.USER.FRIENDS.replace(":id", userId)} className="hover:underline">
+				<Link
+					to={constants.ROUTES.USER.FRIENDS.replace(":id", userId)}
+					className="hover:underline lg:ml-0 ml-auto"
+				>
 					See all {totalFriends} friends
 				</Link>
 			</div>
-			<div className="ml-auto flex items-center max-w-[500px]">
+			<div className="lg:ml-auto flex items-center lg:max-w-[500px] lg:mt-0 mt-6">
 				{someFriends.length >= 10 ? (
 					<Marquee
 						autoFill
@@ -30,8 +33,8 @@ const Friends: React.FC<Props> = ({ totalFriends, someFriends, userId }): React.
 						pauseOnHover={true}
 					>
 						{someFriends.map((friend) => (
-							<div className="mr-2">
-								<Link key={friend.id} to={constants.ROUTES.USER.PROFILE.replace(":id", friend.id)}>
+							<div key={friend.id} className="mr-2">
+								<Link to={constants.ROUTES.USER.PROFILE.replace(":id", friend.id)}>
 									<img
 										src={utils.profilePicture.getPicture(friend.profilePictureId)}
 										alt="Friend"
@@ -44,9 +47,8 @@ const Friends: React.FC<Props> = ({ totalFriends, someFriends, userId }): React.
 				) : (
 					<div className="flex flex-row">
 						{someFriends.map((friend) => (
-							<div className="mr-2">
+							<div key={friend.id} className="mr-2">
 								<Link
-									key={friend.id}
 									to={
 										constants.ROUTES.USER.PROFILE.replace(":id", friend.id) +
 										"?username=" +
