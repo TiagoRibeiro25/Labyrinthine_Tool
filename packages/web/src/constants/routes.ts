@@ -17,5 +17,11 @@ export default {
 		OWN_PROFILE: USER_PREFIX + "/me",
 		EDIT_PROFILE: USER_PREFIX + "/me/edit",
 		FRIENDS: USER_PREFIX + "/:id/friends",
+		COSMETICS: USER_PREFIX + "/:id/cosmetics",
+	},
+
+	COSMETIC: {
+		PREFIX: "/cosmetic",
+		ITEM: "/cosmetic/:id",
 	},
 };

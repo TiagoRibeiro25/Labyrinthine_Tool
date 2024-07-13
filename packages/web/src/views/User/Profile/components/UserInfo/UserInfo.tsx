@@ -32,8 +32,8 @@ const UserInfo: React.FC<Props> = ({ user }): React.JSX.Element => {
 	};
 
 	useEffect(() => {
-		setScoreColor(getScoreColor(user.unlockedCosmetics.length, user.totalCosmetics));
-	}, [user.totalCosmetics, user.unlockedCosmetics.length]);
+		setScoreColor(getScoreColor(user.unlockedCosmetics, user.totalCosmetics));
+	}, [user.totalCosmetics, user.unlockedCosmetics]);
 
 	useEffect(() => {
 		if (user.steamProfileUrl) {
@@ -96,7 +96,7 @@ const UserInfo: React.FC<Props> = ({ user }): React.JSX.Element => {
 							"text-green-500": scoreColor === "green",
 						})}
 					>
-						{user.unlockedCosmetics.length}
+						{user.unlockedCosmetics}
 					</span>{" "}
 					/ {user.totalCosmetics}
 				</h2>

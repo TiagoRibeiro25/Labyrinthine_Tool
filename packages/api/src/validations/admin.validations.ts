@@ -3,7 +3,7 @@ export default {
 		schemas: {
 			body: {
 				type: "object",
-				required: ["name", "type", "source", "image_url", "icon_url"],
+				required: ["name", "type", "source"],
 				properties: {
 					name: {
 						type: "string",
@@ -26,16 +26,6 @@ export default {
 					source: {
 						type: "string",
 						minLength: 3,
-						maxLength: 255,
-					},
-					image_url: {
-						type: "string",
-						minLength: 10,
-						maxLength: 255,
-					},
-					icon_url: {
-						type: "string",
-						minLength: 10,
 						maxLength: 255,
 					},
 					notes: {

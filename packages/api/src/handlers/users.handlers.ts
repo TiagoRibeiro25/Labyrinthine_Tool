@@ -36,7 +36,14 @@ export default {
 				createdAt: true,
 				userCosmetics: {
 					where: { userId: userId },
-					select: { cosmeticId: true },
+					select: {
+						cosmetic: {
+							select: {
+								id: true,
+								name: true,
+							},
+						},
+					},
 				},
 				receivedRequests: {
 					where: { receiverId: userId },
@@ -132,7 +139,10 @@ export default {
 					discordUsername: user.discordUsername,
 					profilePictureId: user.profilePictureId,
 					steamProfileUrl: user.steamProfileUrl,
-					unlockedCosmetics: user.userCosmetics.map((cosmetic) => cosmetic.cosmeticId),
+					unlockedCosmetics: user.userCosmetics.length,
+					someUnlockedCosmetics: user.userCosmetics
+						.map((userCosmetic) => userCosmetic.cosmetic)
+						.slice(0, 10),
 					totalCosmetics,
 					// Show the first 10 friends
 					someFriends:

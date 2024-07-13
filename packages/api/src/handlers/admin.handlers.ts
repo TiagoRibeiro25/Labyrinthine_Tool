@@ -49,8 +49,6 @@ export default {
 				name,
 				type,
 				source,
-				inGamePictureUrl: image_url,
-				iconUrl: icon_url,
 				notes,
 			},
 		});
@@ -128,10 +126,7 @@ export default {
 	 * @param request - The Fastify request object.
 	 * @param reply - The Fastify reply object.
 	 */
-	toggleUserAdminStatus: async (
-		request: FastifyRequest,
-		reply: FastifyReply
-	): Promise<void> => {
+	toggleUserAdminStatus: async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
 		const requestParams = request.params as { userId: string };
 		const loggedUserId = request.headers.userId as string;
 
