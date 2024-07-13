@@ -90,6 +90,7 @@ const Profile: React.FC = (): React.JSX.Element => {
 								/>
 								{data.data.user.unlockedCosmetics < data.data.user.totalCosmetics && (
 									<HelpUser
+										userId={id}
 										isLoggedUser={data.data.user.isLoggedUser}
 										missingCosmetics={
 											data.data.user.totalCosmetics - data.data.user.unlockedCosmetics

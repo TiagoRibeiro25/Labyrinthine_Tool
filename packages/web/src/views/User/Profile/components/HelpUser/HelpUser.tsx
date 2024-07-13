@@ -1,18 +1,25 @@
+import { Link } from "react-router-dom";
+import Button from "../../../../../components/Button/Button";
 import constants from "../../../../../constants";
 
 type Props = {
 	missingCosmetics: number;
 	isLoggedUser: boolean;
+	userId: string;
 };
 
-const HelpUser: React.FC<Props> = ({ missingCosmetics, isLoggedUser }): React.JSX.Element => {
+const HelpUser: React.FC<Props> = ({
+	missingCosmetics,
+	isLoggedUser,
+	userId,
+}): React.JSX.Element => {
 	return (
 		<div className="bg-black bg-opacity-50 p-10 sm:rounded-3xl mt-12">
 			<h2 className="text-2xl sm:text-3xl labyrinth-font">
 				{isLoggedUser ? "Need Help" : "Help this player"}
 			</h2>
 
-			<p className="mt-2 sm:text-start text-justify">
+			<p className="my-2 sm:text-start text-justify">
 				{isLoggedUser ? (
 					<>
 						Do you need help collecting the {missingCosmetics} missing cosmetics? You should join
@@ -43,6 +50,12 @@ const HelpUser: React.FC<Props> = ({ missingCosmetics, isLoggedUser }): React.JS
 					</>
 				)}
 			</p>
+
+			<div className="flex justify-center mt-6">
+				<Link to={constants.ROUTES.USER.COSMETICS.replace(":id", userId) + "?type=locked"}>
+					<Button reversedColors>See which cosmetics are missing</Button>
+				</Link>
+			</div>
 		</div>
 	);
 };
