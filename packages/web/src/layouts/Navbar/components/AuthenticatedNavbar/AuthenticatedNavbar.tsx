@@ -108,7 +108,9 @@ const AuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.Elem
 					<div className="sm:hidden h-[80px] w-full fixed bottom-[80px] left-0 z-10 flex justify-evenly">
 						<Fade triggerOnce direction="up" duration={300} delay={100} className="w-full h-full">
 							<div className="flex items-center justify-between w-full h-full px-5 bg-black bg-opacity-70">
-								<MiddleButtons />
+								<MiddleButtons
+									onButtonClick={(): void => onButtonClick("main", setSubMenuOpened)}
+								/>
 							</div>
 						</Fade>
 					</div>

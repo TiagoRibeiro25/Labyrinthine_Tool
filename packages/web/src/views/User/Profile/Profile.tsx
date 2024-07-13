@@ -9,6 +9,7 @@ import { Fade } from "react-awesome-reveal";
 import Friends from "./components/Friends/Friends";
 import constants from "../../../constants";
 import Cosmetics from "./components/Cosmetics/Cosmetics";
+import HelpUser from "./components/HelpUser/HelpUser";
 
 export type Friend = {
 	id: string;
@@ -62,15 +63,15 @@ const Profile: React.FC = (): React.JSX.Element => {
 	}, [isError, navigate]);
 
 	return (
-		<div className="flex justify-center h-full sm:px-10">
+		<div className="flex justify-center sm:px-10">
 			<Fade
 				triggerOnce
 				direction="up"
-				duration={700}
-				delay={200}
+				duration={600}
+				delay={100}
 				className="w-full h-full justify-center flex"
 			>
-				<div className="max-w-[985px] w-full sm:my-10 bg-black bg-opacity-30 sm:rounded-3xl">
+				<div className="max-w-[985px] w-full sm:mt-10 mb-10 sm:pb-0 pb-20 bg-black bg-opacity-30 sm:rounded-3xl">
 					{isSuccess && data && id && (
 						<>
 							<Fade triggerOnce cascade direction="up" duration={300} delay={100}>
@@ -87,12 +88,20 @@ const Profile: React.FC = (): React.JSX.Element => {
 									unlockedCosmetics={data.data.user.unlockedCosmetics}
 									userId={id}
 								/>
+								{data.data.user.unlockedCosmetics < data.data.user.totalCosmetics && (
+									<HelpUser
+										isLoggedUser={data.data.user.isLoggedUser}
+										missingCosmetics={
+											data.data.user.totalCosmetics - data.data.user.unlockedCosmetics
+										}
+									/>
+								)}
 							</Fade>
 						</>
 					)}
 
 					{isLoading && (
-						<div className="h-full flex md:flex-row flex-col justify-center items-center">
+						<div className="h-[90vh] flex md:flex-row flex-col justify-center items-center">
 							<Fade triggerOnce direction="up" duration={600} delay={400}>
 								<h1 className="z-50 text-5xl font-bold labyrinth-font text-center">
 									{id === "me" ? "Loading your profile" : "Searching for user"}
