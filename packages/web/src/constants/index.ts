@@ -1,3 +1,4 @@
+import cosmetics from "./cosmetics";
 import routes from "./routes";
 
 export default {
@@ -9,6 +10,7 @@ export default {
 	OFFICIAL_DISCORD_INVITE_URL: "https://discord.gg/RfzqA4A",
 
 	ROUTES: routes,
+	COSMETICS: cosmetics,
 
 	WARNINGS: {
 		MILLISECONDS_BEFORE_REMOVAL: 5000,

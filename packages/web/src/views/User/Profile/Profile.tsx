@@ -85,7 +85,6 @@ const Profile: React.FC = (): React.JSX.Element => {
 								<Cosmetics
 									someUnlockedCosmetics={data.data.user.someUnlockedCosmetics}
 									unlockedCosmetics={data.data.user.unlockedCosmetics}
-									totalCosmetics={data.data.user.totalCosmetics}
 									userId={id}
 								/>
 							</Fade>

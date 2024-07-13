@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import constants from "../../../../../constants";
 import { Cosmetic } from "../../Profile";
 import Marquee from "react-fast-marquee";
-import utils from "../../../../../utils";
 
 type Props = {
 	someUnlockedCosmetics: Cosmetic[];
@@ -22,7 +21,7 @@ const Cosmetics: React.FC<Props> = ({
 				{unlockedCosmetics > 0 ? (
 					<Link
 						to={constants.ROUTES.USER.COSMETICS.replace(":id", userId)}
-						className="hover:underline lg:ml-0 ml-auto"
+						className="hover:underline lg:ml-0 sm:ml-auto"
 					>
 						See all {unlockedCosmetics} cosmetics unlocked
 					</Link>
@@ -31,7 +30,7 @@ const Cosmetics: React.FC<Props> = ({
 				)}
 			</div>
 			<div className="lg:ml-auto flex items-center lg:max-w-[500px] lg:mt-0 mt-6">
-				{someUnlockedCosmetics.length >= 10 ? (
+				{someUnlockedCosmetics.length >= 5 ? (
 					<Marquee
 						autoFill
 						gradient
@@ -64,9 +63,9 @@ const Cosmetics: React.FC<Props> = ({
 									}
 								>
 									<img
-										src={"/cosmetics/icons/" + cosmetic.id}
+										src={"/cosmetics/icons/" + cosmetic.id + ".png"}
 										alt="Cosmetic"
-										className="w-12 h-12 rounded"
+										className="w-16 h-16 rounded"
 									/>
 								</Link>
 							</div>

@@ -23,7 +23,7 @@ const Friends: React.FC<Props> = ({ totalFriends, someFriends, userId }): React.
 				</Link>
 			</div>
 			<div className="lg:ml-auto flex items-center lg:max-w-[500px] lg:mt-0 mt-6">
-				{someFriends.length >= 10 ? (
+				{someFriends.length >= 7 ? (
 					<Marquee
 						autoFill
 						gradient
