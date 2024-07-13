@@ -11,6 +11,18 @@ export default {
 		},
 	},
 
+	acceptFriendRequest: {
+		schemas: {
+			params: {
+				type: "object",
+				properties: {
+					userId: { type: "string" },
+				},
+				required: ["userId"],
+			},
+		},
+	},
+
 	sendFriendRequest: {
 		schemas: {
 			params: {

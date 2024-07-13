@@ -32,7 +32,20 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 		handlers.users.sendFriendRequest
 	);
 
-	// DELETE ${prefix}/:userId/friends (remove friend)
+	// PATCH ${prefix}/:userId/friends (accept friend request)
+	server.patch(
+		"/:userId/friends",
+		{
+			schema: validations.users.acceptFriendRequest.schemas,
+			preValidation: hooks.preValidation.handleAuthToken,
+			errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply): void {
+				hooks.onError.handleError(error, request, reply);
+			},
+		},
+		handlers.users.acceptFriendRequest
+	);
+
+	// DELETE ${prefix}/:userId/friends (remove friend/request)
 	server.delete(
 		"/:userId/friends",
 		{
@@ -45,7 +58,7 @@ export default (server: FastifyInstance, _opts: { prefix: string }, done: () => 
 		handlers.users.removeFriend
 	);
 
-	// GET ${prefix}/:userId/friends
+	// GET ${prefix}/:userId/friends (get user friends)
 	server.get(
 		"/:userId/friends",
 		{

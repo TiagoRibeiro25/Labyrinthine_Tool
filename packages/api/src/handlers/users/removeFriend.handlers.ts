@@ -35,7 +35,6 @@ export default async (request: FastifyRequest, reply: FastifyReply): Promise<voi
 						{ senderId: targetUserId, receiverId: loggedUserId },
 					],
 				},
-				{ status: "accepted" },
 			],
 		},
 		select: { id: true },

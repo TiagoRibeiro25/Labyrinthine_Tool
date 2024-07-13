@@ -6,7 +6,6 @@ import constants from "../../constants";
 
 /**
  * Sends a friend request to a user.
- * It can also accept a friend request if the other user has already sent one to the user who sent the request.
  * @param request - The Fastify request object.
  * @param reply - The Fastify reply object.
  * @returns A Promise that resolves to void.
@@ -63,39 +62,20 @@ export default async (request: FastifyRequest, reply: FastifyReply): Promise<voi
 	}
 
 	// Check if the other user has already sent a friend request to the user who sent the request
-	const didOtherUserSendRequestAlready = await db.main.friendRequest.findFirst({
+	const didOtherUserSendRequest = await db.main.friendRequest.findFirst({
 		where: { senderId: receiverId, receiverId: senderId },
 		select: { id: true, status: true },
 	});
 
-	if (didOtherUserSendRequestAlready) {
-		// Check if the status is "pending"
-		if (didOtherUserSendRequestAlready.status === "pending") {
-			// If so, accept the friend request
-			await db.main.friendRequest.update({
-				where: { id: didOtherUserSendRequestAlready.id },
-				data: { status: "accepted" },
-			});
-
-			utils.response.send({
-				reply,
-				statusCode: constants.HTTP.StatusOK,
-				message: "Friend request accepted",
-			});
-
-			// Log the event
-			await services.logger.log({
-				type: "info",
-				message: `The user ${senderId} (IP: ${request.ip}) accepted the friend request from the user ${receiverId}`,
-			});
-		} else {
-			// Else (if the status is "accepted") then both users are already friends
-			utils.response.send({
-				reply,
-				statusCode: constants.HTTP.StatusForbidden,
-				message: "You are already friends with this user",
-			});
-		}
+	if (didOtherUserSendRequest) {
+		utils.response.send({
+			reply,
+			statusCode: constants.HTTP.StatusForbidden,
+			message:
+				didOtherUserSendRequest.status === "pending"
+					? "You have a pending friend request from this user"
+					: "You are already friends with this user",
+		});
 
 		return;
 	}
