@@ -6,7 +6,6 @@ import Modal from "../../../../components/Modal/Modal";
 import constants from "../../../../constants";
 import useFetch from "../../../../hooks/useFetch";
 import useAuthStore from "../../../../stores/auth";
-import { HTTPMethod } from "../../../../types";
 import NavButton from "../NavButton/NavButton";
 import FirstButton from "./components/FirstButton/FirstButton";
 import LastButton from "./components/LastButton/LastButton";
@@ -28,7 +27,7 @@ const AuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.Elem
 	const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);
 
 	const { refetch, isLoading } = useFetch({
-		method: constants.API.ROUTES.AUTH.LOGOUT.METHOD as HTTPMethod,
+		method: constants.API.ROUTES.AUTH.LOGOUT.METHOD,
 		route: constants.API.ROUTES.AUTH.LOGOUT.ENDPOINT,
 		runOnMount: false,
 	});

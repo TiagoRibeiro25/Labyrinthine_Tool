@@ -3,7 +3,7 @@ import constants from "../../constants";
 import useFetch from "../../hooks/useFetch";
 import useAuthStore from "../../stores/auth";
 import useMainLoadingStore from "../../stores/mainLoading";
-import { HTTPMethod, SuccessResponseBodyData } from "../../types";
+import { SuccessResponseBodyData } from "../../types";
 
 type ResponseData = SuccessResponseBodyData & {
 	data: {
@@ -34,7 +34,7 @@ const HandleAutoSignInProvider: React.FC<PropsWithChildren> = ({
 	const signOut = useAuthStore((state) => state.signOut);
 
 	const { data, isLoading, isError, refetch } = useFetch({
-		method: constants.API.ROUTES.USERS.GET_LOGGED_USER.METHOD as HTTPMethod,
+		method: constants.API.ROUTES.USERS.GET_LOGGED_USER.METHOD,
 		route: constants.API.ROUTES.USERS.GET_LOGGED_USER.ENDPOINT,
 		runOnMount: false,
 	});

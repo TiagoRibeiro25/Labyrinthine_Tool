@@ -7,7 +7,7 @@ import constants from "../../../../constants";
 import useFetch from "../../../../hooks/useFetch";
 import LoadingDots from "../../../../layouts/BackgroundContainer/components/LoadingDots/LoadingDots";
 import useAuthStore from "../../../../stores/auth";
-import { ErrorResponseBodyData, HTTPMethod, SuccessResponseBodyData } from "../../../../types";
+import { ErrorResponseBodyData, SuccessResponseBodyData } from "../../../../types";
 import utils from "./utils";
 
 type SuccessResponseData = SuccessResponseBodyData & {
@@ -32,7 +32,7 @@ const Login: React.FC = (): React.JSX.Element => {
 	const [passwordError, setPasswordError] = useState<string>("");
 
 	const { refetch, isLoading, data, isError, error } = useFetch({
-		method: constants.API.ROUTES.AUTH.LOGIN.METHOD as HTTPMethod,
+		method: constants.API.ROUTES.AUTH.LOGIN.METHOD,
 		route: constants.API.ROUTES.AUTH.LOGIN.ENDPOINT,
 		body: { username, password },
 		runOnMount: false,

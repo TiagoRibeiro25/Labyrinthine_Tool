@@ -26,14 +26,14 @@ const useWarningStore = create<WarningState>((set) => ({
 		// Remove warning after 5 seconds
 		setTimeout(() => {
 			set((state) => ({
-				warnings: state.warnings.filter((w) => w.id !== warning.id),
+				warnings: state.warnings.filter((w: Warning) => w.id !== warning.id),
 			}));
 		}, constants.WARNINGS.MILLISECONDS_BEFORE_REMOVAL);
 	},
 
 	deleteWarning: (id: number) => {
 		set((state) => ({
-			warnings: state.warnings.filter((w) => w.id !== id),
+			warnings: state.warnings.filter((w: Warning) => w.id !== id),
 		}));
 	},
 }));

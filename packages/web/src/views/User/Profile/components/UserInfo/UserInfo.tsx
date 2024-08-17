@@ -1,12 +1,12 @@
+import classNames from "classnames";
 import React, { useEffect, useState } from "react";
 import CosmeticIcon from "../../../../../components/Icons/CosmeticIcon/CosmeticIcon";
 import DiscordIcon from "../../../../../components/Icons/DiscordIcon/DiscordIcon";
 import SteamIcon from "../../../../../components/Icons/SteamIcon/SteamIcon";
-import ActionButton from "./components/ActionButton/ActionButton";
-import classNames from "classnames";
-import { User } from "../../Profile";
+import { FriendStatus } from "../../../../../types";
 import utils from "../../../../../utils";
-import constants from "../../../../../constants";
+import { User } from "../../Profile";
+import ActionButton from "./components/ActionButton/ActionButton";
 
 type Props = {
 	user: User;
@@ -44,15 +44,15 @@ const UserInfo: React.FC<Props> = ({ user }): React.JSX.Element => {
 	}, [user.steamProfileUrl]);
 
 	return (
-		<div className="bg-black bg-opacity-50 p-10 sm:rounded-3xl flex lg:flex-row flex-col lg:space-x-8 space-x-0 justify-between items-center lg:items-start">
+		<div className="flex flex-col justify-between items-center p-10 space-x-0 bg-black bg-opacity-50 sm:rounded-3xl lg:flex-row lg:space-x-8 lg:items-start">
 			<img
 				src={utils.picture.getProfilePicture(user.profilePictureId)}
 				alt="Profile Picture"
-				className="rounded-3xl border lg:w-44 lg:h-44 w-60 h-60 object-cover"
+				className="object-cover w-60 h-60 rounded-3xl border lg:w-44 lg:h-44"
 			/>
 
-			<div className="w-full lg:my-0 my-6 flex lg:items-start flex-col items-center">
-				<h1 className="text-3xl font-bold mb-4 truncate">{user.username}</h1>
+			<div className="flex flex-col items-center my-6 w-full lg:my-0 lg:items-start">
+				<h1 className="mb-4 text-3xl font-bold truncate">{user.username}</h1>
 
 				<div id="socials" className="space-y-2">
 					<span className="flex flex-row items-center text-gray-400">
@@ -102,7 +102,14 @@ const UserInfo: React.FC<Props> = ({ user }): React.JSX.Element => {
 					/ {user.totalCosmetics}
 				</h2>
 
-				<ActionButton friendStatus={user.friendRequestStatus} isLoggedUser={user.isLoggedUser} />
+				<ActionButton
+					friendStatus={user.friendRequestStatus}
+					isLoggedUser={user.isLoggedUser}
+					userId={user.id}
+					onFriendStatusChange={(newStatus: FriendStatus): void => {
+						user.friendRequestStatus = newStatus;
+					}}
+				/>
 			</div>
 		</div>
 	);

@@ -55,17 +55,24 @@ const Profile: React.FC = (): React.JSX.Element => {
 	const { isLoading, isSuccess, data, isError } = useQuery({
 		queryKey: ["user", { id }],
 		queryFn: async () => {
-			const response = await api.get(`/users/${id}`);
+			const method = constants.API.ROUTES.USERS.GET_USER.METHOD;
+			const endpoint = constants.API.ROUTES.USERS.GET_USER.ENDPOINT.replace(
+				":userId",
+				id || ""
+			);
+
+			const response = await api[method](endpoint);
 			return response.data as SuccessResponseData;
 		},
 	});
 
 	useEffect(() => {
-		// If the user is logged in and is trying to access their own profile, replace the user id in the URL with "me"
-		if (loggedUser && id === loggedUser.id) {
-			window.history.replaceState({}, "", constants.ROUTES.USER.PROFILE.replace(":id", "me"));
-		} else if (isError) {
+		if (!id || isError) {
 			navigate(constants.ROUTES.NOT_FOUND);
+		}
+		// If the user is logged in and is trying to access their own profile, replace the user id in the URL with "me"
+		else if (loggedUser && id === loggedUser.id) {
+			window.history.replaceState({}, "", constants.ROUTES.USER.PROFILE.replace(":id", "me"));
 		}
 	}, [id, isError, loggedUser, navigate]);
 
