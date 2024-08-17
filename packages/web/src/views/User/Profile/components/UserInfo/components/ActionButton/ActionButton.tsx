@@ -23,6 +23,10 @@ type Props = {
 	onFriendStatusChange: (status: FriendStatus) => void;
 };
 
+const replaceUserId = (endpoint: string, userId: string): string => {
+	return endpoint.replace(":userId", userId);
+};
+
 const ActionButton: React.FC<Props> = ({
 	isLoggedUser,
 	friendStatus,
@@ -35,19 +39,19 @@ const ActionButton: React.FC<Props> = ({
 	// Api Calls
 	const addFriend = useFetch({
 		method: constants.API.ROUTES.USERS.SEND_REQUEST.METHOD,
-		route: constants.API.ROUTES.USERS.SEND_REQUEST.ENDPOINT.replace(":userId", userId),
+		route: replaceUserId(constants.API.ROUTES.USERS.SEND_REQUEST.ENDPOINT, userId),
 		runOnMount: false,
 	});
 
 	const removeFriend = useFetch({
 		method: constants.API.ROUTES.USERS.REMOVE_FRIEND.METHOD,
-		route: constants.API.ROUTES.USERS.REMOVE_FRIEND.ENDPOINT.replace(":userId", userId),
+		route: replaceUserId(constants.API.ROUTES.USERS.REMOVE_FRIEND.ENDPOINT, userId),
 		runOnMount: false,
 	});
 
 	const acceptFriend = useFetch({
 		method: constants.API.ROUTES.USERS.ACCEPT_REQUEST.METHOD,
-		route: constants.API.ROUTES.USERS.ACCEPT_REQUEST.ENDPOINT.replace(":userId", userId),
+		route: replaceUserId(constants.API.ROUTES.USERS.ACCEPT_REQUEST.ENDPOINT, userId),
 		runOnMount: false,
 	});
 
@@ -69,6 +73,8 @@ const ActionButton: React.FC<Props> = ({
 	}, [acceptFriend.data, addFriend.data, removeFriend.data]);
 
 	const handleClick = async (): Promise<void> => {
+		console.log("Executing action:", STATUS[friendStatus]);
+
 		// TODO: Fix error 403 in the backend when trying to cancel a friend request or remove a friend
 		switch (friendStatus) {
 			case "none": // Add Friend
@@ -90,6 +96,7 @@ const ActionButton: React.FC<Props> = ({
 		}
 	};
 
+	// TODO FIXME: This useEffect is running even changing profiles (maybe because the state is not being reset)
 	useEffect(() => {
 		// If an error occurred while trying to perform the action, display a warning
 		if (isError()) {
@@ -109,6 +116,7 @@ const ActionButton: React.FC<Props> = ({
 				"the other user is waiting for you to accept": "friends", // Accept Request -> Remove Friend
 				friends: "none", // Remove Friend -> Add Friend
 			};
+
 			onFriendStatusChange(updatedStatus[friendStatus] as FriendStatus);
 		}
 	}, [addWarning, friendStatus, isActionCompleted, isError, onFriendStatusChange]);
