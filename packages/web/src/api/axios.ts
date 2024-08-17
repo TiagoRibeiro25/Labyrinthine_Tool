@@ -12,26 +12,26 @@ const axiosOptions: CreateAxiosDefaults = {
 
 const api: AxiosInstance = axios.create(axiosOptions);
 
-api.interceptors.request.use((request) => {
+api.interceptors.request.use(async (request) => {
 	const authToken = useAuthStore.getState().authToken;
 	if (authToken) {
 		request.headers.Authorization = authToken;
 	}
 
+	//DEBUG: Add a delay of 1.5 second to all requests
+	await new Promise((resolve) => setTimeout(resolve, 1500));
+
 	return request;
 });
 
 api.interceptors.response.use(
-	async (response) => {
+	(response) => {
 		// Check if the response has a new auth token
 		const refreshedAuthToken = response.headers.authorization as string | undefined;
 		if (refreshedAuthToken) {
 			// If it does, update the auth token in the store
 			useAuthStore.getState().setAuthToken(refreshedAuthToken);
 		}
-
-		//DEBUG: Add a delay of 1.5 second to all requests
-		await new Promise((resolve) => setTimeout(resolve, 1500));
 
 		return response;
 	},
