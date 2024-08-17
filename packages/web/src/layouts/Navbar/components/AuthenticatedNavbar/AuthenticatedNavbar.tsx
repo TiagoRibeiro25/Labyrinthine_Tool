@@ -6,11 +6,11 @@ import Modal from "../../../../components/Modal/Modal";
 import constants from "../../../../constants";
 import useFetch from "../../../../hooks/useFetch";
 import useAuthStore from "../../../../stores/auth";
+import { HTTPMethod } from "../../../../types";
 import NavButton from "../NavButton/NavButton";
-import LogoutConfirmationModalContent from "./components/LogoutConfirmationModalContent/LogoutConfirmationModalContent";
-import ProfileIcon from "../../../../components/Icons/ProfileIcon/ProfileIcon";
 import FirstButton from "./components/FirstButton/FirstButton";
 import LastButton from "./components/LastButton/LastButton";
+import LogoutConfirmationModalContent from "./components/LogoutConfirmationModalContent/LogoutConfirmationModalContent";
 import MiddleButtons from "./components/MiddleButtons/MiddleButtons";
 
 type Props = {
@@ -28,8 +28,8 @@ const AuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.Elem
 	const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);
 
 	const { refetch, isLoading } = useFetch({
-		method: "delete",
-		route: "/auth/logout",
+		method: constants.API.ROUTES.AUTH.LOGOUT.METHOD as HTTPMethod,
+		route: constants.API.ROUTES.AUTH.LOGOUT.ENDPOINT,
 		runOnMount: false,
 	});
 
@@ -50,9 +50,11 @@ const AuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.Elem
 					<FirstButton onClick={(): void => onButtonClick("main", setSubMenuOpened)} />
 				</Fade>
 
-				<div className="flex flex-col items-center w-full space-y-5">
+				<div className="flex flex-col items-center space-y-5 w-full">
 					<Fade triggerOnce direction="left" duration={300} delay={100} className="pt-6">
-						<MiddleButtons />
+						<MiddleButtons
+							onButtonClick={(): void => onButtonClick("main", setSubMenuOpened)}
+						/>
 					</Fade>
 				</div>
 
@@ -66,7 +68,7 @@ const AuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.Elem
 					</Fade>
 
 					{isLogoutButtonHovered && (
-						<div className="absolute bottom-8 left-20 flex items-center justify-center w-24 h-10 bg-black bg-opacity-70 rounded-lg">
+						<div className="flex absolute bottom-8 left-20 justify-center items-center w-24 h-10 bg-black bg-opacity-70 rounded-lg">
 							<p className="text-xs">Logout</p>
 						</div>
 					)}
@@ -84,7 +86,7 @@ const AuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.Elem
 					</Fade>
 
 					<Fade
-						className="justify-center flex"
+						className="flex justify-center"
 						triggerOnce
 						direction="up"
 						duration={300}
@@ -106,8 +108,14 @@ const AuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.Elem
 
 				{subMenuOpened && (
 					<div className="sm:hidden h-[80px] w-full fixed bottom-[80px] left-0 z-10 flex justify-evenly">
-						<Fade triggerOnce direction="up" duration={300} delay={100} className="w-full h-full">
-							<div className="flex items-center justify-between w-full h-full px-5 bg-black bg-opacity-70">
+						<Fade
+							triggerOnce
+							direction="up"
+							duration={300}
+							delay={100}
+							className="w-full h-full"
+						>
+							<div className="flex justify-between items-center px-5 w-full h-full bg-black bg-opacity-70">
 								<MiddleButtons
 									onButtonClick={(): void => onButtonClick("main", setSubMenuOpened)}
 								/>
@@ -123,7 +131,9 @@ const AuthenticatedNavbar: React.FC<Props> = ({ onButtonClick }): React.JSX.Elem
 				onClose={(): void => setShowLogoutModal(false)}
 			>
 				{isLoading ? (
-					<h2 className="text-2xl font-bold text-center labyrinth-font mt-3">Signning out...</h2>
+					<h2 className="mt-3 text-2xl font-bold text-center labyrinth-font">
+						Signning out...
+					</h2>
 				) : (
 					<LogoutConfirmationModalContent
 						onConfirm={handleLogout}

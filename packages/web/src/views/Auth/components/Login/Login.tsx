@@ -4,10 +4,10 @@ import Button from "../../../../components/Button/Button";
 import Checkbox from "../../../../components/Checkbox/Checkbox";
 import Input from "../../../../components/Input/Input";
 import constants from "../../../../constants";
+import useFetch from "../../../../hooks/useFetch";
 import LoadingDots from "../../../../layouts/BackgroundContainer/components/LoadingDots/LoadingDots";
 import useAuthStore from "../../../../stores/auth";
-import { ErrorResponseBodyData, SuccessResponseBodyData } from "../../../../types";
-import useFetch from "../../../../hooks/useFetch";
+import { ErrorResponseBodyData, HTTPMethod, SuccessResponseBodyData } from "../../../../types";
 import utils from "./utils";
 
 type SuccessResponseData = SuccessResponseBodyData & {
@@ -32,8 +32,8 @@ const Login: React.FC = (): React.JSX.Element => {
 	const [passwordError, setPasswordError] = useState<string>("");
 
 	const { refetch, isLoading, data, isError, error } = useFetch({
-		method: "post",
-		route: "/auth/login",
+		method: constants.API.ROUTES.AUTH.LOGIN.METHOD as HTTPMethod,
+		route: constants.API.ROUTES.AUTH.LOGIN.ENDPOINT,
 		body: { username, password },
 		runOnMount: false,
 	});
@@ -72,6 +72,8 @@ const Login: React.FC = (): React.JSX.Element => {
 			// Save the token in the local storage if the user wants to be remembered
 			if (rememberMe) {
 				localStorage.setItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN, bodyData.data.token);
+			} else {
+				sessionStorage.setItem(constants.SESSION_STORAGE_KEYS.AUTH_TOKEN, bodyData.data.token);
 			}
 		}
 

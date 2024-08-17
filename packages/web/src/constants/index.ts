@@ -1,3 +1,4 @@
+import api from "./api";
 import cosmetics from "./cosmetics";
 import profilePictures from "./profilePictures";
 import routes from "./routes";
@@ -24,7 +25,8 @@ export default {
 
 	SESSION_STORAGE_KEYS: {
 		WHY_SHOULD_YOU_USE_ARROW_POSITION: "whyShouldYouUseArrowPosition",
+		AUTH_TOKEN: "authToken",
 	},
 
-	API_URL: import.meta.env.VITE_API_URL,
+	API: api,
 };

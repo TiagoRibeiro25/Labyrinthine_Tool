@@ -1,8 +1,9 @@
 import React, { PropsWithChildren, useEffect } from "react";
+import constants from "../../constants";
+import useFetch from "../../hooks/useFetch";
 import useAuthStore from "../../stores/auth";
 import useMainLoadingStore from "../../stores/mainLoading";
-import { SuccessResponseBodyData } from "../../types";
-import useFetch from "../../hooks/useFetch";
+import { HTTPMethod, SuccessResponseBodyData } from "../../types";
 
 type ResponseData = SuccessResponseBodyData & {
 	data: {
@@ -20,7 +21,9 @@ type ResponseData = SuccessResponseBodyData & {
 	};
 };
 
-const HandleAutoSignInProvider: React.FC<PropsWithChildren> = ({ children }): React.JSX.Element => {
+const HandleAutoSignInProvider: React.FC<PropsWithChildren> = ({
+	children,
+}): React.JSX.Element => {
 	const setIsLoading = useMainLoadingStore((state) => state.setIsLoading);
 	const setLoadingMessage = useMainLoadingStore((state) => state.setLoadingMessage);
 
@@ -30,7 +33,11 @@ const HandleAutoSignInProvider: React.FC<PropsWithChildren> = ({ children }): Re
 	const setLoggedUser = useAuthStore((state) => state.setLoggedUser);
 	const signOut = useAuthStore((state) => state.signOut);
 
-	const { data, isLoading, isError, refetch } = useFetch({ route: "/users/me", runOnMount: false });
+	const { data, isLoading, isError, refetch } = useFetch({
+		method: constants.API.ROUTES.USERS.GET_LOGGED_USER.METHOD as HTTPMethod,
+		route: constants.API.ROUTES.USERS.GET_LOGGED_USER.ENDPOINT,
+		runOnMount: false,
+	});
 
 	useEffect(() => {
 		if (!authToken || isLoading || isError || data) {

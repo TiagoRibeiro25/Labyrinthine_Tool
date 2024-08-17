@@ -15,3 +15,5 @@ export type FriendStatus =
 	| "waiting for the other user to accept"
 	| "the other user is waiting for you to accept"
 	| "friends";
+
+export type HTTPMethod = "get" | "post" | "put" | "patch" | "delete";

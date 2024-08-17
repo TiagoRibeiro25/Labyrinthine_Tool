@@ -4,7 +4,7 @@ import useAuthStore from "../stores/auth";
 import useWarningStore from "../stores/warning";
 
 const axiosOptions: CreateAxiosDefaults = {
-	baseURL: constants.API_URL, // Base URL for all requests
+	baseURL: constants.API.URL, // Base URL for all requests
 	headers: { "Content-Type": "application/json" }, // Default header for all requests
 	timeout: 60000, // 1 minute
 	timeoutErrorMessage: "Request timed out", // Error message when request times out
@@ -38,7 +38,9 @@ api.interceptors.response.use(
 	(error) => {
 		const addWarning = useWarningStore.getState().addWarning;
 
-		if (error.response.data.message === "You are temporarily blocked from accessing this route.") {
+		if (
+			error.response.data.message === "You are temporarily blocked from accessing this route."
+		) {
 			addWarning(
 				"You are temporarily blocked from performing this action. Please try again later.",
 				"warning"
@@ -46,7 +48,7 @@ api.interceptors.response.use(
 		}
 
 		// Check if the error was a server error
-		if (error.response.status >= 500) {
+		else if (error.response.status >= 500) {
 			addWarning("An error occurred on the server. Please try again later.", "error");
 		}
 

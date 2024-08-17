@@ -14,9 +14,17 @@ interface AuthState {
 	signOut: () => void;
 }
 
+const getStoredAuthToken = () => {
+	return (
+		sessionStorage.getItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN) || // Check session storage first (for the current session)
+		localStorage.getItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN) || // Check local storage next
+		""
+	);
+};
+
 const useAuthStore = create<AuthState>((set) => ({
 	loggedUser: null,
-	authToken: localStorage.getItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN) || "",
+	authToken: getStoredAuthToken(),
 
 	setLoggedUser: (loggedUser: LoggedUser) => set({ loggedUser }),
 	setAuthToken: (authToken: string) => {
@@ -28,9 +36,14 @@ const useAuthStore = create<AuthState>((set) => ({
 		if (localStorage.getItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN)) {
 			localStorage.setItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN, authToken);
 		}
+
+		if (sessionStorage.getItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN)) {
+			sessionStorage.setItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN, authToken);
+		}
 	},
 
 	signOut: () => {
+		sessionStorage.removeItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN);
 		localStorage.removeItem(constants.LOCAL_STORAGE_KEYS.AUTH_TOKEN);
 		set({ loggedUser: null, authToken: "" });
 	},

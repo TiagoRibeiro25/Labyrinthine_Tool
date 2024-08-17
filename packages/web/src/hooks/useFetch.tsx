@@ -1,13 +1,13 @@
-import { useState, useEffect, useCallback } from "react";
-import api from "../api/axios";
 import { AxiosError } from "axios";
-import { ErrorResponseBodyData, SuccessResponseBodyData } from "../types";
+import { useCallback, useEffect, useState } from "react";
+import api from "../api/axios";
+import { ErrorResponseBodyData, HTTPMethod, SuccessResponseBodyData } from "../types";
 
 type Props = {
 	route: string;
 	body?: unknown;
 	runOnMount?: boolean;
-	method?: "get" | "post" | "put" | "patch" | "delete";
+	method?: HTTPMethod;
 };
 
 type ResponseData = SuccessResponseBodyData | ErrorResponseBodyData;
@@ -46,6 +46,12 @@ const useFetch = ({ route, body, runOnMount = true, method = "get" }: Props) => 
 			fetchData();
 		}
 	}, [fetchData, runOnMount]);
+
+	useEffect(() => {
+		if (method === "get" && body) {
+			throw new Error("You cannot pass a body with a GET request");
+		}
+	}, [body, method]);
 
 	// Define a function to refetch data with the same URL
 	const refetchData = () => fetchData();

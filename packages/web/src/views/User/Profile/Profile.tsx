@@ -1,15 +1,16 @@
-import React, { useEffect } from "react";
-import UserInfo from "./components/UserInfo/UserInfo";
 import { useQuery } from "@tanstack/react-query";
+import React, { useEffect } from "react";
+import { Fade } from "react-awesome-reveal";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../../api/axios";
-import { FriendStatus, SuccessResponseBodyData } from "../../../types";
-import LoadingDots from "../../../layouts/BackgroundContainer/components/LoadingDots/LoadingDots";
-import { Fade } from "react-awesome-reveal";
-import Friends from "./components/Friends/Friends";
 import constants from "../../../constants";
+import LoadingDots from "../../../layouts/BackgroundContainer/components/LoadingDots/LoadingDots";
+import useAuthStore from "../../../stores/auth";
+import { FriendStatus, SuccessResponseBodyData } from "../../../types";
 import Cosmetics from "./components/Cosmetics/Cosmetics";
+import Friends from "./components/Friends/Friends";
 import HelpUser from "./components/HelpUser/HelpUser";
+import UserInfo from "./components/UserInfo/UserInfo";
 
 export type Friend = {
 	id: string;
@@ -49,6 +50,8 @@ const Profile: React.FC = (): React.JSX.Element => {
 	const navigate = useNavigate();
 	const { id } = useParams();
 
+	const loggedUser = useAuthStore((state) => state.loggedUser);
+
 	const { isLoading, isSuccess, data, isError } = useQuery({
 		queryKey: ["user", { id }],
 		queryFn: async () => {
@@ -58,10 +61,13 @@ const Profile: React.FC = (): React.JSX.Element => {
 	});
 
 	useEffect(() => {
-		if (isError) {
+		// If the user is logged in and is trying to access their own profile, replace the user id in the URL with "me"
+		if (loggedUser && id === loggedUser.id) {
+			window.history.replaceState({}, "", constants.ROUTES.USER.PROFILE.replace(":id", "me"));
+		} else if (isError) {
 			navigate(constants.ROUTES.NOT_FOUND);
 		}
-	}, [isError, navigate]);
+	}, [id, isError, loggedUser, navigate]);
 
 	return (
 		<div className="flex justify-center sm:px-10">
@@ -70,7 +76,7 @@ const Profile: React.FC = (): React.JSX.Element => {
 				direction="up"
 				duration={600}
 				delay={100}
-				className="w-full h-full justify-center flex"
+				className="flex justify-center w-full h-full"
 			>
 				<div className="max-w-[985px] w-full sm:mt-10 mb-10 sm:pb-0 pb-20 bg-black bg-opacity-30 sm:rounded-3xl">
 					{isSuccess && data && id && (
@@ -105,10 +111,10 @@ const Profile: React.FC = (): React.JSX.Element => {
 					{isLoading && (
 						<div className="h-[90vh] flex md:flex-row flex-col justify-center items-center">
 							<Fade triggerOnce direction="up" duration={600} delay={400}>
-								<h1 className="z-50 text-5xl font-bold labyrinth-font text-center">
+								<h1 className="z-50 text-5xl font-bold text-center labyrinth-font">
 									{id === "me" ? "Loading your profile" : "Searching for user"}
 								</h1>
-								<LoadingDots className="z-50 w-10 h-10 mt-4 ml-2" />
+								<LoadingDots className="z-50 mt-4 ml-2 w-10 h-10" />
 							</Fade>
 						</div>
 					)}
